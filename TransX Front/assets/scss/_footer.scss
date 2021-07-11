@@ -1,0 +1,126 @@
+.footer {
+	position: relative;
+	color: #ededed;
+	font-size: 14px;
+	padding: 50px 0 36px 0;
+	background: #31373f;
+	overflow: hidden;
+	@media only screen and (min-width: 768px) {
+		padding: 65px 0 36px 0;
+	}
+	.footer-bg-img {
+		display: none;
+		position: absolute;
+		z-index: 0;
+		bottom: 0;
+		right: 0;
+		top: 50px;
+		@media only screen and (min-width: 992px) {
+			display: initial;
+		}
+	}
+	.footer-logo {
+		margin: -15px 0 18px 0;
+		img {
+			height: 31px;
+		}
+	}
+	.footer-details {
+		color: $color-white;
+		a {
+			color: $color-white !important;
+		}
+	}
+	.footer-title {
+		margin-bottom: 16px;
+		color: $color-white;
+		font-weight: 600;
+	}
+	.footer-menu {
+		display: flex;
+		flex-wrap: wrap;
+		li {
+			width: 33.333%;
+			margin-bottom: 7px;
+		}
+
+		a {
+			position: relative;
+			color: $color-white;
+			text-decoration: none;
+			transition: opacity .3s;
+			font-size: 14px;
+			&::after {
+				content: "";
+				display: inline-block;
+				height: 2px;
+				width: 0;
+				background: $primary-color !important;
+				position: absolute;
+				bottom: -3px;
+				left: 0;
+				transition: width .3s;
+			}
+			&:hover {
+				color: $color-wgray;
+				&::after {
+					width: 25px;
+				}
+			}
+		}
+	}
+	.news-form {
+		position: relative;
+		margin-top: 24px;
+		.footer-email-form {
+			display: flex;
+			align-items: flex-start;
+			.form-input {
+				border: none !important;
+			}
+		}
+		.form-submit {
+			width: 70px;
+			height: 50px;
+			border: 2px solid #00997d;
+			margin-left: 10px;
+			border-radius: 0 0 20px 0;
+			background: none;
+			transition: background .3s;
+			&:hover {
+				background-color: $primary-color;
+			}
+			.icon {
+				position: relative;
+				top: -2px;
+				color: $color-white;
+				font-size: 19px;
+			}
+		}
+		p {
+			color: #95999e !important;
+		}
+	}
+	.footer-copyright {
+		color: #95999e;
+	}
+	.center-footer {
+		margin-top: 15px;
+	}
+	a {
+		color: #95999e;
+		&:not(:last-of-type)::after {
+			content: "|";
+			display: inline-block;
+			padding: 0 10px;
+		}
+		&:hover {
+			text-decoration: underline !important;
+		}
+	}
+	.socials {
+		@media only screen and (min-width: 992px) {
+			padding-bottom: 9px;
+		}
+	}
+}

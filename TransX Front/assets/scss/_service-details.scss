@@ -1,0 +1,222 @@
+.service-details-img {
+	margin-bottom: 57px;
+}
+.service-details-title {
+	margin-bottom: 10px;
+	font-weight: 700;
+	font-size: 30px !important;
+}
+.served-subtitle {
+	margin-bottom: 16px;
+	font-weight: 700;
+}
+.list-check {
+	.list-item {
+		margin-bottom: 8px;
+		i {
+			margin-right: 10px;
+			color: $primary-color !important;
+			font-size: 11px !important;
+		}
+	}
+}
+.service-details-subtitle {
+	margin-bottom: 20px;
+	font-weight: 700;
+}
+.card-benefits {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border: 1px solid #d9e2e0;
+	padding: 30px 20px 30px 30px;
+	margin-bottom: 30px;
+	.icon {
+		color: $secondary-color;
+		font-size: 46px;
+	}
+	.benefits-title {
+		font-weight: 700;
+	}
+}
+
+.servdet-list {
+	.item-active {
+		border-left: 3px solid $primary-color;
+		padding-left: 15px;
+		.servdet-list-link {
+			color: $primary-color !important;
+		}
+	}
+	.servdet-list-item:not(:last-of-type) {
+		margin-bottom: 22px;
+	}
+	.servdet-list-link {
+		color: $title-color;
+		display: flex;
+		justify-content: space-between;
+		color: inherit;
+		text-decoration: none;
+		font-weight: 700;
+		transition: color .3s;
+		&:hover {
+			color: $primary-color;
+		}
+	}
+}
+
+.other-service {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: $color-white;
+	text-decoration: none !important;
+	padding: 3px 30px 3px 30px;
+	background: rgba(0, 61, 144, .15);
+	overflow: hidden;
+	transition: background .8s;
+	&:hover {
+		color: #fff;
+		background: rgba(0, 61, 144, .3);
+		img {
+			transform: scale(1.15);
+		}
+	}
+
+	img {
+		transform: translateZ(0);
+		transition: transform .8s, -webkit-transform .8s;
+	}
+	&:not(:last-of-type) {
+		margin-bottom: 10px;
+	}
+	.other-service-title {
+		margin-bottom: 0;
+	}
+	.other-service-count {
+		font-size: 40px;
+		font-weight: 700;
+		opacity: .4;
+		transition: opacity .8s;
+	}
+}
+.document {
+	display: flex;
+	justify-content: space-between;
+	&:not(:last-of-type) {
+		margin-bottom: 30px;
+	}
+	.document-details {
+		width: calc(100% - 65px);
+		.document-title {
+			font-size: 16px;
+			margin-bottom: 0;
+			a {
+				color: $title-color;
+			}
+		}
+		.document-date {
+			color: #a9aeb3;
+		}
+	}
+}
+.contact-card-blue {
+	position: relative;
+	color: $color-white;
+	background: $secondary-color;
+	padding: 28px 30px 40px 30px;
+	width: 100%;
+	max-width: 370px;
+	clip-path: polygon(90% 0, 100% 18%, 100% 100%, 0 100%, 0 0);
+	.contact-card-blue-img {
+		height: 100px;
+		width: auto;
+		position: absolute;
+		bottom: 0;
+		right: 2px;
+	}
+	.contact-card-blue-title {
+		line-height: 45px;
+		font-weight: 700;
+		font-size: 30px;
+	}
+	.contact-card-blue-text {
+		margin-top: 13px;
+	}
+}
+.contact-blue-style {
+	clip-path: polygon(85% 0, 100% 10%, 100% 100%, 0 100%, 0 0);
+}
+
+.pricing-card-style-two {
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 50px;
+	button {
+		position: relative;
+		z-index: 2;
+		margin-top: 45px;
+	}
+	.list-check {
+		font-size: 15px;
+		margin-bottom: 35px;
+		.list-item {
+			&.item-disabled {
+				opacity: .3;
+			}
+		}
+	}
+	.pricing-card-inner {
+		.pricing-card-title {
+			font-weight: 700;
+		}
+		.pricing-card-price {
+			line-height: 45px;
+			font-weight: 700;
+			letter-spacing: -.050em;
+			margin: 24px 0 10px 0;
+			span {
+				&:first-of-type {
+					margin-right: 10px;
+					font-size: 50px;
+				}
+				&:last-of-type {
+					font-size: 30px;
+					text-transform: uppercase;
+				}
+			}
+		}
+	}
+}
+.pricing-bordered {
+	background: #e2e2e2;
+	padding: 1px;
+	clip-path: polygon(90% 0, 100% 6%, 100% 100%, 0 100%, 0 0);
+	.pricing-card-inner {
+		padding: 33px 30px 50px 30px;
+		background: $color-white;
+		clip-path: polygon(90% 0, 100% 6%, 100% 100%, 0 100%, 0 0);
+	}
+}
+.pricing-card-smal {
+	padding: 0;
+	.pricing-card-inner {
+		padding: 33px 30px 40px 30px;
+	}
+}
+.pricing-blue {
+	color: #fff;
+	clip-path: polygon(90% 0, 100% 6%, 100% 100%, 0 100%, 0 0);
+	background: $secondary-color;
+	.pricing-card-inner {
+		padding: 33px 30px 50px 30px;
+	}
+}
+.pricing-blue-img {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: calc(100% - 50px);
+	height: auto;
+}
