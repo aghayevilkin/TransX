@@ -1,0 +1,120 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\ace-builds\src-min\mode-javascript.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\ace-builds\src-min\theme-chaos.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\ace-builds\src\ace.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\bootstrap-datepicker\dist\css\bootstrap-datepicker.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\bootstrap-datepicker\dist\js\bootstrap-datepicker.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\bootstrap-maxlength\bootstrap-maxlength.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\bootstrap-table\dist\bootstrap-table.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\bootstrap-table\dist\bootstrap-table.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\bootstrap-tour\build\css\bootstrap-tour-standalone.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\bootstrap-tour\build\js\bootstrap-tour-standalone.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\c3\c3.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\c3\c3.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\chart.js\dist\Chart.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\chartist\dist\chartist.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\chartist\dist\chartist.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\clipboard\dist\clipboard.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\clockpicker\dist\jquery-clockpicker.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\clockpicker\dist\jquery-clockpicker.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\colcade\colcade.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\cropper\dist\cropper.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\cropper\dist\cropper.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\d3\d3.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\dragula\dist\dragula.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\dragula\dist\dragula.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\dropify\dist\css\dropify.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\dropify\dist\js\dropify.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\dropzone\dist\dropzone.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\flag-icon-css\css\flag-icon.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\flot\jquery.flot.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\flot\jquery.flot.resize.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\font-awesome\css\font-awesome.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\icheck\icheck.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\icheck\skins\all.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\inputmask\dist\inputmask\bindings\inputmask.binding.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\inputmask\dist\inputmask\phone-codes\phone-be.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\inputmask\dist\inputmask\phone-codes\phone-ru.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\inputmask\dist\inputmask\phone-codes\phone.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\inputmask\dist\jquery.inputmask.bundle.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-asColorPicker\dist\css\asColorPicker.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-asColorPicker\dist\jquery-asColorPicker.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-asColor\dist\jquery-asColor.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-asGradient\dist\jquery-asGradient.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-bar-rating\dist\jquery.barrating.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-bar-rating\dist\themes\fontawesome-stars.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-file-upload\css\uploadfile.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-file-upload\js\jquery.uploadfile.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-knob\dist\jquery.knob.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-mapael\js\jquery.mapael.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-sparkline\jquery.sparkline.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-steps\build\jquery.steps.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-tags-input\dist\jquery.tagsinput.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-tags-input\dist\jquery.tagsinput.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery-validation\dist\jquery.validate.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jquery.repeater\jquery.repeater.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jqvmap\dist\jquery.vmap.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jqvmap\dist\jqvmap.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jsgrid\dist\jsgrid-theme.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jsgrid\dist\jsgrid.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\jsgrid\dist\jsgrid.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\justgage\justgage.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\lightgallery\dist\css\lightgallery.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\list.js\dist\list.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\morris.js\morris.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\morris.js\morris.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\nouislider\distribute\nouislider.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\nouislider\distribute\nouislider.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\owl-carousel-2\assets\owl.carousel.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\owl-carousel-2\owl.carousel.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\perfect-scrollbar\dist\css\perfect-scrollbar.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\progressbar.js\dist\progressbar.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\pwstabs\assets\jquery.pwstabs.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\quill\dist\quill.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\quill\dist\quill.snow.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\raphael\raphael.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\rickshaw\rickshaw.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\rickshaw\rickshaw.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\simple-line-icons\css\simple-line-icons.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\simplemde\dist\simplemde.min-2.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\simplemde\dist\simplemde.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\summernote-bootstrap4\dist\summernote.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\summernote-bootstrap4\dist\summernote.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\ti-icons\css\themify-icons.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\tinymce\tinymce.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\typeahead.js\dist\typeahead.bundle.min.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\x-editable\dist\bootstrap3-editable\css\bootstrap-editable.html" />
+    <Content Include="wwwroot\areas\admin\pages\path-to\node_modules\x-editable\dist\bootstrap3-editable\js\bootstrap-editable.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\js\sweetalert2.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Uploads\Images\PageHeader\" />
+  </ItemGroup>
+
+</Project>

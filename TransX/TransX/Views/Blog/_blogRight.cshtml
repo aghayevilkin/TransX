@@ -1,0 +1,96 @@
+﻿<div class="row">
+    <div class="col-md-6 col-lg-12 mb-5">
+        <h5 class="service-details-subtitle">Categories</h5>
+        <ul class="servdet-list ">
+            @foreach (var category in Model.Categories)
+            {
+                @if (category.Blogs.Count != 0)
+                {
+                    <li class="servdet-list-item @(ViewBag.categoryId == @category.Id?"item-active":"")">
+                        <a class=" servdet-list-link"
+                           asp-controller="Blog" asp-action="Index" asp-route-id="@category.Id"><span>@category.Name</span><span>@category.Blogs.Count</span></a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    <div class="col-md-6 col-lg-12 mb-5">
+        <h5 class="blog-title">Latest news</h5>
+        @foreach (Blog Recentpost in Model.RecentPost)
+        {
+            <div class="latest-card">
+                <div class="latest-card-img">
+                    <img class="bg-img" src="~/Uploads/Images/Blogs/@Recentpost.Image" alt="img">
+                </div>
+                <div class="latest-card-details">
+                    <h6 class="latest-card-title"><a asp-controller="Blog" asp-action="details" asp-route-id="@Recentpost.Id">@Recentpost.Title</a></h6>
+                    <span class="latest-card-date">@Recentpost.AddedDate.Date.ToString("dd MMM yyyy")</span>
+                </div>
+            </div>
+        }
+
+        <div class="col-md-6 col-lg-12 mb-5">
+            <h5 class="blog-title"> Instagram</h5>
+            <div class="instagram">
+                <a class="instagram-item" href="#">
+                    <div class="insta-img">
+                        <img class="bg-img" src="~/img/ig-1.jpg" alt="">
+                    </div>
+                </a>
+                <a class="instagram-item" href="#">
+                    <div class="insta-img">
+                        <img class="bg-img" src="~/img/ig-2.jpg" alt="">
+                    </div>
+                </a>
+                <a class="instagram-item" href="#">
+                    <div class="insta-img">
+                        <img class="bg-img" src="~/img/ig-3.jpg" alt="">
+                    </div>
+                </a>
+                <a class="instagram-item" href="#">
+                    <div class="insta-img">
+                        <img class="bg-img" src="~/img/ig-4.jpg" alt="">
+                    </div>
+                </a>
+                <a class="instagram-item" href="#">
+                    <div class="insta-img">
+                        <img class="bg-img" src="~/img/ig-5.jpg" alt="">
+                    </div>
+                </a>
+                <a class="instagram-item" href="#">
+                    <div class="insta-img">
+                        <img class="bg-img" src="~/img/ig-6.jpg" alt="">
+                    </div>
+                </a>
+
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-12 mb-5">
+            <h5 class="blog-title">Tags</h5>
+            @foreach (BlogTag tag in Model.Tags)
+            {
+                    <a class="tag" asp-controller="blog" asp-action="index" asp-route-tagId="@tag.Id">#@tag.Name</a>
+            }
+
+        </div>
+
+        <div class="col-md-6 col-lg-12">
+            <div class="contact-card-blue contact-blue-style ">
+                <img class="contact-card-blue-img" src="~/img/contact_background.png"
+                     alt="img">
+                <h4 class="contact-card-blue-title">How we can help you!</h4>
+                <p class="contact-card-blue-text">
+                    Ronquil coho salmon red snapper duckbill
+                    lungfish southern angelfish
+                </p>
+                <a class="button button-white mt-3"
+                   asp-controller="contact" asp-action="index">
+                    <span>Contact us</span>
+                    <svg class="icon">
+                        <use xlink:href="#arrow"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

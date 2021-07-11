@@ -1,0 +1,49 @@
+﻿@model CustomUser
+
+@{
+    ViewBag.Title = "Update User";
+}
+<link rel="stylesheet" href="~/css/checked.css">
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Update Users</h4>
+            <form method="post" class="forms-sample">
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input asp-for="Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Surname" class="form-label">Surname</label>
+                    <input asp-for="Surname" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="RoleId" class="form-label">Role</label>
+                    <select asp-for="RoleId" asp-items="@Model.Roles" class="form-control">
+                        <option disabled selected>Select role</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="text-switch status-switch mt-2">
+                        <p>IsVerify</p>
+                        <input type="checkbox" asp-for="IsVerify" id="check4" class="text-switch-check" />
+                        <label for="check4" class="text-switch-label">
+                            <span class="text-swtch-data">
+                                <span class="left">Active</span>
+                                <span class="dot-circle"></span>
+                                <span class="right">Inactive</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <input asp-for="@Model.Id" hidden>
+                <button type="submit" class="btn btn-success mr-2">Update</button>
+                <button asp-action="users" class="btn btn-danger">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

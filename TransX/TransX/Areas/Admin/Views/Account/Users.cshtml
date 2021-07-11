@@ -1,0 +1,64 @@
+﻿@model List<CustomUser>
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="content-wrapper">
+    <div class="row grid-margin">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Users</h6>
+                    <div class="table-responsive">
+                        <table class="table mt-3 border-top">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Surname</th>
+                                    <th>Email</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Surname</td>
+                                    <td>@item.Email</td>
+                                    <td><a asp-controller="account" asp-action="UpdateUser" asp-route-id="@item.Id" class="btn btn-primary">Update</a></td>
+
+                                    <td>
+                                        <form asp-action="DeleteUser" asp-route-id="@item.Id" method="post">
+
+                                            <span id="confirmDeleteSpan_@item.Id" style="display:none">
+                                                <span>Are you sure you want to delete?</span>
+                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                                <a href="#" class="btn btn-primary"
+                                                   onclick="confirmDelete('@item.Id', false)">No</a>
+                                            </span>
+
+
+                                            <span id="deleteSpan_@item.Id">
+                                                <a href="#" class="btn btn-danger"
+                                                   onclick="confirmDelete('@item.Id', true)">Delete</a>
+                                            </span>
+
+                                        </form>
+                                    </td>
+
+                                </tr>
+
+
+
+
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

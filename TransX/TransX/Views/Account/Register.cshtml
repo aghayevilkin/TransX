@@ -1,0 +1,111 @@
+﻿@model VmBase
+@{
+    ViewData["Title"] = "Register";
+}
+
+<section class="hero-banner">
+    <picture>
+        <source srcset="~/img/typography.jpg" media="(min-width: 992px)">
+        <img class="bg-img"
+             src="~/img/typography.jpg" alt="img">
+    </picture>
+    <div class="hero-layout"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="align-container">
+                    <div class="align-container-item">
+                        <span class="hero-overlay">TransX</span>
+                        <h1 class="hero-title">Login</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <h4 class="modal-header-title">Sign Up</h4>
+    <div class="login-form">
+        <form id="register_form" name="register_form" asp-controller="Account" asp-action="Register">
+            <div class="text text-danger text-center" asp-validation-summary="All"></div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <div class="input-with-icon">
+                            <input type="text" class="form-control form-input" id="Name" asp-for="RegisterViewModel.Name" placeholder="Name" />
+                            <span id="error_name" class="text-danger"></span>
+                            <i class="ti-user"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <div class="input-with-icon">
+                            <input type="text" class="form-control form-input" id="Surname" asp-for="RegisterViewModel.Surname" placeholder="Surname" />
+                            <span id="error_surname" class="text-danger"></span>
+                            <i class="ti-email"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <div class="input-with-icon">
+                            <input type="email" class="form-control form-input" id="Email" asp-for="RegisterViewModel.Email" placeholder="Email" />
+                            <span id="error_email" class="text-danger"></span>
+                            <i class="ti-user"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <div class="input-with-icon">
+                            <input type="password" class=" form-control form-input" id="Password" asp-for="RegisterViewModel.Password" placeholder="*******" />
+                            <span id="error_password" class="text-danger"></span>
+                            <i class="ti-unlock"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <div class="input-with-icon">
+                            <input type="password" class=" form-control form-input" id="Confirm" asp-for="RegisterViewModel.ConfirmPassword" placeholder="*******" />
+                            <span id="error_confirm" class="text-danger"></span>
+                            <i class="ti-unlock"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pwhints">
+                    <ul>
+                        <li id="pw-min-8chars">Minimaal 8 karakters.</li>
+                        <li id="pw-min-1char">Minimaal 1 letter.</li>
+                        <li id="pw-min-1capital">Minimaal 1 hoofdletter.</li>
+                        <li id="pw-min-1number">Minimaal 1 cijfer.</li>
+                        <li id="pw-min-symbols">Minimaal 1 symbols.</li>
+                        <li id="pw-no-repeat">Maximaal 3 opvolgende gelijke tekens.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="col-12">
+                <button class="quote-form-submit mb-5" type="submit" id="submit">Sign up</button>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-divider"><span>Or login via</span></div>
+    <div class="social-login mb-3">
+        <ul>
+            <li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
+            <li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google+</a></li>
+        </ul>
+    </div>
+    <div class="text-center">
+        <p class="mt-5"><i class="ti-user mr-1"></i>Already Have An Account? <a href="#" class="link">Go For LogIn</a></p>
+    </div>
+</div>

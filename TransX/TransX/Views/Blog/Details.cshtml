@@ -1,0 +1,281 @@
+﻿@model VmBlog
+@inject SignInManager<IdentityUser> SignInManager
+@{
+    ViewData["Title"] = "Blog Details";
+}
+@if (Model.pageHeaderDetails != null)
+{
+    <section class="hero-banner">
+        <picture>
+            <source srcset="~/Uploads/Images/PageHeader/@Model.pageHeaderDetails.Image" media="(min-width: 992px)">
+            <img class="bg-img"
+                 src="~/Uploads/Images/PageHeader/@Model.pageHeaderDetails.Image" alt="img">
+        </picture>
+        <div class="hero-layout"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="align-container">
+                        <div class="align-container-item">
+                            <span class="hero-overlay">@Model.pageHeaderDetails.Subtitle</span>
+                            <h1 class="hero-title">@Model.pageHeaderDetails.Title</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div class="banner-area-wrapper">
+        <div class="container">
+            <div class="row">
+                <h3 class="alert alert-danger text-center">Page Header Details Elave Edin</h3>
+            </div>
+        </div>
+    </div>
+}
+
+<section class="blog-section blog-post section-style-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xl-9">
+                <img class="service-details-img" src="~/Uploads/Images/Blogs/@Model.Blog.Image" alt="img">
+                <h4 class="service-details-title">@Model.Blog.Title</h4>
+                @Html.Raw(Model.Blog.Content)
+                <div class="row mt-5">
+                    <div class="col-6">
+                        <div class="blog-post-date">@Model.Blog.AddedDate.Date.ToString("dd MMMM yyyy")</div>
+                    </div>
+                    <div class="col-6 right">
+                        @if (Model.Blog.Comments != null)
+                        {
+                            <a class="blog-post-comments-count" href="#">@(Model.Blog.Comments != null ? Model.Blog.Comments.Count : 0) comments</a>
+                        }
+
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="blog-post-author">
+                            <div class="row align-items-center">
+                                <div class="col-md-3 text-center text-md-left">
+                                    <strong>
+                                        @Model.Blog.User.Name @Model.Blog.User.Surname
+                                    </strong>
+                                    @if (Model.Blog.User.IsVerify != false)
+                                    {
+                                        <img class="verificationicon" src="~/img/verification.svg" alt="img">
+                                    }
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    @foreach (var tags in Model.Tags)
+                                    {
+                                        @foreach (var item in tags.TagToBlogs)
+                                        {
+                                            <a class="tag" href="#">#@item.Tag.Name </a>
+                                            break;
+                                        }
+
+                                    }
+                                    @*<a class="tag" href="#">#Transport </a><a class="tag" href="#">#Business </a><a class="tag"
+                                                                                                                    href="#">#Delivery</a>*@
+                                </div>
+                                <div class="col-md-3 text-center text-md-right">
+                                    <ul class="socials socials-blue ">
+                                        @foreach (Blog blogs in Model.Blogs)
+                                        {
+                                            @foreach (var item in blogs.User.SocialToUsers)
+                                            {
+                                                if (item != null)
+                                                {
+                                                    <li class="socials-item">
+                                                        <a class="socials-link" target="_blank" href="@item.Link">
+                                                            <svg class="icon">
+                                                                <use xlink:href="@item.Social.Icon"></use>
+                                                            </svg>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        @if (Model.Comments != null)
+                        {
+                            <div class="comments">
+                                <h5 class="comments-title">Comments</h5>
+                                @foreach (var item in Model.Comments)
+                                {
+                                    <div class="comments-card" style="margin-top:10px;">
+                                        @if (item.CommentId == null)
+                                        {
+                                            <div class="comments-img">
+                                                @if (item.User.Image == null)
+                                                {
+                                                    <img class="bg-img" src="~/img/avatar1.png"
+                                                         alt="img">
+                                                }
+                                                else
+                                                {
+                                                    <img class="bg-img" src="~/Uploads/Images/Accounts/@item.User.Image"
+                                                         alt="img">
+                                                }
+
+                                            </div>
+                                            <div class="comments-description">
+                                                <div class="row align-items-center">
+                                                    <div class="col-6">
+                                                        <span class="comments-author-name">
+                                                            @item.User.Name @item.User.Surname
+                                                        </span>
+                                                        @if (item.User.IsVerify != false)
+                                                        {
+                                                            <img class="verificationicon" src="~/img/verification.svg" alt="img">
+                                                        }
+                                                    </div>
+                                                    @if (SignInManager.IsSignedIn(User))
+                                                    {
+                                                        <div class="col-6 right">
+                                                            <span class="comments-action">
+                                                                <button class="commentBTN" data-id="@item.Id">
+                                                                    <svg class="icon">
+                                                                        <use xlink:href="#previous"></use>
+                                                                    </svg>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    }
+
+                                                    <div class="col-12">
+                                                        <div class="comments-text">
+                                                            <p>
+                                                                @item.Message
+                                                            </p><span class="comments-date">@item.AddedDate.Date.ToString("dd MMMM yyyy")</span>
+                                                        </div>
+                                                    </div>
+                                                    <div style="display:none;" class="@item.Id" id="CommentSub">
+                                                        <form class="row g-3" method="post" id="commentForum" asp-controller="blog" asp-action="CommentCreate">
+                                                            <div class="col-md-6">
+                                                                <input type="text" class="form-control form-input" name="Message" placeholder="Your name"
+                                                                       aria-label="First name">
+                                                            </div>
+                                                            <input type="hidden" name="BlogId" value="@Model.Blog.Id" />
+                                                            <input type="hidden" id="CommentId" name="CommentId" value="@item.Id" />
+                                                            <div class="col-12">
+                                                                <button class="button button-border-green" id="commentBtn" type="submit">
+                                                                    <span>Comment</span>
+                                                                    <svg class="icon">
+                                                                        <use xlink:href="#arrow"></use>
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                        @foreach (var item2 in Model.Comments.Where(c => c.CommentId == item.Id))
+                                        {
+                                            <div class="comments-card comments-card-sub" style="padding-top:1rem;">
+                                                <div class="comments-img">
+                                                    @if (item2.User.Image == null)
+                                                    {
+                                                        <img class="bg-img"
+                                                             src="~/img/avatar2.png" alt="img">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="bg-img"
+                                                             src="~/Uploads/Images/Accounts/@item2.User.Image" alt="img">
+                                                    }
+
+                                                </div>
+                                                <div class="comments-description">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-6">
+                                                            <span class="comments-author-name">
+                                                                @item2.User.Name @item2.User.Surname
+                                                            </span>
+                                                            @if (item2.User.IsVerify != false)
+                                                            {
+                                                                <img class="verificationicon" src="~/img/verification.svg" alt="img">
+                                                            }
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="comments-text">
+                                                                <p>
+                                                                    @item2.Message
+                                                                </p><span class="comments-date">@item2.AddedDate.Date.ToString("dd MMMM yyyy")</span>
+                                                            </div>
+                                                        </div>
+                                                        <div style="display:none;" class="@item2.Id" id="CommentSub">
+                                                            <form class="row g-3" method="post" id="commentForum" asp-controller="blog" asp-action="CommentCreate">
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control form-input" name="Message" placeholder="Your name"
+                                                                           aria-label="First name">
+                                                                </div>
+                                                                <input type="hidden" name="BlogId" value="@Model.Blog.Id" />
+                                                                <input type="hidden" id="CommentId" name="CommentId" value="@item.Id" />
+                                                                <div class="col-12">
+                                                                    <button class="button button-border-green" id="commentBtn" type="submit">
+                                                                        <span>Comment</span>
+                                                                        <svg class="icon">
+                                                                            <use xlink:href="#arrow"></use>
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                }
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <h5 class="blog-title">Send review</h5>
+                            <form class="row g-3" method="post" id="commentForum" asp-controller="blog" asp-action="CommentCreate">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-input" name="Message" placeholder="Your name"
+                                           aria-label="First name">
+                                </div>
+                                <input type="hidden" name="BlogId" value="@Model.Blog.Id" />
+                                <div class="col-12">
+                                    <button class="button button-border-green" id="commentBtn" type="submit">
+                                        <span>Comment</span>
+                                        <svg class="icon">
+                                            <use xlink:href="#arrow"></use>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-xl-3 mt-5 mt-lg-0">
+                <partial name="_blogRight" />
+            </div>
+        </div>
+    </div>
+</section>

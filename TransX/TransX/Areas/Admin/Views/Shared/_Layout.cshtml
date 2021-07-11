@@ -1,0 +1,288 @@
+﻿@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@inject RoleManager<IdentityRole> RoleManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Panel</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="~/areas/admin/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/areas/admin/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="~/areas/admin/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="~/areas/admin/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="~/areas/admin/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/areas/admin/vendors/jquery-bar-rating/fontawesome-stars.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="~/areas/admin/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="~/areas/admin/images/favicon.png" />
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+                <a class="navbar-brand brand-logo" asp-controller="home" asp-action="index"><img src="~/areas/admin/images/logo_black.png" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" asp-controller="home" asp-action="index"><img src="~/areas/admin/images/logo-mini.svg" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="icon-menu"></span>
+                </button>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown d-none d-lg-flex">
+                        <a class="nav-link dropdown-toggle nav-btn" id="actionDropdown" href="#" data-toggle="dropdown">
+                            <span class="btn">+ Create new</span>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown dropdown-left" aria-labelledby="actionDropdown">
+                            <a class="dropdown-item" asp-controller="blog" asp-action="create">
+                                <i class="fa fa-ravelry menu-icon"></i>
+                                Create Blog
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-controller="account" asp-action="users">
+                                <i class="icon-user-following text-warning"></i>
+                                User
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                <i class="icon-docs text-success"></i>
+                                Sales report
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="home" asp-action="index"><i class="fa fa-institution menu-icon"></i> Home </a></li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="icon-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <div class="row row-offcanvas row-offcanvas-right">
+                <!-- partial:partials/_settings-panel.html -->
+                <div class="theme-setting-wrapper">
+                    <div id="settings-trigger"><i class="mdi mdi-settings"></i></div>
+                    <div id="theme-settings" class="settings-panel">
+                        <i class="settings-close mdi mdi-close"></i>
+                        <p class="settings-heading">SIDEBAR SKINS</p>
+                        <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
+                        <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
+                        <p class="settings-heading mt-2">HEADER SKINS</p>
+                        <div class="color-tiles mx-0 px-4">
+                            <div class="tiles primary"></div>
+                            <div class="tiles success"></div>
+                            <div class="tiles warning"></div>
+                            <div class="tiles danger"></div>
+                            <div class="tiles pink"></div>
+                            <div class="tiles info"></div>
+                            <div class="tiles dark"></div>
+                            <div class="tiles default"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- partial -->
+                <!-- partial:partials/_sidebar.html -->
+                <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                    <ul class="nav">
+                        <li class="nav-item nav-profile">
+                            <div class="nav-link">
+                                <div class="profile-image">
+                                    <img src="~/areas/admin/images/faces/admin.png" alt="image" />
+                                    <span class="online-status online"></span> <!--change class online to offline or busy as needed-->
+                                </div>
+                                <div class="profile-name">
+                                    <p class="name">
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            @UserManager.GetUserName(User)
+                                        }
+                                    </p>
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        if (User.IsInRole("Admin"))
+                                        {
+                                            <p class="designation">
+                                                Admin
+                                            </p>
+                                        }
+                                        else if (User.IsInRole("Moderator"))
+                                        {
+                                            <p class="designation">
+                                                Moderator
+                                            </p>
+                                        }
+                                    }
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#home" aria-expanded="false" aria-controls="home">
+                                <i class="fa fa-institution menu-icon"></i>
+                                <span class="menu-title">Home</span>
+                                <span class="badge badge-info">1</span>
+                            </a>
+                            <div class="collapse" id="home">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="home" asp-action="index"> Home </a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#about" aria-expanded="false" aria-controls="about">
+                                <i class="fa fa-eye menu-icon"></i>
+                                <span class="menu-title">About</span>
+                                <span class="badge badge-info">1</span>
+                            </a>
+                            <div class="collapse" id="about">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="about" asp-action="index"> About </a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#contact" aria-expanded="false" aria-controls="contact">
+                                <i class="fa fa-address-card-o menu-icon"></i>
+                                <span class="menu-title">Contact</span>
+                                <span class="badge badge-warning">1</span>
+                            </a>
+                            <div class="collapse" id="contact">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="contact" asp-action="index"> Contact</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#blog" aria-expanded="false" aria-controls="blog">
+                                <i class="fa fa-ravelry menu-icon"></i>
+                                <span class="menu-title">Blog</span>
+                                <span class="badge badge-primary">2</span>
+                            </a>
+                            <div class="collapse" id="blog">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="blog" asp-action="index">Blog</a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="blog" asp-action="create">Create Blog</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#courses" aria-expanded="false" aria-controls="courses">
+                                <i class=" icon-book-open menu-icon"></i>
+                                <span class="menu-title">Courses</span>
+                                <span class="badge badge-danger">2</span>
+                            </a>
+                            <div class="collapse" id="courses">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="courses" asp-action="index">Courses</a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="courses" asp-action="create">Create Course</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#event" aria-expanded="false" aria-controls="event">
+                                <i class=" fa fa-superpowers menu-icon"></i>
+                                <span class="menu-title">Event</span>
+                                <span class="badge badge-danger">3</span>
+                            </a>
+                            <div class="collapse" id="event">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="index">Event</a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="create">Create Event</a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="speaker">Speaker</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+                                <i class="icon-user menu-icon"></i>
+                                <span class="menu-title">Roles</span>
+                                <span class="badge badge-warning">2</span>
+                            </a>
+                            <div class="collapse" id="general-pages">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="account" asp-action="roles"> Roles</a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="account" asp-action="createrole"> Create Role </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#e-commerce" aria-expanded="false" aria-controls="e-commerce">
+                                <i class="icon-briefcase menu-icon"></i>
+                                <span class="menu-title">Teacher</span>
+                                <span class="badge badge-info">6</span>
+                            </a>
+                            <div class="collapse" id="e-commerce">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="index"> Teacher </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="create"> Teacher Create </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="social"> Social </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="socialtoteacher"> Social To Teacher </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="skill"> Skill </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="skilltoteacher"> Skill To Teacher </a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="setting">
+                                <i class="fa fa-cogs menu-icon"></i>
+                                <span class="menu-title">Settings</span>
+                                <span class="badge badge-success">1</span>
+                            </a>
+                            <div class="collapse" id="setting">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="setting" asp-action="index"> Settings </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                </nav>
+
+
+                @RenderBody()
+
+
+                <!-- plugins:js -->
+                <script src="~/areas/admin/vendors/js/vendor.bundle.base.js"></script>
+                <!-- endinject -->
+
+                <script src="https://cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
+                <!-- Plugin js for this page-->
+                <script src="~/areas/admin/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
+                <script src="~/areas/admin/vendors/chart.js/Chart.min.js"></script>
+                <script src="~/areas/admin/vendors/raphael/raphael.min.js"></script>
+                <script src="~/areas/admin/vendors/morris.js/morris.min.js"></script>
+                <script src="~/areas/admin/vendors/jquery-sparkline/jquery.sparkline.min.js"></script>
+                <!-- End plugin js for this page-->
+                <!-- inject:js -->
+                <script src="~/areas/admin/js/off-canvas.js"></script>
+                <script src="~/areas/admin/js/hoverable-collapse.js"></script>
+                <script src="~/areas/admin/js/misc.js"></script>
+                <script src="~/areas/admin/js/settings.js"></script>
+                <script src="~/areas/admin/js/todolist.js"></script>
+                <!-- endinject -->
+                <!-- Custom js for this page-->
+                <script src="~/areas/admin/js/dashboard.js"></script>
+                <script src="~/js/site.js"></script>
+                <script src="~/js/main.js"></script>
+                <script src="~/areas/admin/js/script.js"></script>
+                <!-- End custom js for this page-->
+                @RenderSection("Scripts", required: false)
+</body>
+
+
+</html>

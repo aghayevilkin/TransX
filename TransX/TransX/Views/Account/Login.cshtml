@@ -1,0 +1,64 @@
+﻿@model VmBase
+@{
+    ViewData["Title"] = "Login";
+}
+<section class="hero-banner">
+        <picture>
+            <source srcset="~/img/typography.jpg" media="(min-width: 992px)">
+            <img class="bg-img"
+                 src="~/img/typography.jpg" alt="img">
+        </picture>
+        <div class="hero-layout"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="align-container">
+                        <div class="align-container-item">
+                            <span class="hero-overlay">TransX</span>
+                            <h1 class="hero-title">Login</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<h4 class="modal-header-title">Log In</h4>
+<div class="container">
+    <div class="login-form">
+        <form method="post" asp-controller="Account" asp-action="Login">
+            <div class="text text-danger text-center" asp-validation-summary="All"></div>
+            <div class="form-group">
+                <label>Email</label>
+                <div class="input-with-icon">
+                    <input type="text" class="form-control form-input" id="Emaillogin" asp-for="LoginViewModel.Email" placeholder="Email" />
+                    <span class="text text-danger" asp-validation-for="LoginViewModel.Email"></span>
+                    <i class="ti-user"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-with-icon">
+                    <input type="password" class="form-control form-input" id="Passwordlogin" asp-for="LoginViewModel.Password" placeholder="*******" />
+                    <span class="text text-danger" asp-validation-for="LoginViewModel.Password"></span>
+                    <i class="ti-unlock"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button class="quote-form-submit mb-5" type="submit">Sign in</button>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-divider"><span>Or login via</span></div>
+    <div class="social-login mb-3">
+        <ul>
+            <li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
+            <li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google+</a></li>
+        </ul>
+    </div>
+    <div class="text-center">
+        <p class="mt-5"><a href="#" class="link">Forgot password?</a></p>
+    </div>
+</div>

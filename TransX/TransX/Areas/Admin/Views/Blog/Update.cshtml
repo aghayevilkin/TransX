@@ -1,0 +1,53 @@
+﻿@model Blog
+@{
+    ViewData["Title"] = "Update";
+}
+
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-area="admin" asp-controller="blog" asp-action="update" method="post" onsubmit="return myTitle()" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input class="form-control" id="title" asp-for="@Model.Title">
+                        <span id="messages" asp-validation-for="@Model.Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Content">Contect</label>
+                        <textarea class="form-control" id="Content" asp-for="@Model.Content" rows="6"></textarea>
+                        <span asp-validation-for="@Model.Content" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoryId">Category</label>
+                        <select id="categoryId" class="form-control" asp-for="@Model.CategoryId" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))">
+                        </select>
+                        <span asp-validation-for="@Model.CategoryId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="TagIds">Tag</label>
+                        <select id="TagIds" class="form-control multi-select" multiple asp-for="@Model.TagIds" asp-items="@(new SelectList(ViewBag.Tags, "Id", "Name"))">
+                        </select>
+                        <span asp-validation-for="@Model.TagIds" class="text-danger"></span>
+                    </div>
+                    <div class="input-file">
+                        <img id="file_upload" src="~/Uploads/Images/Blogs/@Model.Image" alt="your image" class="upload-img" />
+                        <div class="input-file-upload">
+                            <span class="upload-label">Upload Image</span>
+                            <input type='file' onchange="readURL(this);" asp-for="@Model.ImageFile" />
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="Image" value="@Model.Image" />
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button asp-action="index" class="btn btn-danger">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

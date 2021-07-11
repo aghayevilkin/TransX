@@ -1,0 +1,75 @@
+﻿@model VmBlog
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Content
+                        </th>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            Tags
+                        </th>
+                        <th>
+                            User
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Blogs)
+                    {
+                        <tr>
+                            <td><img src="~/Uploads/Images/Blogs/@item.Image" alt="image" width="100" style=" width: 100px; height: 100px; border-radius: 10px; object-fit: cover;" /></td>
+                            <td>@item.Title</td>
+                            <td>@Html.Raw(item.Content!=null && item.Content.Length>150? item.Content.Substring(0, 150) : item.Content)</td>
+                            <td>@item.Category.Name</td>
+                            <td>
+                                @foreach (var item2 in item.TagToBlogs)
+                                {
+                                    @(item2.Tag.Name+ (item2 == item.TagToBlogs.LastOrDefault()? "": ", "))
+                                }
+                            </td>
+                            <td>@item.User.UserName</td>
+                            <td>@item.AddedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>
+                                <a asp-area="admin" asp-controller="blog" asp-action="update" asp-route-id="@item.Id" class="btn btn-success mb-2">Update</a>
+                                <a onclick="return confirm('Are you sure?')" asp-area="admin" asp-controller="blog" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="col-md-12">
+                <div class="pagination">
+                    <ul>
+                        @for (int i = 1; i <= ViewBag.PageCount; i++)
+                        {
+                            <li class="page-item @(ViewBag.ActivePage==i?"active":"")"><a asp-controller="blog" asp-action="index" asp-all-route-data="@ViewBag.Filter" asp-route-page="@i">@i</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

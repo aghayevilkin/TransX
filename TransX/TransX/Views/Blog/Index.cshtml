@@ -1,0 +1,99 @@
+﻿@model VmBlog
+@{
+    ViewData["Title"] = "Blog";
+}
+
+@if (Model.pageHeader != null)
+{
+    <section class="hero-banner">
+        <picture>
+            <source srcset="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" media="(min-width: 992px)">
+            <img class="bg-img"
+                 src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="img">
+        </picture>
+        <div class="hero-layout"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="align-container">
+                        <div class="align-container-item">
+                            <span class="hero-overlay">@Model.pageHeader.Subtitle</span>
+                            <h1 class="hero-title">@Model.pageHeader.Subtitle</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div class="banner-area-wrapper">
+        <div class="container">
+            <div class="row">
+                <h3 class="alert alert-danger text-center">Page Header Elave Edin</h3>
+            </div>
+        </div>
+    </div>
+}
+
+<section class="blog-section  section-style-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xl-9">
+                <div class="row">
+
+                    @foreach (Blog blog in Model.Blogs)
+                    {
+                        <div class="col-md-6 col-xl-4 ">
+                            <div class="blog-card-two">
+                                <div class="blog-card-img">
+                                    <img class="bg-img" src="~/Uploads/Images/Blogs/@blog.Image" alt="img">
+                                </div>
+                                <span class="blog-card-category">@blog.Category.Name</span>
+                                <h6 class="blog-card-title"><a asp-controller="Blog" asp-action="details" asp-route-id="@blog.Id">@blog.Title</a></h6>
+                                <div class="blog-card-text">
+                                    <p>@Html.Raw(blog.Content.Length > 87 ? blog.Content.Substring(0, 87) : blog.Content)...</p>
+                                </div>
+                                <div class="blog-card-details">
+                                    <span>@blog.AddedDate.Date.ToString("dd MMMM yyyy")</span>
+                                    @if (blog.Comments != null)
+                                    {
+                                        <span>@(blog.Comments != null ? blog.Comments.Count : 0) Comments</span>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="pagination">
+                            @{
+                                int j = 0;
+                            }
+                            @if (ViewBag.prewPage != 0)
+                            {
+                                <a asp-controller="blog" asp-action="index" asp-all-route-data="@ViewBag.Filter" asp-route-page="@ViewBag.prewPage"><li class="page-item prev"><span>Back</span></li></a>
+                            }
+                            @for (int i = 1; i <= ViewBag.PageCount; i++)
+                            {
+                                <a asp-controller="blog" asp-action="index" asp-all-route-data="@ViewBag.Filter" asp-route-page="@i"><li class="page-item @(ViewBag.ActivePage==i?"active":"")"><span>@i</span></li></a>
+                                j = i;
+                            }
+                            @if (ViewBag.nextPage <= j)
+                            {
+                                <a asp-controller="blog" asp-action="index" asp-all-route-data="@ViewBag.Filter" asp-route-page="@ViewBag.nextPage"><li class="page-item next"><span>Next</span></li></a>
+                            }
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-3 mt-5 mt-lg-0">
+                <partial name="_blogRight" />
+            </div>
+        </div>
+</section>

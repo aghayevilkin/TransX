@@ -1,0 +1,26 @@
+﻿@model VmRole
+
+@{
+    ViewBag.Title = "Update Role";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Update Role</h4>
+            <form method="post" class="forms-sample">
+                <div class="form-group">
+                    <label asp-for="Id">Id</label>
+                    <input class="form-control" asp-for="Id" disabled>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RoleName">Role</label>
+                    <input class="form-control" asp-for="RoleName" placeholder="Enter Role Name">
+                    <span asp-validation-for="RoleName" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success mr-2">Update</button>
+                <button asp-action="roles" class="btn btn-danger">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

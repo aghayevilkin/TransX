@@ -1,0 +1,44 @@
+﻿@model PageHeader
+@{
+    ViewData["Title"] = "Update Page Header Details";
+}
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mt-5">Update Header Details</h2>
+            </div>
+            <div class="col-6">
+                <form asp-controller="blog" asp-action="UpdateHeaderDetails" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="Name">Title</label>
+                        <input type="text" class="form-control" id="title" asp-for="Title" placeholder="Title">
+                        <input type="hidden" class="form-control" id="Page" name="Page" placeholder="Page" value="blogdetails">
+                        <span id="messages" asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Subtitle</label>
+                        <input type="text" class="form-control" id="title" asp-for="Subtitle" placeholder="Subtitle">
+                        <span id="messages" asp-validation-for="Subtitle" class="text-danger"></span>
+                    </div>
+                    <div class="input-file">
+                        <span id="messages" asp-validation-for="ImageFile" class="text-danger"></span>
+                        <img id="file_upload" src="~/Uploads/Images/PageHeader/@Model.Image" alt="your image" class="upload-img" />
+                        <div class="input-file-upload">
+                            <span class="upload-label">Upload Image</span>
+                            <input type='file' onchange="readURL(this);" asp-for="ImageFile" />
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="Image" value="@Model.Image" />
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button asp-action="index" class="btn btn-danger">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
