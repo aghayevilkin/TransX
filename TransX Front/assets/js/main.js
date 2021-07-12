@@ -175,3 +175,31 @@ $("#sidebar-btn").click(function(){
 		
     }
 });
+
+jQuery(function ($) {
+    
+    $(".filter-panel-item").on("click", function () {
+        var $this = $(this);
+        if ( !$this.hasClass("filter-panel-item-active") ) {
+            $(".filter-panel-item").removeClass("filter-panel-item-active");
+            $this.addClass("filter-panel-item-active"); 
+            var $filter = $this.data("rel"); 
+            
+            $filter == 'all' ? 
+                $(".gallery-item")
+                .attr("data-fancybox", "gallery")
+                .not(":visible")
+                .fadeIn() 
+            : 
+                $(".gallery-item")
+                .fadeOut(0)
+                .filter(function () {
+                    
+                    return $(this).data("filter") == $filter; 
+                })
+                
+                .attr("data-fancybox", $filter)
+                .fadeIn(1000); 
+        } 
+    }); 
+}); 
