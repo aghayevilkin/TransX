@@ -29,7 +29,15 @@ namespace TransX
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
                                            options.UseSqlServer(Configuration.GetConnectionString("TransXdb")));
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = true;
+            })
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>(TokenOptions.DefaultProvider);
+
+            services.Configure<DataProtectionTokenProviderOptions>(o =>
+            o.TokenLifespan = TimeSpan.FromHours(5));
 
             services.AddAuthentication().AddGoogle(options =>
             {

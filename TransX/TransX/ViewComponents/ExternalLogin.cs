@@ -19,7 +19,7 @@ namespace TransX.ViewComponents
             _context = context;
         }
 
-        public async Task<IViewComponentResult> Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             VmBase model = new VmBase()
             {

@@ -70,3 +70,16 @@ blockquote {
 .verificationicon{
     width:1.5rem;
 }
+
+.social-login ul li button a.btn.connect-Facebook {
+    background: #3b5998;
+}
+
+.social-login ul li button a.btn.connect-Google {
+    background: #00997d;
+}
+.ti-icon {
+    position: absolute;
+    top: 16px;
+    left: 3px;
+}

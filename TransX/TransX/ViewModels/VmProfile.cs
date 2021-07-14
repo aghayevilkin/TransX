@@ -13,6 +13,7 @@ namespace TransX.ViewModels
         public IList<CustomUser> UserS { get; set; }
         public IList<Blog> Posts { get; set; }
         public List<BlogTag> Tags { get; set; }
-        public List<Social> Socials { get; set; }
+        public VmChangePassword VmChangePassword { get; set; }
+        public VmAddPassword VmAddPassword { get; set; }
     }
 }

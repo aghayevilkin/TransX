@@ -1,0 +1,168 @@
+﻿@model VmBase
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="hero-banner">
+    <picture>
+        <source srcset="~/img/service-details.jpg" media="(min-width: 992px)">
+        <img class="bg-img"
+             src="assets/img/service-details.jpg" alt="img">
+    </picture>
+    <div class="hero-layout"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="align-container">
+                    <div class="align-container-item">
+                        <span class="hero-overlay">TransX</span>
+                        <h1 class="hero-title">Contact us</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-style-two pb-0">
+    <img class="contact-bg" src="~/img/contacts-map.png" alt="">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="mapouter martop-70 mt-lg-0">
+                    <div class="gmap_canvas">
+                        <iframe width="600" height="500" id="gmap_canvas"
+                                src="https://maps.google.com/maps?q=2307%20Brooklyn,%20New%20York,%20United%20States&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://2piratebay.org"></a><br>
+                        <style>
+                            .mapouter {
+                                position: relative;
+                                text-align: right;
+                                height: 500px;
+                                width: 500px;
+                            }
+                        </style><a href="https://www.embedgooglemap.net">
+                            using google maps on your
+                            website
+                        </a>
+                        <style>
+                            .gmap_canvas {
+                                overflow: hidden;
+                                background: none !important;
+                                height: 500px;
+                                width: 500px;
+                            }
+                        </style>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-5 mt-md-0">
+                <h5 class="contacts-title">Office United States</h5>
+                <div class="contacts-card">
+                    <div class="contacts-card-img">
+                        <svg class="icon">
+                            <use xlink:href="#phone"></use>
+                        </svg>
+                    </div>
+                    <div class="contacts-card-details">
+                        <a class="contacts-card-link"
+                           href="tel:@Model.Setting.Phone">@Model.Setting.Phone</a>
+                    </div>
+                </div>
+                <div class="contacts-card">
+                    <div class="contacts-card-img">
+                        <svg class="icon">
+                            <use xlink:href="#mail"></use>
+                        </svg>
+                    </div>
+                    <div class="contacts-card-details">
+                        <a class="contacts-card-link"
+                           href="mailto:@Model.Setting.Email">@Model.Setting.Email</a>
+                    </div>
+                </div>
+                <div class="contacts-card">
+                    <div class="contacts-card-img">
+                        <svg class="icon">
+                            <use xlink:href="#pin"></use>
+                        </svg>
+                    </div>
+                    <div class="contacts-card-details">
+                        <span>
+                            @Model.Setting.Location
+                        </span>
+                    </div>
+                </div>
+                <div class="contacts-card">
+                    <div class="contacts-card-img">
+                        <svg class="icon">
+                            <use xlink:href="#share"></use>
+                        </svg>
+                    </div>
+                    <div class="contacts-card-details">
+                        <ul class="socials socials-dark">
+                            @foreach (Social social in Model.Socials)
+                            {
+                                if (social.Link != null)
+                                {
+                                    <li class="socials-item">
+                                        <a href="@social.Link" class="socials-link">
+                                            <svg class="icon">
+                                                <use xlink:href="@social.Icon"></use>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-style-two">
+    <div class="container">
+        <div class="row flex-column-reverse flex-lg-row">
+            <div class="col-lg-6">
+                <form asp-controller="contact" asp-action="message" method="post">
+                    <div class="col-12">
+                        <h5 class="contact-form-subtitle">Send review</h5>
+                    </div>
+                    <div class="text text-danger text-center" asp-validation-summary="All"></div>
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3 ">
+                            <input type="text" class="form-control form-input" asp-for="Message.Name" id="validationDefault01"
+                                   placeholder="Your Name" required>
+                            <span class="text text-danger" asp-validation-for="Message.Name"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control form-input" asp-for="Message.Email" id="inputEmail3"
+                                   placeholder="Your Email">
+                            <span class="text text-danger" asp-validation-for="Message.Email"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3">
+                            <input type="tel" class="form-control form-input"  id="validationDefault01"
+                                   placeholder="Your Phone" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control form-input" id="formGroupExampleInput"
+                                   placeholder="Subject">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control form-input form-mesage large-mesage"
+                                  id="exampleFormControlTextarea1" placeholder="text" rows="3"></textarea>
+                    </div>
+                    <a class="btn button-border-green " href="#">
+                        <span>Send mesage</span>
+                        <svg class="icon">
+                            <use xlink:href="#arrow"></use>
+                        </svg>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

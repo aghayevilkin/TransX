@@ -5,15 +5,18 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using TransX.Data;
 using TransX.Models;
 using TransX.ViewModels;
 
 namespace TransX.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -71,11 +74,47 @@ namespace TransX.Controllers
             if (ModelState.IsValid)
             {
 
+                var user = await _userManager.FindByEmailAsync(model.LoginViewModel.Email);
+
+                if (user != null && !user.EmailConfirmed &&
+                            (await _userManager.CheckPasswordAsync(user, model.LoginViewModel.Password)))
+                {
+                    Notify("Email not confirmed yet!", notificationType: NotificationType.error);
+                    ModelState.AddModelError(string.Empty, "Email not confirmed yet");
+
+
+
+                    var token = HttpUtility.UrlEncode(await _userManager.GenerateEmailConfirmationTokenAsync(user));
+
+
+                    //Sending mail
+                    MailMessage mail = new MailMessage();
+                    mail.From = new MailAddress("transxmanagement@gmail.com", "TransX Managements Confirm Email");
+                    mail.To.Add(user.Email);
+                    mail.Body = "<h1>Hi Bro</h1>" +
+                        "<p>For Confirm Email please visit the link below</p>" +
+                        "<a href='https://localhost:44374/account/ConfirmEmail?userId=" + user.Id + "&token=" + token + "'>Confirm Email</a>";
+                    mail.IsBodyHtml = true;
+                    mail.Subject = "Confirm Email";
+
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Port = 587;
+                    smtpClient.Credentials = new NetworkCredential("transxmanagement@gmail.com", "lhieoyaivmdladfi");
+
+                    smtpClient.Send(mail);
+
+
+
+                    return View(model);
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(model.LoginViewModel.Email, model.LoginViewModel.Password, false, false);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("index", "home");
+                    return RedirectToAction("index", "account");
 
                 }
                 else
@@ -114,8 +153,34 @@ namespace TransX.Controllers
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(customUser, false);
-                    return RedirectToAction("index", "home");
+
+                    var token = HttpUtility.UrlEncode(await _userManager.GenerateEmailConfirmationTokenAsync(customUser));
+
+
+                    //Sending mail
+                    MailMessage mail = new MailMessage();
+                    mail.From = new MailAddress("transxmanagement@gmail.com", "TransX Managements Confirm Email");
+                    mail.To.Add(customUser.Email);
+                    mail.Body = "<h1>Hi Bro</h1>" +
+                        "<p>For Confirm Email please visit the link below</p>" +
+                        "<a href='https://localhost:44374/account/ConfirmEmail?userId=" + customUser.Id + "&token=" + token + "'>Confirm Email</a>";
+                    mail.IsBodyHtml = true;
+                    mail.Subject = "Confirm Email";
+
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Port = 587;
+                    smtpClient.Credentials = new NetworkCredential("transxmanagement@gmail.com", "lhieoyaivmdladfi");
+
+                    smtpClient.Send(mail);
+                    //End of sending mail
+
+
+                    Notify("Send Email Link successfully");
+
+
+                    return RedirectToAction("login", "account");
                 }
                 else
                 {
@@ -144,14 +209,19 @@ namespace TransX.Controllers
 
             var userHasPassword = await _userManager.HasPasswordAsync(user);
 
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Where(u => u.Id != userId).Take(9).ToList();
+
             if (!userHasPassword)
             {
                 return RedirectToAction("AddPassword");
             }
 
-            VmChangePassword model = new VmChangePassword()
+            VmProfile model = new VmProfile()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                User = customUsers,
             };
             return View(model);
         }
@@ -168,10 +238,17 @@ namespace TransX.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> ChangePassword(VmChangePassword model)
+        public async Task<IActionResult> ChangePassword(VmProfile model)
         {
             Setting setting = _context.Settings.FirstOrDefault();
             model.Setting = setting;
+
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Where(u => u.Id != userId).Take(9).ToList();
+
+            model.User = customUsers;
+
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
@@ -181,16 +258,18 @@ namespace TransX.Controllers
                 }
 
                 var result = await _userManager.ChangePasswordAsync(user,
-                    model.CurrentPassword, model.NewPassword);
+                    model.VmChangePassword.CurrentPassword, model.VmChangePassword.NewPassword);
 
                 if (!result.Succeeded)
                 {
+                    Notify("The password has not been changed!", notificationType: NotificationType.error);
                     ModelState.AddModelError("", "Current Password or New Password incorrect");
                 }
                 await _signInManager.RefreshSignInAsync(user);
                 if (result.Succeeded)
                 {
-                    model.IsSuccess = true;
+                    Notify("Password Changed successfully");
+                    model.VmChangePassword.IsSuccess = true;
                 }
                 //return RedirectToAction("ChangePasswordConfirmation", "account");
             }
@@ -198,6 +277,7 @@ namespace TransX.Controllers
             return View(model);
         }
 
+        [Authorize]
         [Authorize]
         public async Task<IActionResult> AddPassword()
         {
@@ -209,28 +289,40 @@ namespace TransX.Controllers
             {
                 return RedirectToAction("ChangePassword");
             }
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Where(u => u.Id != userId).Take(9).ToList();
 
-            VmAddPassword model = new VmAddPassword()
+            VmProfile model = new VmProfile()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                User = customUsers,
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPassword(VmAddPassword model)
+        [Authorize]
+        public async Task<IActionResult> AddPassword(VmProfile model)
         {
             Setting setting = _context.Settings.FirstOrDefault();
             model.Setting = setting;
+
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Where(u => u.Id != userId).Take(9).ToList();
+            model.User = customUsers;
+
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
 
-                var result = await _userManager.AddPasswordAsync(user, model.NewPassword);
+                var result = await _userManager.AddPasswordAsync(user, model.VmAddPassword.NewPassword);
 
                 if (!result.Succeeded)
                 {
+                    Notify("The password has not been added!", notificationType: NotificationType.error);
                     ModelState.AddModelError("", "New Password incorrect");
                 }
 
@@ -238,9 +330,9 @@ namespace TransX.Controllers
 
                 if (result.Succeeded)
                 {
-                    model.IsSuccess = true;
+                    Notify("Password Add successfully");
                 }
-                //return RedirectToAction("AddPasswordConfirmation", "account");
+                return RedirectToAction("ChangePassword", "account");
             }
 
             return View(model);
@@ -287,6 +379,25 @@ namespace TransX.Controllers
             }
 
 
+
+            // Get the email claim from external login provider (Google, Facebook etc)
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            IdentityUser user = null;
+
+            if (email != null)
+            {
+                user = await _userManager.FindByEmailAsync(email);
+
+                if (user != null && !user.EmailConfirmed)
+                {
+                    Notify("Email not confirmed yet!", notificationType: NotificationType.error);
+                    ModelState.AddModelError(string.Empty, "Email not confirmed yet");
+                    return View("Login", loginViewModel);
+                }
+            }
+
+
+
             var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider,
                 info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
 
@@ -296,11 +407,9 @@ namespace TransX.Controllers
             }
             else
             {
-                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
 
                 if (email != null)
                 {
-                    var user = await _userManager.FindByEmailAsync(email);
 
                     if (user == null)
                     {
@@ -313,6 +422,35 @@ namespace TransX.Controllers
                         };
 
                         await _userManager.CreateAsync(user);
+
+                        var token = HttpUtility.UrlEncode(await _userManager.GenerateEmailConfirmationTokenAsync(user));
+
+
+                        //Sending mail
+                        MailMessage mail = new MailMessage();
+                        mail.From = new MailAddress("transxmanagement@gmail.com", "TransX Managements Confirm Email");
+                        mail.To.Add(user.Email);
+                        mail.Body = "<h1>Hi Bro</h1>" +
+                            "<p>For Confirm Email please visit the link below</p>" +
+                            "<a href='https://localhost:44374/account/ConfirmEmail?userId=" + user.Id + "&token=" + token + "'>Confirm Email</a>";
+                        mail.IsBodyHtml = true;
+                        mail.Subject = "Confirm Email";
+
+                        SmtpClient smtpClient = new SmtpClient();
+                        smtpClient.Host = "smtp.gmail.com";
+                        smtpClient.EnableSsl = true;
+                        smtpClient.Port = 587;
+                        smtpClient.Credentials = new NetworkCredential("transxmanagement@gmail.com", "lhieoyaivmdladfi");
+
+                        smtpClient.Send(mail);
+                        //End of sending mail
+
+
+                        Notify("Send Email Link successfully");
+
+
+                        return RedirectToAction("login", "account");
+
                     }
 
                     await _userManager.AddLoginAsync(user, info);
@@ -327,6 +465,158 @@ namespace TransX.Controllers
                 return View("Error");
             }
         }
+
+
+
+
+        public IActionResult ForgotPassword()
+        {
+            VmForgotPassword model = new VmForgotPassword() 
+            {
+                Setting=_context.Settings.FirstOrDefault(),
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(VmForgotPassword model)
+        {
+            Setting setting = _context.Settings.FirstOrDefault();
+            model.Setting = setting;
+
+            if (ModelState.IsValid)
+            {
+
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                // If the user is found AND Email is confirmed
+                if (user != null /*&& await _userManager.IsEmailConfirmedAsync(user)*/)
+                {
+                    // Generate the reset password token
+                    var token = HttpUtility.UrlEncode(await _userManager.GeneratePasswordResetTokenAsync(user));
+
+
+                    //Sending mail
+                    MailMessage mail = new MailMessage();
+                    mail.From = new MailAddress("transxmanagement@gmail.com", "TransX Managements Reset Password");
+                    mail.To.Add(model.Email);
+                    mail.Body = "<h1>Hi Bro</h1>" +
+                        "<p>For resetting password please visit the link below</p>" +
+                        "<a href='https://localhost:44374/account/resetpassword?email=" + model.Email + "&token=" + token + "'>Reset password</a>";
+                    mail.IsBodyHtml = true;
+                    mail.Subject = "Reset password";
+
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Port = 587;
+                    smtpClient.Credentials = new NetworkCredential("transxmanagement@gmail.com", "lhieoyaivmdladfi");
+
+                    smtpClient.Send(mail);
+                    //End of sending mail
+
+
+                    Notify("Send Email Link successfully");
+                }
+
+                return RedirectToAction("login", "account");
+            }
+
+            return View(model);
+        }
+
+
+
+
+
+
+        public IActionResult ResetPassword(string token, string email)
+        {
+
+            if (token == null || email == null)
+            {
+                Notify("Invalid password reset token!", notificationType: NotificationType.error);
+                ModelState.AddModelError("", "Invalid password reset token");
+            }
+
+            VmResetPassword model = new VmResetPassword()
+            {
+                Setting = _context.Settings.FirstOrDefault(),
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(VmResetPassword model)
+        {
+            Setting setting = _context.Settings.FirstOrDefault();
+            model.Setting = setting;
+            if (ModelState.IsValid)
+            {
+
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user != null)
+                {
+
+                    var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+                    if (result.Succeeded)
+                    {
+                        Notify("Password Reset successfully");
+                        return RedirectToAction("login", "account");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    return View(model);
+                }
+
+
+                return RedirectToAction("login", "account");
+            }
+
+            return View(model);
+        }
+
+
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                Notify("UserId or Token Invalid!", notificationType: NotificationType.error);
+                return RedirectToAction("index", "home");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+
+                ViewBag.ErrorMessage = $"The User ID {userId} is invalid";
+                return View("NotFound");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            VmBase model = new VmBase()
+            {
+                Setting = _context.Settings.FirstOrDefault(),
+            };
+
+            if (result.Succeeded)
+            {
+                Notify("Confirm Email successfully");
+                return View(model);
+            }
+
+            ViewBag.ErrorTitle = "Email cannot be confirmed";
+            return View("Error");
+        }
+
+
 
 
         public IActionResult AccessDenied()

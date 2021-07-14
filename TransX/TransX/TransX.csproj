@@ -94,8 +94,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\img\docx.svg" />
+    <None Include="wwwroot\img\pdf.svg" />
+    <None Include="wwwroot\img\plane.svg" />
+    <None Include="wwwroot\img\road_freight.svg" />
+    <None Include="wwwroot\img\shipping.svg" />
+    <None Include="wwwroot\img\train.svg" />
+    <None Include="wwwroot\img\verification.svg" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\sweetalert2.min.js" />
+    <None Include="wwwroot\plugin\jquery.fancybox.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -11,7 +11,7 @@ using TransX.ViewModels;
 
 namespace TransX.Controllers
 {
-    public class BlogController : Controller
+    public class BlogController : BaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -108,7 +108,7 @@ namespace TransX.Controllers
                 model.AddedDate = DateTime.Now;
                 _context.BlogComments.Add(model);
                 _context.SaveChanges();
-                ViewBag.Message = "Test Alert";
+                Notify("Add Comments successfully");
             }
             return RedirectToAction("Details", new { id = bId });
 

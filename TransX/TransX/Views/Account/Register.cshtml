@@ -34,7 +34,7 @@
                         <div class="input-with-icon">
                             <input type="text" class="form-control form-input" id="Name" asp-for="RegisterViewModel.Name" placeholder="Name" />
                             <span id="error_name" class="text-danger"></span>
-                            <i class="ti-user"></i>
+                            <i class="ti-icon ti-user"></i>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <div class="input-with-icon">
                             <input type="text" class="form-control form-input" id="Surname" asp-for="RegisterViewModel.Surname" placeholder="Surname" />
                             <span id="error_surname" class="text-danger"></span>
-                            <i class="ti-email"></i>
+                            <i class="ti-icon ti-email"></i>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         <div class="input-with-icon">
                             <input type="email" class="form-control form-input" id="Email" asp-for="RegisterViewModel.Email" placeholder="Email" />
                             <span id="error_email" class="text-danger"></span>
-                            <i class="ti-user"></i>
+                            <i class="ti-icon ti-user"></i>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         <div class="input-with-icon">
                             <input type="password" class=" form-control form-input" id="Password" asp-for="RegisterViewModel.Password" placeholder="*******" />
                             <span id="error_password" class="text-danger"></span>
-                            <i class="ti-unlock"></i>
+                            <i class="ti-icon ti-unlock"></i>
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                         <div class="input-with-icon">
                             <input type="password" class=" form-control form-input" id="Confirm" asp-for="RegisterViewModel.ConfirmPassword" placeholder="*******" />
                             <span id="error_confirm" class="text-danger"></span>
-                            <i class="ti-unlock"></i>
+                            <i class="ti-icon ti-unlock"></i>
                         </div>
                     </div>
                 </div>
@@ -99,12 +99,7 @@
         </form>
     </div>
     <div class="modal-divider"><span>Or login via</span></div>
-    <div class="social-login mb-3">
-        <ul>
-            <li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
-            <li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google+</a></li>
-        </ul>
-    </div>
+    @await Component.InvokeAsync("ExternalLogin")
     <div class="text-center">
         <p class="mt-5"><i class="ti-user mr-1"></i>Already Have An Account? <a href="#" class="link">Go For LogIn</a></p>
     </div>

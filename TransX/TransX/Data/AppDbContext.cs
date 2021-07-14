@@ -25,5 +25,6 @@ namespace TransX.Data
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<PageHeader> PageHeaders { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

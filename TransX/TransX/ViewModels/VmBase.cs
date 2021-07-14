@@ -11,9 +11,12 @@ namespace TransX.ViewModels
     {
         public VmLogin LoginViewModel { get; set; }
         public VmRegister RegisterViewModel { get; set; }
+        
         public PageHeader pageHeader { get; set; }
         public PageHeader pageHeaderDetails { get; set; }
         public Setting Setting { get; set; }
+        public Message Message { get; set; }
+        public List<Social> Socials { get; set; }
 
 
         public string ReturnUrl { get; set; }
