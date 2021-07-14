@@ -1,0 +1,92 @@
+﻿@model VmBase
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Settings</h4>
+            <div class="mr-2">
+                @if (Model.Setting == null)
+                {
+                    <a asp-controller="setting" asp-action="create" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create Setting</a>
+                }
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Logo White
+                            </th>
+                            <th>
+                                Logo Black
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @if (Model.Setting != null)
+                            {
+                                <td><img src="~/Uploads/Images/Settings/@Model.Setting.LogoWhite" alt="image" width="100" style=" width: 15rem; height: 50px; border-radius: 10px; object-fit: cover;" /></td>
+                                <td><img src="~/Uploads/Images/Settings/@Model.Setting.LogoBlack" alt="image" width="100" style=" width: 15rem; height: 50px; border-radius: 10px; object-fit: cover;" /></td>
+                            }
+                            else
+                            {
+                                <td class="alert alert-danger">Setting  boshdur Xais olunur elave edin</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Location
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Phone
+                            </th>
+                            <th>
+                                Opening Hours
+                            </th>
+                            <th>Footer</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @if (Model.Setting != null)
+                            {
+                                <td>@Model.Setting.Location</td>
+                                <td>@Model.Setting.Email</td>
+                                <td>@Model.Setting.Phone</td>
+                                <td>@Model.Setting.OpenningHours </td>
+                                <td>@Model.Setting.Footer </td>
+                                <td>
+                                    <a asp-controller="setting" asp-action="update" asp-route-id="@Model.Setting.Id" class="btn btn-primary"><i class="fas fa-pen"></i> Update</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert alert-danger">Setting  boshdur Xais olunur elave edin</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

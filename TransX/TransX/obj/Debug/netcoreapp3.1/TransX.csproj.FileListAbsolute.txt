@@ -181,3 +181,12 @@ C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Adm
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Blog\UpdateHeader.cshtml.g.cs
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Blog\CreateHeaderDetails.cshtml.g.cs
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Blog\UpdateHeaderDetails.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Setting\Index.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Setting\Create.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Setting\Update.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangePassword.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangePasswordConfirmation.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.Google.dll
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\ExternalLogin\Default.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.Facebook.dll
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Account\AddPassword.cshtml.g.cs

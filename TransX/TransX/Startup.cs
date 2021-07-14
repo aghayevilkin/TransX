@@ -30,6 +30,17 @@ namespace TransX
             services.AddDbContext<AppDbContext>(options =>
                                            options.UseSqlServer(Configuration.GetConnectionString("TransXdb")));
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "1030061333276-pkn7r9ppjoub4m4fgoj9e75co8vsbjph.apps.googleusercontent.com";
+                options.ClientSecret = "VTOikjga_pTA4MRzppxAMyRf";
+            }).AddFacebook(options =>
+            {
+                options.AppId = "329358235396788";
+                options.AppSecret = "2dd18154f418af3761c5774a785703b7";
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

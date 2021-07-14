@@ -1,0 +1,67 @@
+﻿@model Setting
+@{
+    ViewData["Title"] = "Update";
+}
+
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-area="admin" asp-controller="setting" asp-action="Update" method="post" onsubmit="return myTitle()" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">Location</label>
+                        <input class="form-control" asp-for="Location">
+                        <span id="messages" asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Email</label>
+                        <input class="form-control" asp-for="Email">
+                        <span id="messages" asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Phone</label>
+                        <input class="form-control" asp-for="Phone">
+                        <span id="messages" asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Openning Hours</label>
+                        <input class="form-control" id="title" asp-for="OpenningHours">
+                        <span id="messages" asp-validation-for="OpenningHours" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Footer</label>
+                        <input class="form-control" id="title" asp-for="Footer">
+                        <span id="messages" asp-validation-for="Footer" class="text-danger"></span>
+                    </div>
+                    <p>Logo White</p>
+                    <div class="input-file">
+                        <span id="messages" asp-validation-for="ImageFile" class="text-danger"></span>
+                        <img id="file_upload" src="~/Uploads/Images/Accounts/@Model.LogoWhite" alt="your image" class="upload-img" />
+                        <div class="input-file-upload">
+                            <span class="upload-label">Upload Image</span>
+                            <input type='file' onchange="readURL(this);" asp-for="ImageFile" />
+                        </div>
+                    </div>
+                    <p>Logo Black</p>
+                    <div class="input-file">
+                        <span id="messages" asp-validation-for="ImageFileTwo" class="text-danger"></span>
+                        <img id="file_uploadTwo" src="~/Uploads/Images/Accounts/@Model.LogoBlack" alt="your image" class="upload-img" />
+                        <div class="input-file-upload">
+                            <span class="upload-label">Upload Image</span>
+                            <input type='file' onchange="readURLTwo(this);" asp-for="ImageFileTwo" />
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="LogoWhite" value="@Model.LogoWhite" />
+                    <input type="hidden" name="LogoBlack" value="@Model.LogoBlack" />
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button asp-action="index" class="btn btn-danger">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

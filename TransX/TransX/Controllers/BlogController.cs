@@ -59,6 +59,7 @@ namespace TransX.Controllers
                 Comments = _context.BlogComments.ToList(),
                 Tags = _context.BlogTags.Include(b => b.TagToBlogs).ThenInclude(bl => bl.Blog).ToList(),
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "blog").FirstOrDefault(),
+                Setting = _context.Settings.FirstOrDefault(),
             };
 
             return View(model);
@@ -82,6 +83,7 @@ namespace TransX.Controllers
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "blogdetails").FirstOrDefault(),
                 pageHeaderDetails = _context.PageHeaders.Where(p => p.Page == "blogdetails").FirstOrDefault(),
                 Tags = _context.BlogTags.Include(tb=>tb.TagToBlogs).ThenInclude(b=>b.Blog).ToList(),
+                Setting = _context.Settings.FirstOrDefault(),
             };
 
 

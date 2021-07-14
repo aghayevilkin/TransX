@@ -52,10 +52,36 @@
         </form>
     </div>
     <div class="modal-divider"><span>Or login via</span></div>
+
+    @*@await Component.InvokeAsync("ExternalLogin");*@
+
     <div class="social-login mb-3">
         <ul>
-            <li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
-            <li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google+</a></li>
+            @if (Model.ExternalLogins.Count==0)
+            {
+                <li class="modal-divider"><span>No external login configured</span></li>
+            }
+            else
+            {
+                <li style="margin:0 25%;">
+                    <form method="post" asp-controller="Account" asp-action="ExternalLogin" asp-all-route-returnUrl="@Model.ReturnUrl">
+                        <div>
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                            
+                                <button type="submit" class="btn text-white connect-@provider.Name"
+                                        name="provider"
+                                        value="@provider.Name" style="width:100%;"><a class="btn connect-@provider.Name" title="Login usin your @provider.DisplayName account">
+                                    <i class="ti-google"></i>
+                                    @provider.DisplayName
+                                    </a>
+                                </button>
+                            }
+                        </div>
+                    </form>
+                </li>
+            }
+
         </ul>
     </div>
     <div class="text-center">

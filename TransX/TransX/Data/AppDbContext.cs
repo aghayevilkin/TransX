@@ -24,5 +24,6 @@ namespace TransX.Data
         public DbSet<TagToBlog> TagToBlogs { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<PageHeader> PageHeaders { get; set; }
+        public DbSet<Setting> Settings { get; set; }
     }
 }

@@ -9,42 +9,53 @@
         <div class="row">
             <div class="col-6">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <form asp-area="admin" asp-controller="blog" asp-action="create" method="post" onsubmit="return myTitle()" enctype="multipart/form-data">
+                <form asp-area="admin" asp-controller="blog" asp-action="create" method="post" id="basic-form" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input class="form-control" id="title" asp-for="@Model.Blog.Title">
-                        <span id="messages" asp-validation-for="@Model.Blog.Title" class="text-danger"></span>
+                        <input class="form-control" id="title" asp-for="Blog.Title">
+                        <h5 id="titlecheck" style="color: red;">
+                            **Title is missing
+                        </h5>
+                        <span id="messages" asp-validation-for="Blog.Title" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="Content">Contect</label>
-                        <textarea class="form-control" id="Content" asp-for="@Model.Blog.Content" rows="6"></textarea>
-                        <span asp-validation-for="@Model.Blog.Content" class="text-danger"></span>
+                        <textarea class="form-control" id="Content" asp-for="Blog.Content" rows="6"></textarea>
+                        <h5 id="contentcheck" style="color: red;">
+                            **Content is missing
+                        </h5>
+                        <span asp-validation-for="Blog.Content" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="categoryId">Category</label>
-                        <select id="categoryId" class="form-control" asp-for="@Model.Blog.CategoryId" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))">
+                        <select id="categoryId" class="form-control" asp-for="Blog.CategoryId" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))">
                         </select>
-                        <span asp-validation-for="@Model.Blog.CategoryId" class="text-danger"></span>
+                        <span asp-validation-for="Blog.CategoryId" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="TagIds">Tag</label>
-                        <select id="TagIds" class="form-control multi-select" multiple asp-for="@Model.Blog.TagIds" asp-items="@(new SelectList(ViewBag.Tags, "Id", "Name"))">
+                        <select id="TagIds" class="form-control multi-select" multiple asp-for="Blog.TagIds" asp-items="@(new SelectList(ViewBag.Tags, "Id", "Name"))">
                         </select>
-                        <span asp-validation-for="@Model.Blog.TagIds" class="text-danger"></span>
+                        <span asp-validation-for="Blog.TagIds" class="text-danger"></span>
                     </div>
                     <div class="input-file">
+                        <span id="messages" asp-validation-for="Blog.ImageFile" class="text-danger"></span>
                         <img id="file_upload" src="http://placehold.it/70" alt="your image" class="upload-img" />
                         <div class="input-file-upload">
                             <span class="upload-label">Upload Image</span>
-                            <input type='file' onchange="readURL(this);" asp-for="@Model.Blog.ImageFile" />
+                            <input type='file' id="image" onchange="readURL(this);" asp-for="Blog.ImageFile" />
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" id="submitbtn"  class="btn btn-primary">Add</button>
                     <button asp-action="index" class="btn btn-danger">Cancel</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+<script src="~/areas/admin/js/testblog.js"></script>

@@ -94,48 +94,65 @@ namespace TransX.Areas.Admin.Controllers
                     ViewBag.Tags = tags;
                     return View(model);
                 }
-                if (model.Blog.ImageFile.ContentType == "image/png" || model.Blog.ImageFile.ContentType == "image/jpeg" || model.Blog.ImageFile.ContentType == "image/gif" || model.Blog.ImageFile.ContentType == "image/svg")
+                if (model.Blog.ImageFile != null)
                 {
-                    if (model.Blog.ImageFile.Length <= 2097152)
+                    if (model.Blog.ImageFile.ContentType == "image/png" || model.Blog.ImageFile.ContentType == "image/jpeg" || model.Blog.ImageFile.ContentType == "image/gif" || model.Blog.ImageFile.ContentType == "image/svg")
                     {
-                        string fileName = Guid.NewGuid() + "-" + DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + model.Blog.ImageFile.FileName;
-                        string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Blogs", fileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        if (model.Blog.ImageFile.Length <= 2097152)
                         {
-                            model.Blog.ImageFile.CopyTo(stream);
-                        }
-
-                        model.Blog.Image = fileName;
-                        model.Blog.UserId = _userManager.GetUserId(User);
-                        model.Blog.AddedDate = DateTime.Now;
-
-                        _context.Blogs.Add(model.Blog);
-                        _context.SaveChanges();
-
-                        foreach (var item in model.Blog.TagIds)
-                        {
-                            TagToBlog tagToBlog = new TagToBlog()
+                            string fileName = Guid.NewGuid() + "-" + DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + model.Blog.ImageFile.FileName;
+                            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Blogs", fileName);
+                            using (var stream = new FileStream(filePath, FileMode.Create))
                             {
-                                BlogId = model.Blog.Id,
-                                TagId = item
-                            };
+                                model.Blog.ImageFile.CopyTo(stream);
+                            }
 
-                            _context.TagToBlogs.Add(tagToBlog);
+                            model.Blog.Image = fileName;
+                            model.Blog.UserId = _userManager.GetUserId(User);
+                            model.Blog.AddedDate = DateTime.Now;
+
+                            _context.Blogs.Add(model.Blog);
+                            _context.SaveChanges();
+
+                            if (model.Blog.TagIds == null)
+                            {
+                                ModelState.AddModelError("TagIds", "Tag secmelisiniz!");
+                                return View(model);
+                            }
+                            else
+                            {
+                                foreach (var item in model.Blog.TagIds)
+                                {
+                                    TagToBlog tagToBlog = new TagToBlog()
+                                    {
+                                        BlogId = model.Blog.Id,
+                                        TagId = item
+                                    };
+
+                                    _context.TagToBlogs.Add(tagToBlog);
+                                }
+                            }
+
+
+                            _context.SaveChanges();
+
+                            return RedirectToAction("Index");
                         }
-
-                        _context.SaveChanges();
-
-                        return RedirectToAction("Index");
+                        else
+                        {
+                            ModelState.AddModelError("ImageFile", "Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!");
+                        }
                     }
                     else
                     {
-                        ModelState.AddModelError("ImageFile", "Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!");
+                        ModelState.AddModelError("ImageFile", "Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("ImageFile", "Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!");
+                    ModelState.AddModelError("ImageFile", "No Image Found!");
                 }
+                
             }
 
             return View(model);

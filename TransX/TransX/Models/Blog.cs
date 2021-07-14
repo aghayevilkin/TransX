@@ -12,15 +12,17 @@ namespace TransX.Models
     {
         [Key]
         public int Id { get; set; }
-        [MaxLength(500), Required]
+        [MaxLength(500),Required(ErrorMessage = "Title boş olmamalıdır!")]
         public string Title { get; set; }
         [MaxLength(250)]
         public string Image { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
-        [Column(TypeName = "ntext")]
+        [Column(TypeName = "ntext"),Required(ErrorMessage = "Content boş olmamalıdır!")]
         public string Content { get; set; }
         public DateTime AddedDate { get; set; }
+
+        [Required(ErrorMessage = "Category Secmelisiniz!")]
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public BlogCategory Category { get; set; }

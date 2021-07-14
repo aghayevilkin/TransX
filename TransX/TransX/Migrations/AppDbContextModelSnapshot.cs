@@ -235,6 +235,7 @@ namespace TransX.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("ntext");
 
                     b.Property<string>("Image")
@@ -352,6 +353,45 @@ namespace TransX.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PageHeaders");
+                });
+
+            modelBuilder.Entity("TransX.Models.Setting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Footer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("LogoBlack")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogoWhite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OpenningHours")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("TransX.Models.Social", b =>

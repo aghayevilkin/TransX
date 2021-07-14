@@ -179,18 +179,15 @@
                             <span>
                                 <svg class="icon">
                                     <use xlink:href="#pin"></use>
-                                </svg> Elliott Ave, Parkville VIC 3052, Melbourne
+                                </svg> @Model.Setting.Location
                             </span><span>
                                 <svg class="icon">
                                     <use xlink:href="#phone"></use>
-                                </svg><a class="me-4" href="tel:+31859644720">+31 85 964 47 20</a><a href="tel:+31859644719">
-                                    +31 85
-                                    964 47 19
-                                </a>
+                                </svg><a class="me-4" href="tel:@Model.Setting.Phone">@Model.Setting.Phone</a>
                             </span><span>
                                 <svg class="icon">
                                     <use xlink:href="#mail"></use>
-                                </svg><a href="mailto:transport@mail.com">transport@mail.com</a>
+                                </svg><a href="mailto:@Model.Setting.Email">@Model.Setting.Email</a>
                             </span>
                         </div>
                         <div class=" col-xl-4 text-end  ">
@@ -245,10 +242,10 @@
                                 <span></span>
                             </div>
                             <div class="logo logo-light">
-                                <a asp-controller="home" asp-action="index"><img src="~/img/logo_white.png" alt="" /></a>
+                                <a asp-controller="home" asp-action="index"><img src="~/Uploads/Images/Settings/@Model.Setting.LogoWhite" alt="" /></a>
                             </div>
                             <div class=" logo logo-dark d-none">
-                                <a asp-controller="home" asp-action="index"><img src="~/img/logo_black.png" alt="" /></a>
+                                <a asp-controller="home" asp-action="index"><img src="~/Uploads/Images/Settings/@Model.Setting.LogoBlack" alt="" /></a>
                             </div>
                         </div>
                         <div class="d-none d-lg-block col-lg-6">
@@ -375,17 +372,17 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="footer-logo">
                             <a href="index.html">
-                                <img src="~/img/logo_white.png"
+                                <img src="~/Uploads/Images/Settings/@Model.Setting.LogoWhite"
                                      alt="logo" />
                             </a>
                         </div>
                         <div class="footer-details">
-                            <p><strong>Location:</strong> <span>av. Washington 165, NY CA 54003</span></p>
+                            <p><strong>Location:</strong> <span>@Model.Setting.Location</span></p>
                             <p>
-                                <strong>Phone:</strong> <a href="tel:+31859644725">+31 85 964 47 25</a> <a href="tel:+31859644725">+31 65 792 63 11</a>
+                                <strong>Phone:</strong> <a href="tel:@Model.Setting.Phone">@Model.Setting.Phone</a>
                             </p>
-                            <p><strong>Email:</strong> <a href="mailto:info@transx.com">info@transx.com</a></p>
-                            <p><strong>Openning hours:</strong> <span>9:00 AM - 5:00 PM</span></p>
+                            <p><strong>Email:</strong> <a href="mailto:@Model.Setting.Email">@Model.Setting.Email</a></p>
+                            <p><strong>Openning hours:</strong> <span>@Model.Setting.OpenningHours</span></p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 top-30 top-md-0">
@@ -423,7 +420,7 @@
                 </div>
                 <div class="row mt-5 flex-column-reverse flex-sm-row">
                     <div class="col-sm-6 col-lg-4 mt-3 top-sm-0  text-sm-left">
-                        <div class="footer-copyright">© 2020 TransX. All rights reserved</div>
+                        <div class="footer-copyright">© @Model.Setting.Footer</div>
                     </div>
                     <div class="col-sm-6 col-lg-8 d-flex justify-content-center justify-content-sm-end justify-content-lg-between">
                         <div class=" center-footer d-none d-lg-block">

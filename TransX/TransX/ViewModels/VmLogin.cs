@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authentication;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace TransX.ViewModels
         public string Email { get; set; }
         [Required, MaxLength(30)]
         public string Password { get; set; }
+
+        
     }
 }
