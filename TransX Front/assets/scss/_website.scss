@@ -394,3 +394,9 @@
 	margin: 0;
 	list-style: none;
 }
+.offbtn{
+	color: $title-color;
+	&:hover{
+		color: $primary-color;
+	}
+}

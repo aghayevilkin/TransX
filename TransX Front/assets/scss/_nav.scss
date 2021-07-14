@@ -182,6 +182,8 @@
 }
 //class
 .nav-menu-scrool {
+	
+	
 	.nav-item {
 		.nav-link {
 			color: $color-white;
@@ -236,7 +238,11 @@
 	z-index: 5;
 	transition: all .3s;
     box-shadow: 0 3px 10px 2px $color-wgray;
-	
+	.offbtn{
+		span{
+			color:$title-color;
+		}
+	}
 	
 	.burger-menu {
 		span {
