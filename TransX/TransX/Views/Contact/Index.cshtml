@@ -1,28 +1,43 @@
 ﻿@model VmBase
+@inject SignInManager<IdentityUser> SignInManager
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Contact";
 }
 
-<section class="hero-banner">
-    <picture>
-        <source srcset="~/img/service-details.jpg" media="(min-width: 992px)">
-        <img class="bg-img"
-             src="assets/img/service-details.jpg" alt="img">
-    </picture>
-    <div class="hero-layout"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="align-container">
-                    <div class="align-container-item">
-                        <span class="hero-overlay">TransX</span>
-                        <h1 class="hero-title">Contact us</h1>
+@if (Model.pageHeader != null)
+{
+    <section class="hero-banner">
+        <picture>
+            <source srcset="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" media="(min-width: 992px)">
+            <img class="bg-img"
+                 src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="img">
+        </picture>
+        <div class="hero-layout"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="align-container">
+                        <div class="align-container-item">
+                            <span class="hero-overlay">@Model.pageHeader.Subtitle</span>
+                            <h1 class="hero-title">@Model.pageHeader.Title</h1>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+}
+else
+{
+    <div class="banner-area-wrapper">
+        <div class="container">
+            <div class="row">
+                <h3 class="alert alert-danger text-center">Page Header Elave Edin</h3>
+            </div>
+        </div>
     </div>
-</section>
+}
+
 <section class="section-style-two pb-0">
     <img class="contact-bg" src="~/img/contacts-map.png" alt="">
     <div class="container">
@@ -129,38 +144,43 @@
                         <h5 class="contact-form-subtitle">Send review</h5>
                     </div>
                     <div class="text text-danger text-center" asp-validation-summary="All"></div>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <input type="hidden" asp-for="Message.Name" value="@ViewBag.User" />
+                        <input type="hidden" asp-for="Message.Email" value="@ViewBag.Email" />
+                    }
+                    else
+                    {
+                        <div class="form-group row">
+                            <div class="col-md-6 mb-3 ">
+                                <input type="text" class="form-control form-input" asp-for="Message.Name" id="validationDefault01"
+                                       placeholder="Your Name" required>
+                                <span class="text text-danger" asp-validation-for="Message.Name"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control form-input" asp-for="Message.Email" id="inputEmail3"
+                                       placeholder="Your Email" required>
+                                <span class="text text-danger" asp-validation-for="Message.Email"></span>
+                            </div>
+                        </div>
+                    }
+
                     <div class="form-group row">
-                        <div class="col-md-6 mb-3 ">
-                            <input type="text" class="form-control form-input" asp-for="Message.Name" id="validationDefault01"
-                                   placeholder="Your Name" required>
-                            <span class="text text-danger" asp-validation-for="Message.Name"></span>
-                        </div>
                         <div class="col-md-6">
-                            <input type="email" class="form-control form-input" asp-for="Message.Email" id="inputEmail3"
-                                   placeholder="Your Email">
-                            <span class="text text-danger" asp-validation-for="Message.Email"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-6 mb-3">
-                            <input type="tel" class="form-control form-input"  id="validationDefault01"
-                                   placeholder="Your Phone" required>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control form-input" id="formGroupExampleInput"
+                            <input type="text" class="form-control form-input" asp-for="Message.Subject" id="formGroupExampleInput"
                                    placeholder="Subject">
                         </div>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control form-input form-mesage large-mesage"
-                                  id="exampleFormControlTextarea1" placeholder="text" rows="3"></textarea>
+                        <textarea class="form-control form-input form-mesage large-mesage" asp-for="Message.Content"
+                                  id="exampleFormControlTextarea1" placeholder="Message" rows="3"></textarea>
                     </div>
-                    <a class="btn button-border-green " href="#">
+                    <button class="btn button-border-green " href="#">
                         <span>Send mesage</span>
                         <svg class="icon">
                             <use xlink:href="#arrow"></use>
                         </svg>
-                    </a>
+                    </button>
                 </form>
             </div>
         </div>

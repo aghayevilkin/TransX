@@ -980,6 +980,15 @@
 .ti-google:before {
 	content: "\e73e";
 }
+.ti-Google:before {
+	content: "\e73e";
+}
+.ti-fb:before {
+	content: "\e741";
+}
+.ti-Facebook:before {
+	content: "\e741";
+}
 .ti-github:before {
 	content: "\e73f";
 }

@@ -16,6 +16,7 @@ namespace TransX.ViewModels
         public PageHeader pageHeaderDetails { get; set; }
         public Setting Setting { get; set; }
         public Message Message { get; set; }
+        public List<Message> Messages { get; set; }
         public List<Social> Socials { get; set; }
 
 

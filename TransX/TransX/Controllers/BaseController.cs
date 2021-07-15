@@ -12,7 +12,7 @@ namespace TransX.Controllers
 {
     public class BaseController : Controller
     {
-        public void Notify(string message, string title = "TransX Sweet Alert",
+        public void Notify(string message, string title = "",
                                     NotificationType notificationType = NotificationType.success)
         {
             var msg = new

@@ -20,7 +20,7 @@ namespace TransX.Models
 
         [MaxLength(50, ErrorMessage = "Maksimum 50 charakter daxil edə bilərsiniz"), Required(ErrorMessage = "Subject boş olmamalıdır!")]
         public string Subject { get; set; }
-        [Column(TypeName = "ntext")]
+        [Column(TypeName = "ntext"), Required(ErrorMessage = "Content boş olmamalıdır!")]
         public string Content { get; set; }
         public DateTime AddedDate { get; set; }
     }

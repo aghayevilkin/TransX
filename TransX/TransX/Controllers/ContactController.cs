@@ -10,7 +10,7 @@ using TransX.ViewModels;
 
 namespace TransX.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : BaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -27,6 +27,15 @@ namespace TransX.Controllers
 
         public IActionResult Index()
         {
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+
+            if (customUsers!=null)
+            {
+                ViewBag.User = customUsers.Name;
+                ViewBag.Email = customUsers.Email;
+            }
+            
             VmBase model = new VmBase()
             {
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "contact").FirstOrDefault(),
@@ -39,13 +48,19 @@ namespace TransX.Controllers
 
 
         [HttpPost]
-        public IActionResult Message(Message model)
+        public IActionResult Message(VmBase model)
         {
+
             if (ModelState.IsValid)
             {
-                model.AddedDate = DateTime.Now;
-                _context.Messages.Add(model);
+                model.Message.AddedDate = DateTime.Now;
+                _context.Messages.Add(model.Message);
                 _context.SaveChanges();
+                Notify("Message send successfully");
+            }
+            else
+            {
+                Notify("Message not send yet!", notificationType: NotificationType.error);
             }
             return RedirectToAction("Index");
         }

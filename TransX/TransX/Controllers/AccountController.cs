@@ -278,7 +278,6 @@ namespace TransX.Controllers
         }
 
         [Authorize]
-        [Authorize]
         public async Task<IActionResult> AddPassword()
         {
             var user = await _userManager.GetUserAsync(User);

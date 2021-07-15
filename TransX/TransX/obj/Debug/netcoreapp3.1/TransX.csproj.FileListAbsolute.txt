@@ -196,3 +196,7 @@ C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Acc
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Account\ForgotPassword.cshtml.g.cs
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPassword.cshtml.g.cs
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Account\ConfirmEmail.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Contact\Index.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Contact\CreateHeader.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Contact\UpdateHeader.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_notificationPartial.cshtml.g.cs

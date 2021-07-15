@@ -21,8 +21,12 @@
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="~/areas/admin/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link href="~/areas/admin/css/sweetalert2.min.css" rel="stylesheet" />
     <!-- endinject -->
     <link rel="shortcut icon" href="~/areas/admin/images/favicon.png" />
+    <script src="https://kit.fontawesome.com/d58faeafe2.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container-scroller">
@@ -140,29 +144,29 @@
                             </div>
                         </li>
                         @*<li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#about" aria-expanded="false" aria-controls="about">
-                                <i class="fa fa-eye menu-icon"></i>
-                                <span class="menu-title">About</span>
-                                <span class="badge badge-info">1</span>
-                            </a>
-                            <div class="collapse" id="about">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="about" asp-action="index"> About </a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#contact" aria-expanded="false" aria-controls="contact">
-                                <i class="fa fa-address-card-o menu-icon"></i>
-                                <span class="menu-title">Contact</span>
-                                <span class="badge badge-warning">1</span>
-                            </a>
-                            <div class="collapse" id="contact">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="contact" asp-action="index"> Contact</a></li>
-                                </ul>
-                            </div>
-                        </li>*@
+                    <a class="nav-link" data-toggle="collapse" href="#about" aria-expanded="false" aria-controls="about">
+                        <i class="fa fa-eye menu-icon"></i>
+                        <span class="menu-title">About</span>
+                        <span class="badge badge-info">1</span>
+                    </a>
+                    <div class="collapse" id="about">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" asp-controller="about" asp-action="index"> About </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#contact" aria-expanded="false" aria-controls="contact">
+                        <i class="fa fa-address-card-o menu-icon"></i>
+                        <span class="menu-title">Contact</span>
+                        <span class="badge badge-warning">1</span>
+                    </a>
+                    <div class="collapse" id="contact">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" asp-controller="contact" asp-action="index"> Contact</a></li>
+                        </ul>
+                    </div>
+                </li>*@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#blog" aria-expanded="false" aria-controls="blog">
                                 <i class="fa fa-ravelry menu-icon"></i>
@@ -177,33 +181,33 @@
                             </div>
                         </li>
                         @*<li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#courses" aria-expanded="false" aria-controls="courses">
-                                <i class=" icon-book-open menu-icon"></i>
-                                <span class="menu-title">Courses</span>
-                                <span class="badge badge-danger">2</span>
-                            </a>
-                            <div class="collapse" id="courses">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="courses" asp-action="index">Courses</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="courses" asp-action="create">Create Course</a></li>
-                                </ul>
-                            </div>
-                        </li>
+                    <a class="nav-link" data-toggle="collapse" href="#courses" aria-expanded="false" aria-controls="courses">
+                        <i class=" icon-book-open menu-icon"></i>
+                        <span class="menu-title">Courses</span>
+                        <span class="badge badge-danger">2</span>
+                    </a>
+                    <div class="collapse" id="courses">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" asp-controller="courses" asp-action="index">Courses</a></li>
+                            <li class="nav-item"> <a class="nav-link" asp-controller="courses" asp-action="create">Create Course</a></li>
+                        </ul>
+                    </div>
+                </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#event" aria-expanded="false" aria-controls="event">
-                                <i class=" fa fa-superpowers menu-icon"></i>
-                                <span class="menu-title">Event</span>
-                                <span class="badge badge-danger">3</span>
-                            </a>
-                            <div class="collapse" id="event">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="index">Event</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="create">Create Event</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="speaker">Speaker</a></li>
-                                </ul>
-                            </div>
-                        </li>*@
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#event" aria-expanded="false" aria-controls="event">
+                        <i class=" fa fa-superpowers menu-icon"></i>
+                        <span class="menu-title">Event</span>
+                        <span class="badge badge-danger">3</span>
+                    </a>
+                    <div class="collapse" id="event">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="index">Event</a></li>
+                            <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="create">Create Event</a></li>
+                            <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="speaker">Speaker</a></li>
+                        </ul>
+                    </div>
+                </li>*@
 
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="false" aria-controls="users">
@@ -233,22 +237,22 @@
                         </li>
 
                         @*<li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#e-commerce" aria-expanded="false" aria-controls="e-commerce">
-                                <i class="icon-briefcase menu-icon"></i>
-                                <span class="menu-title">Teacher</span>
-                                <span class="badge badge-info">6</span>
-                            </a>
-                            <div class="collapse" id="e-commerce">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="index"> Teacher </a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="create"> Teacher Create </a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="social"> Social </a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="socialtoteacher"> Social To Teacher </a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="skill"> Skill </a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="skilltoteacher"> Skill To Teacher </a></li>
-                                </ul>
-                            </div>
-                        </li>*@
+                    <a class="nav-link" data-toggle="collapse" href="#e-commerce" aria-expanded="false" aria-controls="e-commerce">
+                        <i class="icon-briefcase menu-icon"></i>
+                        <span class="menu-title">Teacher</span>
+                        <span class="badge badge-info">6</span>
+                    </a>
+                    <div class="collapse" id="e-commerce">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="index"> Teacher </a></li>
+                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="create"> Teacher Create </a></li>
+                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="social"> Social </a></li>
+                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="socialtoteacher"> Social To Teacher </a></li>
+                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="skill"> Skill </a></li>
+                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="skilltoteacher"> Skill To Teacher </a></li>
+                        </ul>
+                    </div>
+                </li>*@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="setting">
                                 <i class="fa fa-cogs menu-icon"></i>
@@ -268,7 +272,10 @@
 
                 @RenderBody()
 
+                <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
                 <!-- plugins:js -->
                 <script src="~/areas/admin/vendors/js/vendor.bundle.base.js"></script>
                 <!-- endinject -->
@@ -294,7 +301,9 @@
                 <script src="~/js/main.js"></script>
                 <script src="~/areas/admin/js/script.js"></script>
                 <!-- End custom js for this page-->
+                <script src="~/plugin/sweetalert2.min.js"></script>
                 @RenderSection("Scripts", required: false)
+                @await Html.PartialAsync("_notificationPartial")
 </body>
 
 
