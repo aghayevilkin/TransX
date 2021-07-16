@@ -198,6 +198,9 @@ namespace TransX.Areas.Admin.Controllers
                 CustomUser customUser = _context.CustomUsers.Find(model.Id);
                 customUser.Name = model.Name;
                 customUser.Surname = model.Surname;
+                customUser.Profision = model.Profision;
+                customUser.Adress = model.Adress;
+                customUser.About = model.About;
                 customUser.IsVerify = model.IsVerify;
 
                 var selectedRole = _context.Roles.Find(model.RoleId);

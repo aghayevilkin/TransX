@@ -1,7 +1,7 @@
 ﻿@model VmProfile
 @inject UserManager<IdentityUser> UserManager
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Account";
     ViewBag.Section = "dashboard";
 }
 
@@ -57,8 +57,8 @@
 
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="dashboard-stat widget-1">
-                            <div class="dashboard-stat-content"><h4>607</h4> <span>Listings Included</span></div>
-                            <div class="dashboard-stat-icon"><i class="ti-location-pin"></i></div>
+                            <div class="dashboard-stat-content"><h4>@Model.Posts.Count</h4> <span>My Blogs</span></div>
+                            <div class="dashboard-stat-icon"><i class="fas fa-blog"></i></div>
                         </div>
                     </div>
 
@@ -92,8 +92,16 @@
 
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="dashboard-stat widget-6">
-                            <div class="dashboard-stat-content"><h4>2021-02-26</h4> <span>Ends On</span></div>
-                            <div class="dashboard-stat-icon"><i class="ti-user"></i></div>
+                            @if (ViewBag.LastPostDate != null)
+                            {
+                                <div class="dashboard-stat-content"><h4>@ViewBag.LastPostDate.Date.ToString("dd MMMM yyyy")</h4> <span>Last ulog added date</span></div>
+                            }
+                            else
+                            {
+                                <div class="dashboard-stat-content"><h4>0</h4> <span>Last Blog added date</span></div>
+                            }
+
+                            <div class="dashboard-stat-icon"><i class="far fa-clock"></i></div>
                         </div>
                     </div>
 
@@ -102,92 +110,9 @@
                 <div class="dashboard-wraper">
 
                     <!-- Basic Information -->
-                    <div class="form-submit">
-                        <h4>My Account</h4>
-                        <div class="submit-section">
-                            <div class="row">
+                    <!--My Account-->
+                    <partial name="_MyAccount" />
 
-                                <div class="form-group col-md-6">
-                                    <label>Your Name</label>
-                                    <input type="text" class="form-control" value="Shaurya Preet">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>Email</label>
-                                    <input type="email" class="form-control" value="preet77@gmail.com">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>Your Title</label>
-                                    <input type="text" class="form-control" value="Web Designer">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>Phone</label>
-                                    <input type="text" class="form-control" value="123 456 5847">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>Address</label>
-                                    <input type="text" class="form-control" value="522, Arizona, Canada">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>City</label>
-                                    <input type="text" class="form-control" value="Montquebe">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>State</label>
-                                    <input type="text" class="form-control" value="Canada">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>Zip</label>
-                                    <input type="text" class="form-control" value="160052">
-                                </div>
-
-                                <div class="form-group col-md-12">
-                                    <label>About</label>
-                                    <textarea class="form-control form-control-text ">Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper</textarea>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-submit">
-                        <h4>Social Accounts</h4>
-                        <div class="submit-section">
-                            <div class="row">
-
-                                <div class="form-group col-md-6">
-                                    <label>Facebook</label>
-                                    <input type="text" class="form-control" value="https://facebook.com/">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>Twitter</label>
-                                    <input type="email" class="form-control" value="https://twitter.com/">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>Google Plus</label>
-                                    <input type="text" class="form-control" value="https://googleplus.com/">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>LinkedIn</label>
-                                    <input type="text" class="form-control" value="https://linkedin.com/">
-                                </div>
-
-                                <div class="form-group col-lg-12 col-md-12">
-                                    <button class="btn button-style-one" type="submit">Save Changes</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>

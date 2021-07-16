@@ -83,3 +83,21 @@ blockquote {
     top: 16px;
     left: 3px;
 }
+
+
+.upload-img{
+    width:180px;
+    height:180px;
+    cursor:pointer;
+}
+.imgDiv {
+    position: relative;
+}
+
+.imgBtn {
+    right: -12px;
+    position: absolute;
+    bottom: 58px;
+    background: #00997D;
+    color: white;
+}

@@ -169,11 +169,13 @@ else
                         <div class="col-md-6">
                             <input type="text" class="form-control form-input" asp-for="Message.Subject" id="formGroupExampleInput"
                                    placeholder="Subject">
+                            <span class="text text-danger" asp-validation-for="Message.Subject"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <textarea class="form-control form-input form-mesage large-mesage" asp-for="Message.Content"
                                   id="exampleFormControlTextarea1" placeholder="Message" rows="3"></textarea>
+                        <span class="text text-danger" asp-validation-for="Message.Content"></span>
                     </div>
                     <button class="btn button-border-green " href="#">
                         <span>Send mesage</span>

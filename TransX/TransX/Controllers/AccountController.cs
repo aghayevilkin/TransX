@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -22,20 +24,54 @@ namespace TransX.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppDbContext _context;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, AppDbContext context)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, AppDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
         [Authorize]
         public IActionResult Index()
         {
             string userId = _userManager.GetUserId(User);
             CustomUser customUsers = _context.CustomUsers.Find(userId);
-            List<CustomUser> customUserS = _context.CustomUsers.Where(u => u.Id != userId).Take(9).ToList();
+            List<CustomUser> customUserS = _context.CustomUsers.Include(u => u.SocialToUsers).ThenInclude(sc => sc.Social).Where(aa => aa.SocialToUsers.Any(bb => bb.User.Id == userId)).ToList();
+
+            List<Social> socials = _context.Socials.ToList();
+            socials.Insert(0, new Social() { Id = 0, Icon = "Select" });
+            ViewBag.Socials = socials;
+
+            Blog blogdate = _context.Blogs.Where(u=>u.UserId==userId).OrderByDescending(d=>d.AddedDate).LastOrDefault();
+            if (blogdate!=null)
+            {
+                ViewBag.LastPostDate = blogdate.AddedDate;
+            }
+
+            
+
+            List<BlogTag> tags = _context.BlogTags.ToList();
+            ViewBag.Tags = tags;
+            VmProfile model = new VmProfile()
+            {
+                Posts = _context.Blogs.Include(u => u.User).Include(tp => tp.TagToBlogs).ThenInclude(t => t.Tag).Where(p=>p.UserId== userId).OrderByDescending(o => o.AddedDate).ToList(),
+                Tags = _context.BlogTags.Include(b => b.TagToBlogs).ThenInclude(bl => bl.Blog).ToList(),
+                Setting = _context.Settings.FirstOrDefault(),
+                User = customUsers,
+                UserS = customUserS,
+            };
+            return View(model);
+        }
+
+
+        public IActionResult UpdateUser()
+        {
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Include(u => u.SocialToUsers).ThenInclude(sc => sc.Social).Where(aa => aa.SocialToUsers.Any(bb => bb.User.Id == userId)).ToList();
 
             List<BlogTag> tags = _context.BlogTags.ToList();
             ViewBag.Tags = tags;
@@ -48,6 +84,135 @@ namespace TransX.Controllers
                 UserS = customUserS,
             };
             return View(model);
+
+        }
+
+        [HttpPost]
+        public IActionResult UpdateUser(VmProfile model)
+        {
+            model.Setting = _context.Settings.FirstOrDefault();
+            string userId = _userManager.GetUserId(User);
+            model.User.Id = userId;
+            
+            if (ModelState.IsValid)
+            {
+                CustomUser customUser = _context.CustomUsers.Find(model.User.Id);
+                customUser.Name = model.User.Name;
+                customUser.Surname = model.User.Surname;
+                customUser.Profision = model.User.Profision;
+                customUser.Adress = model.User.Adress;
+                customUser.About = model.User.About;
+
+                _context.SaveChanges();
+
+                Notify("Profile Updated");
+                return RedirectToAction("index");
+                
+            }
+            Notify("Profile Not Updated!", notificationType: NotificationType.error);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateUserImage(VmProfile model)
+        {
+            model.Setting = _context.Settings.FirstOrDefault();
+            string userId = _userManager.GetUserId(User);
+
+                CustomUser customUser = _context.CustomUsers.Find(userId);
+
+
+                if (model.User.ImageFile != null)
+                {
+                    if (model.User.ImageFile.ContentType == "image/png" || model.User.ImageFile.ContentType == "image/jpeg" || model.User.ImageFile.ContentType == "image/gif" || model.User.ImageFile.ContentType == "image/svg")
+                    {
+                        if (model.User.ImageFile.Length <= 2097152)
+                        {
+                            string fileName = Guid.NewGuid() + "-" + DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + model.User.ImageFile.FileName;
+                            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Accounts", fileName);
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                model.User.ImageFile.CopyTo(stream);
+                            }
+
+                            customUser.Image = fileName;
+
+                            _context.SaveChanges();
+
+                            Notify("Image Updated");
+
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            Notify("Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                            return RedirectToAction("Index");
+                        }
+                    }
+                    else
+                    {
+                        Notify("Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                        return RedirectToAction("Index");
+                    }
+                }
+
+
+            Notify("You Didn't Choose Image!", notificationType: NotificationType.warning);
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost]
+        public IActionResult SocialCreate(VmProfile model)
+        {
+            model.Setting = _context.Settings.FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+                string userId = _userManager.GetUserId(User);
+                if (model.SocialToUser.SocialId == 0)
+                {
+                    ModelState.AddModelError("SocialId", "Social secmelisiniz!");
+                    List<Social> socials = _context.Socials.ToList();
+                    socials.Insert(0, new Social() { Id = 0, Icon = "Select" });
+                    ViewBag.Socials = socials;
+
+                    Notify("You Didn't Choose Social!", notificationType: NotificationType.warning);
+                    return RedirectToAction("index");
+                }
+                model.SocialToUser.UserId = userId;
+
+                _context.SocialToUsers.Add(model.SocialToUser);
+                _context.SaveChanges();
+
+                Notify("Added Social");
+                return RedirectToAction("index");
+            }
+            Notify("Social not added!", notificationType: NotificationType.error);
+            return RedirectToAction("index");
+        }
+
+        public IActionResult SocialDelete(int? id)
+        {
+            if (id == null)
+            {
+                Notify("Social not Deleted!", notificationType: NotificationType.error);
+                return RedirectToAction("index");
+            }
+
+            SocialToUser socialToUser = _context.SocialToUsers.FirstOrDefault(i => i.Id == id);
+            if (socialToUser == null)
+            {
+                Notify("Social not Deleted!", notificationType: NotificationType.error);
+                return RedirectToAction("index");
+            }
+
+            _context.SocialToUsers.Remove(socialToUser);
+            _context.SaveChanges();
+
+            Notify("Social Deleted");
+
+            return RedirectToAction("index");
         }
 
 

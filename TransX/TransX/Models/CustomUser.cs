@@ -12,14 +12,18 @@ namespace TransX.Models
 {
     public class CustomUser : IdentityUser
     {
-        [Required, MaxLength(30)]
+        [Required(ErrorMessage = "Name boş olmamalıdır!"), MaxLength(30)]
         public string Name { get; set; }
 
-        [Required, MaxLength(30)]
+        [Required(ErrorMessage = "Surname boş olmamalıdır!"), MaxLength(30)]
         public string Surname { get; set; }
         public string Image { get; set; }
         [Required]
         public bool IsVerify { get; set; }
+
+        public string Profision { get; set; }
+        public string About { get; set; }
+        public string Adress { get; set; }
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }

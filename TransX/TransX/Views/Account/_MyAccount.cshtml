@@ -1,0 +1,99 @@
+﻿@model VmProfile
+
+
+<div class="form-submit">
+    <h4>My Account</h4>
+    <div class="submit-section">
+        <form method="post" asp-controller="account" asp-action="UpdateUser">
+            <div class="row">
+
+                <div class="form-group col-md-6">
+                    <label>Name</label>
+                    <input type="text" class="form-control" asp-for="@Model.User.Name">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Surname</label>
+                    <input type="text" class="form-control" asp-for="@Model.User.Surname">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Email</label>
+                    <div class="form-control">@Model.User.Email</div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Profision</label>
+                    <input type="text" class="form-control" asp-for="@Model.User.Profision">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Adress</label>
+                    <input type="text" class="form-control" asp-for="@Model.User.Adress">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label>About</label>
+                    <textarea class="form-control form-control-text " asp-for="@Model.User.About"></textarea>
+                </div>
+
+                <div class="form-group col-lg-12 col-md-12">
+                    <button type="submit" asp-controller="account" asp-action="updateUser" class="btn button-style-one">Update</button>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            @if (Model.UserS.Where(aa => aa.SocialToUsers.Any(bb => bb.User.Id == Model.User.Id)) != null)
+            {
+                <div class="form-submit">
+                    <h4>Social Accounts</h4>
+                </div>
+            }
+            else
+            {
+
+            }
+
+
+            @foreach (var item in Model.UserS)
+            {
+                foreach (var item2 in item.SocialToUsers)
+                {
+                    <div class="form-group col-md-6">
+                        <label>@item2.Social.Icon</label>
+                        <input type="text" class="form-control" readonly value="@item2.Link">
+                        <a onclick="return confirm('Are you sure?')" asp-controller="account" asp-action="SocialDelete" asp-route-id="@item2.Id" class="btn btn-danger">Delete</a>
+                    </div>
+                }
+            }
+        </div>
+            <form method="post" asp-controller="account" asp-action="SocialCreate">
+                <div class="row">
+
+                    <button style=" width: 30%; background: #00997D;" type="button" class="quote-form-submit mb-5 text-white socialBTN" data-id="99">
+                        Add Social
+                    </button>
+
+                    <div style="display:none;" class="99" id="SocialSub">
+                        <div class="row">
+                            <div class="form-group">
+                                <label asp-for="SocialToUser.Link">Link</label>
+                                <input class="form-control" asp-for="SocialToUser.Link" placeholder="https://facebook.com">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SocialToUser.SocialId">Social Id</label>
+                                <select class="form-control" asp-for="SocialToUser.SocialId" asp-items="@(new SelectList(ViewBag.Socials, "Id", "Icon"))">
+                                </select>
+                                <span asp-validation-for="SocialToUser.SocialId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-lg-12 col-md-12">
+                                <button type="submit" asp-controller="account" asp-action="SocialCreate" class="btn button-style-one">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
