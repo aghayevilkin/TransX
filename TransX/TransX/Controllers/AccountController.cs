@@ -123,17 +123,17 @@ namespace TransX.Controllers
                 CustomUser customUser = _context.CustomUsers.Find(userId);
 
 
-                if (model.User.ImageFile != null)
+                if (model.User.ImageFileTwo != null)
                 {
-                    if (model.User.ImageFile.ContentType == "image/png" || model.User.ImageFile.ContentType == "image/jpeg" || model.User.ImageFile.ContentType == "image/gif" || model.User.ImageFile.ContentType == "image/svg")
+                    if (model.User.ImageFileTwo.ContentType == "image/png" || model.User.ImageFileTwo.ContentType == "image/jpeg" || model.User.ImageFileTwo.ContentType == "image/gif" || model.User.ImageFileTwo.ContentType == "image/svg")
                     {
-                        if (model.User.ImageFile.Length <= 2097152)
+                        if (model.User.ImageFileTwo.Length <= 2097152)
                         {
-                            string fileName = Guid.NewGuid() + "-" + DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + model.User.ImageFile.FileName;
+                            string fileName = Guid.NewGuid() + "-" + DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + model.User.ImageFileTwo.FileName;
                             string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Accounts", fileName);
                             using (var stream = new FileStream(filePath, FileMode.Create))
                             {
-                                model.User.ImageFile.CopyTo(stream);
+                                model.User.ImageFileTwo.CopyTo(stream);
                             }
 
                             customUser.Image = fileName;
@@ -781,6 +781,184 @@ namespace TransX.Controllers
         }
 
 
+        public IActionResult Posts()
+        {
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Include(u => u.SocialToUsers).ThenInclude(sc => sc.Social).Where(aa => aa.SocialToUsers.Any(bb => bb.User.Id == userId)).ToList();
+
+            Blog blogdate = _context.Blogs.Where(u => u.UserId == userId).OrderByDescending(d => d.AddedDate).LastOrDefault();
+            if (blogdate != null)
+            {
+                ViewBag.LastPostDate = blogdate.AddedDate;
+            }
+
+
+            VmProfile model = new VmProfile()
+            {
+                Posts = _context.Blogs.Include(c=>c.Category).Include(u => u.User).Include(tp => tp.TagToBlogs).ThenInclude(t => t.Tag).Where(p => p.UserId == userId).OrderByDescending(o => o.AddedDate).ToList(),
+                Tags = _context.BlogTags.Include(b => b.TagToBlogs).ThenInclude(bl => bl.Blog).ToList(),
+                Setting = _context.Settings.FirstOrDefault(),
+                User = customUsers,
+                UserS = customUserS,
+            };
+            return View(model);
+        }
+
+        public IActionResult PostCreate()
+        {
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Include(u => u.SocialToUsers).ThenInclude(sc => sc.Social).Where(aa => aa.SocialToUsers.Any(bb => bb.User.Id == userId)).ToList();
+            List<BlogCategory> categories = _context.BlogCategories.ToList();
+            categories.Insert(0, new BlogCategory() { Id = 0, Name = "Select" });
+            ViewBag.Categories = categories;
+
+            List<BlogTag> tags = _context.BlogTags.ToList();
+            ViewBag.Tags = tags;
+
+            VmProfile model = new VmProfile()
+            {
+                Posts = _context.Blogs.Include(g => g.Category).Include(u => u.User).Include(tb => tb.TagToBlogs).ThenInclude(t => t.Tag).ToList(),
+                Post = new Blog(),
+                Categories = ViewBag.Categories,
+                Tags = ViewBag.Tags,
+                Setting = _context.Settings.FirstOrDefault(),
+                User = customUsers,
+                UserS=customUserS,
+            };
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult PostCreate(VmProfile model)
+        {
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Include(u => u.SocialToUsers).ThenInclude(sc => sc.Social).Where(aa => aa.SocialToUsers.Any(bb => bb.User.Id == userId)).ToList();
+            model.User = customUsers;
+            model.UserS = customUserS;
+
+
+            model.Setting = _context.Settings.FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+                if (model.Post.CategoryId == 0)
+                {
+                    ModelState.AddModelError("CategoryId", "Categoriya secmelisiniz!");
+                    List<BlogCategory> categories = _context.BlogCategories.ToList();
+                    categories.Insert(0, new BlogCategory() { Id = 0, Name = "Select" });
+                    ViewBag.Categories = categories;
+                    List<BlogTag> tags = _context.BlogTags.ToList();
+                    ViewBag.Tags = tags;
+                    Notify("Categoriya secmelisiniz!", notificationType: NotificationType.warning);
+                    return RedirectToAction("PostCreate");
+                }
+                if (model.Post.ImageFile != null)
+                {
+                    if (model.Post.ImageFile.ContentType == "image/png" || model.Post.ImageFile.ContentType == "image/jpeg" || model.Post.ImageFile.ContentType == "image/gif" || model.Post.ImageFile.ContentType == "image/svg")
+                    {
+                        if (model.Post.ImageFile.Length <= 2097152)
+                        {
+                            string fileName = Guid.NewGuid() + "-" + DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + model.Post.ImageFile.FileName;
+                            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Blogs", fileName);
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                model.Post.ImageFile.CopyTo(stream);
+                            }
+
+                            model.Post.Image = fileName;
+                            model.Post.UserId = _userManager.GetUserId(User);
+                            model.Post.AddedDate = DateTime.Now;
+
+                            _context.Blogs.Add(model.Post);
+                            _context.SaveChanges();
+
+                            if (model.Post.TagIds == null)
+                            {
+                                Notify("Tag secmelisiniz!", notificationType: NotificationType.warning);
+                                return RedirectToAction("PostCreate");
+                            }
+                            else
+                            {
+                                foreach (var item in model.Post.TagIds)
+                                {
+                                    TagToBlog tagToBlog = new TagToBlog()
+                                    {
+                                        BlogId = model.Post.Id,
+                                        TagId = item
+                                    };
+
+                                    _context.TagToBlogs.Add(tagToBlog);
+                                }
+                            }
+
+
+                            _context.SaveChanges();
+
+                            Notify("Post Created");
+
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            Notify("Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                            return RedirectToAction("PostCreate");
+                        }
+                    }
+                    else
+                    {
+                        Notify("Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                        return RedirectToAction("PostCreate");
+                    }
+                }
+                else
+                {
+                    Notify("Image Secmelisiniz!", notificationType: NotificationType.warning);
+                    return RedirectToAction("PostCreate");
+                }
+
+            }
+
+            Notify("Post Not Added!", notificationType: NotificationType.error);
+            return RedirectToAction("PostCreate");
+        }
+
+
+        public IActionResult PostDelete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Blog blog = _context.Blogs.Include(a => a.TagToBlogs).FirstOrDefault(i => i.Id == id);
+            if (blog == null)
+            {
+                return NotFound();
+            }
+
+            //Delete image
+            string oldFilePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Blogs", blog.Image);
+            if (System.IO.File.Exists(oldFilePath))
+            {
+                System.IO.File.Delete(oldFilePath);
+            }
+
+
+            //Delete tags
+            foreach (var item in blog.TagToBlogs)
+            {
+                _context.TagToBlogs.Remove(item);
+            }
+
+            _context.Blogs.Remove(blog);
+            _context.SaveChanges();
+
+            Notify("Post Deleted");
+            return RedirectToAction("posts");
+        }
 
 
         public IActionResult AccessDenied()

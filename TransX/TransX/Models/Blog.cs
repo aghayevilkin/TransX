@@ -20,6 +20,8 @@ namespace TransX.Models
         public IFormFile ImageFile { get; set; }
         [Column(TypeName = "ntext"),Required(ErrorMessage = "Content boş olmamalıdır!")]
         public string Content { get; set; }
+        [Required]
+        public BlogStatus BlogStatus { get; set; }
         public DateTime AddedDate { get; set; }
 
         [Required(ErrorMessage = "Category Secmelisiniz!")]

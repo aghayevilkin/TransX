@@ -16,5 +16,6 @@ namespace TransX.ViewModels
         public VmChangePassword VmChangePassword { get; set; }
         public VmAddPassword VmAddPassword { get; set; }
         public SocialToUser SocialToUser { get; set; }
+        public List<BlogCategory> Categories { get; set; }
     }
 }

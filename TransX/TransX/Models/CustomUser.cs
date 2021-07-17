@@ -26,7 +26,7 @@ namespace TransX.Models
         public string Adress { get; set; }
 
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile ImageFileTwo { get; set; }
         [NotMapped]
         public string RoleId { get; set; }
 

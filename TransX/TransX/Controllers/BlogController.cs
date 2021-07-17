@@ -35,7 +35,8 @@ namespace TransX.Controllers
             IList<Blog> blogs = _context.Blogs.Include(u => u.User).Where(b => (id != null ? b.CategoryId == id : true) &&
                                                           (tagId != null ? b.TagToBlogs.Any(t => t.TagId == tagId) : true) &&
                                                           (year != null ? b.AddedDate.Year == year : true) &&
-                                                          (month != null ? b.AddedDate.Month == month : true)
+                                                          (month != null ? b.AddedDate.Month == month : true) &&
+                                                          (b.BlogStatus==BlogStatus.Active)
                                                           ).Where(sr =>
                                                                   ((searchData != null ? sr.Title.Contains(searchData) : true) || (searchData != null ? sr.Category.Name.Contains(searchData) : true)) &&
                                                                   (VmFilter.catId != null ? sr.CategoryId == VmFilter.catId : true))

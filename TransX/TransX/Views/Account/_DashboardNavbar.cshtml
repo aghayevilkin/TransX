@@ -11,7 +11,7 @@
             <div class="d-user-avater imgDiv">
                 @if (Model.User.Image != null)
                 {
-                    <label for="image"><img id="file_upload" src="~/Uploads/Images/Accounts/@Model.User.Image" class="img-fluid avater upload-img" alt="My Image"></label>
+                    <label for="image"><img id="file_uploadTwo" src="~/Uploads/Images/Accounts/@Model.User.Image" class="img-fluid avater upload-img" alt="My Image"></label>
                 }
                 else
                 {
@@ -25,7 +25,7 @@
                     }
                 </h4>
 
-                <input style="display:none;" type='file' id="image" onchange="readURL(this);" asp-for="User.ImageFile" />
+                <input style="display:none;" type='file' id="image" onchange="readURLTwo(this);" asp-for="User.ImageFileTwo" />
                 <button id="imgSubBtn" class="imgBtn d-none btn" type="submit">Update</button>
             </div>
             
@@ -34,9 +34,8 @@
         <div class="d-navigation">
             <ul>
                 <li class="@(ViewBag.Section == "dashboard"?"active":"")"><a asp-controller="account" asp-action="index"><i class="ti-user"></i>My Profile</a></li>
-                <li><a href="bookmark-list.html"><i class="ti-bookmark"></i>Bookmarked Listings</a></li>
-                <li><a href="my-property.html"><i class="ti-layers"></i>My Properties</a></li>
-                <li><a href="submit-property-dashboard.html"><i class="ti-pencil-alt"></i>Submit New Property</a></li>
+                <li class="@(ViewBag.Section == "posts"?"active":"")"><a asp-controller="account" asp-action="posts"><i class="fas fa-blog"></i>Post Listings</a></li>
+                <li class="@(ViewBag.Section == "postcreate"?"active":"")"><a asp-controller="account" asp-action="postcreate"><i class="ti-pencil-alt"></i>Submit New Post</a></li>
                 @if (!userHasPassword)
                 {
                     <li class="@(ViewBag.Section == "changepassword"?"active":"")"><a asp-controller="account" asp-action="addpassword"><i class="ti-unlock"></i>Add Password</a></li>

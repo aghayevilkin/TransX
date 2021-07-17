@@ -176,7 +176,7 @@
             </div>
         </div>
         <!--sidebar menu end-->
-        <header class="header-page">
+        <header class="header-page" style="z-index:99;">
             <div class="navbar-top d-none d-xl-block ">
                 <div class="container-fluid">
                     <div class="row ">
@@ -598,7 +598,7 @@
                         <div class="modal-divider"><span>Or login via</span></div>
                         @await Component.InvokeAsync("ExternalLogin")
                         <div class="text-center">
-                            <p class="mt-5"><a  asp-controller="account" asp-action="forgotpassword" class="link">Forgot password?</a></p>
+                            <p class="mt-5"><a asp-controller="account" asp-action="forgotpassword" class="link">Forgot password?</a></p>
                         </div>
                     </div>
                 </div>
@@ -617,10 +617,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.js"></script>
+
+        <script src="https://cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
         <script src="~/js/register.js"></script>
         <script src="~/js/main.js"></script>
         <script src="~/js/site.js"></script>
-        <script src="/assets/plugin/jquery.fancybox.js"></script>
+        <script src="~/plugin/jquery.fancybox.js"></script>
         <script src="~/plugin/sweetalert2.min.js"></script>
         @RenderSection("Scripts", required: false)
         @await Html.PartialAsync("_notificationPartial")

@@ -45,26 +45,30 @@ else
 
                     @foreach (Blog blog in Model.Blogs)
                     {
-                        <div class="col-md-6 col-xl-4 ">
-                            <div class="blog-card-two">
-                                <div class="blog-card-img">
-                                    <img class="bg-img" src="~/Uploads/Images/Blogs/@blog.Image" alt="img">
-                                </div>
-                                <span class="blog-card-category">@blog.Category.Name</span>
-                                <h6 class="blog-card-title"><a asp-controller="Blog" asp-action="details" asp-route-id="@blog.Id">@blog.Title</a></h6>
-                                <div class="blog-card-text">
-                                    <p>@Html.Raw(blog.Content.Length > 87 ? blog.Content.Substring(0, 87) : blog.Content)...</p>
-                                </div>
-                                <div class="blog-card-details">
-                                    <span>@blog.AddedDate.Date.ToString("dd MMMM yyyy")</span>
-                                    @if (blog.Comments != null)
-                                    {
-                                        <span>@(blog.Comments != null ? blog.Comments.Count : 0) Comments</span>
-                                    }
+                        if (blog.BlogStatus == BlogStatus.Active)
+                        {
+                            <div class="col-md-6 col-xl-4 ">
+                                <div class="blog-card-two">
+                                    <div class="blog-card-img">
+                                        <img class="bg-img" src="~/Uploads/Images/Blogs/@blog.Image" alt="img">
+                                    </div>
+                                    <span class="blog-card-category">@blog.Category.Name</span>
+                                    <h6 class="blog-card-title"><a asp-controller="Blog" asp-action="details" asp-route-id="@blog.Id">@blog.Title</a></h6>
+                                    <div class="blog-card-text">
+                                        <p>@Html.Raw(blog.Content.Length > 87 ? blog.Content.Substring(0, 87) : blog.Content)...</p>
+                                    </div>
+                                    <div class="blog-card-details">
+                                        <span>@blog.AddedDate.Date.ToString("dd MMMM yyyy")</span>
+                                        @if (blog.Comments != null)
+                                        {
+                                            <span>@(blog.Comments != null ? blog.Comments.Count : 0) Comments</span>
+                                        }
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
+
                     }
 
                 </div>

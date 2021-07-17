@@ -38,6 +38,8 @@ namespace TransX.Areas.Admin.Controllers
             List<BlogCategory> categories = _context.BlogCategories.ToList();
             categories.Insert(0, new BlogCategory() { Id = 0, Name = "Select" });
             ViewBag.Categories = categories;
+            categories.Insert(0, new BlogCategory() { Id = 0, Name = "Select" });
+            ViewBag.Categories = categories;
             List<BlogTag> tags = _context.BlogTags.ToList();
             ViewBag.Tags = tags;
             VmBlog model = new VmBlog()

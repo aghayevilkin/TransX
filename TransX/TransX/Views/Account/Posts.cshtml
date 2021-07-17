@@ -1,0 +1,107 @@
+﻿@model VmProfile
+@{
+    ViewData["Title"] = "Posts";
+    ViewBag.Section = "posts";
+}
+
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <h2 class="ipt-title">Welcome!</h2>
+                <span class="ipn-subtitle">Welcome To Your Account</span>
+
+            </div>
+        </div>
+    </div>
+</div>
+<section class="bg-light my-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="filter_search_opt">
+                    <a href="javascript:void(0);" onclick="openFilterSearch()">Dashboard Navigation<i class="ml-2 ti-menu"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-12">
+
+                <div class="simple-sidebar sm-sidebar" id="filter_search">
+
+                    <div class="search-sidebar_header">
+                        <h4 class="ssh_heading">Close Filter</h4>
+                        <button onclick="closeFilterSearch()" class="w3-bar-item w3-button w3-large"><i class="ti-close"></i></button>
+                    </div>
+
+                    <partial name="_DashboardNavbar" />
+
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-12">
+                <div class="dashboard-wraper">
+
+                    <!-- Bookmark Property -->
+                    <div class="form-submit">
+                    </div>
+
+                    <table class="property-table-wrap responsive-table bkmark">
+
+                        <tbody>
+                            <tr>
+                                <th><i class="fa fa-file-text"></i> Posts</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+
+
+                            @foreach (var post in Model.Posts)
+                            {
+                                <tr>
+                                    <td class="property-container">
+                                        <img src="~/Uploads/Images/Blogs/@post.Image" alt="">
+                                        <div class="title">
+                                            @if (post.BlogStatus == BlogStatus.Request || post.BlogStatus == BlogStatus.Deactive)
+                                            {
+                                                <h4 style="color:#00997D;">@post.Title</h4>
+                                            }
+                                            else if (post.BlogStatus == BlogStatus.Active)
+                                            {
+                                                <h4><a asp-controller="Blog" asp-action="details" asp-route-id="@post.Id">@post.Title</a></h4>
+                                            }
+                                            <span>@Html.Raw(post.Content.Length > 33 ? post.Content.Substring(0, 33) : post.Content)... </span>
+                                            <span class="table-property-price">@post.Category.Name</span>
+                                        </div>
+                                    </td>
+                                    @if (post.BlogStatus == BlogStatus.Request)
+                                    {
+                                    <td class="action" style="font-size: 2.5rem; color: #FFB818;"><i class="fas fa-question-circle"></i></td>
+                                    }
+                                    else if (post.BlogStatus == BlogStatus.Active)
+                                    {
+                                        <td class="action"  style="font-size: 2.5rem; color: #009C75;"><i class="fas fa-check-circle"></i></td>
+                                    }
+                                    else if (post.BlogStatus == BlogStatus.Deactive)
+                                    {
+                                        <td class="action"  style="font-size: 2.5rem; color: #FF4444;"><i class="fas fa-exclamation-circle"></i></td>
+                                    }
+                                    <td class="action">
+                                        <a onclick="return confirm('Are you sure?')" asp-controller="account" asp-action="postdelete" asp-route-id="@post.Id" class="delete"><i class="ti-close"></i> Delete</a>
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

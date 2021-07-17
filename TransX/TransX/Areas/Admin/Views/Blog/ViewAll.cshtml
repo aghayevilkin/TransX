@@ -10,6 +10,9 @@
                 <thead>
                     <tr>
                         <th>
+                            Status
+                        </th>
+                        <th>
                             Image
                         </th>
                         <th>
@@ -22,15 +25,13 @@
                             Category
                         </th>
                         <th>
-                            Tags
-                        </th>
-                        <th>
                             User
                         </th>
                         <th>
                             Date
                         </th>
                         <th>
+
                         </th>
                         <th>
                         </th>
@@ -39,24 +40,31 @@
                 <tbody>
                     @foreach (var item in Model.Blogs)
                     {
-                        <tr>
-                            <td><img src="~/Uploads/Images/Blogs/@item.Image" alt="image" width="100" style=" width: 100px; height: 100px; border-radius: 10px; object-fit: cover;" /></td>
-                            <td>@item.Title</td>
-                            <td>@Html.Raw(item.Content!=null && item.Content.Length>150? item.Content.Substring(0, 150) : item.Content)</td>
-                            <td>@item.Category.Name</td>
-                            <td>
-                                @foreach (var item2 in item.TagToBlogs)
-                                {
-                                    @(item2.Tag.Name+ (item2 == item.TagToBlogs.LastOrDefault()? "": ", "))
-                                }
-                            </td>
-                            <td>@item.User.UserName</td>
-                            <td>@item.AddedDate.ToString("dd.MM.yyyy HH:mm")</td>
-                            <td>
-                                <a asp-area="admin" asp-controller="blog" asp-action="update" asp-route-id="@item.Id" class="btn btn-success mb-2">Update</a>
-                                <a onclick="return confirm('Are you sure?')" asp-area="admin" asp-controller="blog" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        @if (item.BlogStatus == BlogStatus.Request)
+                        {
+                        <td style="font-size: 2.5rem; color: #FFB818;"><i class="fas fa-question-circle"></i></td>
+                        }
+                        else if (item.BlogStatus == BlogStatus.Active)
+                        {
+                            <td style="font-size: 2.5rem; color: #009C75;"><i class="fas fa-check-circle"></i></td>
+                        }
+                        else if (item.BlogStatus == BlogStatus.Deactive)
+                        {
+                            <td style="font-size: 2.5rem; color: #FF4444;"><i class="fas fa-exclamation-circle"></i></td>
+                        }
+
+                        <td><img src="~/Uploads/Images/Blogs/@item.Image" alt="image" width="100" style=" width: 100px; height: 100px; border-radius: 10px; object-fit: cover;" /></td>
+                        <td>@item.Title</td>
+                        <td>@Html.Raw(item.Content != null && item.Content.Length > 150 ? item.Content.Substring(0, 150) : item.Content)</td>
+                        <td>@item.Category.Name</td>
+                        <td>@item.User.UserName</td>
+                        <td>@item.AddedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>
+                            <a asp-area="admin" asp-controller="blog" asp-action="update" asp-route-id="@item.Id" class="btn btn-success mb-2">Update</a>
+                            <a onclick="return confirm('Are you sure?')" asp-area="admin" asp-controller="blog" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
