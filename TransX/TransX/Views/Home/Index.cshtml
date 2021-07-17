@@ -471,91 +471,7 @@
             </div>
         </div>
 </section>
-<section id="testimonials" class="section-style-one">
-    <div class="testimonials-bg-img">
-        <img class="test-img" src="~/img/testimonials-bg.png" alt="img">
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="title-style-one">
-                    <span class="pre-title">testimonials</span>
-                    <h3 class="title">
-                        Excellent company <span class="green-color">quality</span> services
-                    </h3>
-                    <span class="title-layout">People</span>
-                </div>
-                <div class="test-nav position-relative"></div>
-                <img class="testimonials-img" style="width: 370px; height: 272px;"
-                     src="~/img/testimonials_img.png" alt="">
-            </div>
-            <div class="col-lg-6 offset-lg-1 ">
-                <div class="test-slider">
-                    <div class="slider-card">
-                        <div class="slider-content">
-                            <p>
-                                “Rockling Devario deep sea bonefish cutthroat trout streamer fish kaluga
-                                sailback scorpionfish sand dab, turkeyfish golden loach sand diver. Leopard
-                                danio píntano bonnetmouth; blue whiting, suckermouth armored catfish
-                                luderick blackchin kingfish.
-                            </p>
-                            <p>
-                                Midshipman, lightfish longfin smelt pickerel houndshark whiptail. Barracuda
-                                archerfish slimehead broadband dogfish, Pacific hake false trevally queen
-                                parrotfish Black prickleback blenny, bigeye squaretail nurseryfish
-                                yellowtail barracuda. Halibut: Blacksmelt”
-                            </p>
-                            <div class="test-author">
-                                <img src="~/img/quotes.png" alt="img">
-                                <h6>Well Singer</h6><span>Manager of Westwood</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slider-card">
-                        <div class="slider-content">
-                            <p>
-                                “Rockling Devario deep sea bonefish cutthroat trout streamer fish kaluga
-                                sailback scorpionfish sand dab, turkeyfish golden loach sand diver. Leopard
-                                danio píntano bonnetmouth; blue whiting, suckermouth armored catfish
-                                luderick blackchin kingfish.
-                            </p>
-                            <p>
-                                Midshipman, lightfish longfin smelt pickerel houndshark whiptail. Barracuda
-                                archerfish slimehead broadband dogfish, Pacific hake false trevally queen
-                                parrotfish Black prickleback blenny, bigeye squaretail nurseryfish
-                                yellowtail barracuda. Halibut: Blacksmelt”
-                            </p>
-                            <div class="test-author">
-                                <img src="~/img/quotes.png" alt="img">
-                                <h6>Well Singer</h6><span>Manager of Westwood</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slider-card">
-                        <div class="slider-content">
-                            <p>
-                                “Rockling Devario deep sea bonefish cutthroat trout streamer fish kaluga
-                                sailback scorpionfish sand dab, turkeyfish golden loach sand diver. Leopard
-                                danio píntano bonnetmouth; blue whiting, suckermouth armored catfish
-                                luderick blackchin kingfish.
-                            </p>
-                            <p>
-                                Midshipman, lightfish longfin smelt pickerel houndshark whiptail. Barracuda
-                                archerfish slimehead broadband dogfish, Pacific hake false trevally queen
-                                parrotfish Black prickleback blenny, bigeye squaretail nurseryfish
-                                yellowtail barracuda. Halibut: Blacksmelt”
-                            </p>
-                            <div class="test-author">
-                                <img src="~/img/quotes.png" alt="img">
-                                <h6>Well Singer</h6><span>Manager of Westwood</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@await Component.InvokeAsync("Testimonial");
 <section id="blog" class="bg-ligray section-style ">
     <div class="container">
         <div class="row">
@@ -665,33 +581,4 @@
     </div>
 
 </section>
-<section id="partners" class="bg-ligray section-style-two">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="title-style-one title-center ">
-                <span class="pre-title">Partners</span>
-                <h3 class="title"> Companies who <span class="green-color">Trust</span> us</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="logo-slider">
-                <div class="logo-partners">
-                    <img src="~/img/logo_1.png" alt="">
-                </div>
-                <div class="logo-partners">
-                    <img src="~/img/logo_2.png" alt="">
-                </div>
-                <div class="logo-partners">
-                    <img src="~/img/logo_3.png" alt="">
-                </div>
-                <div class="logo-partners">
-                    <img src="~/img/logo_4.png" alt="">
-                </div>
-                <div class="logo-partners">
-                    <img src="~/img/logo_1.png" alt="">
-                </div>
-            </div>
-            <div class="logo-slider-dots"></div>
-        </div>
-    </div>
-</section>
+@await Component.InvokeAsync("Partners");

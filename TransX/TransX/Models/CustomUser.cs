@@ -34,6 +34,7 @@ namespace TransX.Models
         public List<SelectListItem> Roles { get; set; }
 
         public List<SocialToUser> SocialToUsers { get; set; }
+        public List<Testimonials> Testimonials { get; set; }
         public List<BlogComment> BlogComments { get; set; }
     }
 }

@@ -1,0 +1,26 @@
+﻿@model List<Partner>
+@{
+    Layout = null;
+}
+
+<section id="partners" class="bg-ligray section-style">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="title-style-one title-center ">
+                <span class="pre-title">Partners</span>
+                <h3 class="title"> Companies who <span class="green-color">Trust</span> us</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="logo-slider">
+                @foreach (var item in Model)
+                {
+                    <div class="logo-partners">
+                        <img src="~/Uploads/Images/Partners/@item.Image" alt="">
+                    </div>
+                }
+            </div>
+            <div class="logo-slider-dots"></div>
+        </div>
+    </div>
+</section>

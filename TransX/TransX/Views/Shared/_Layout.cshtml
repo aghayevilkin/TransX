@@ -279,6 +279,11 @@
                                     </ul>
                                     <!-- sub menu end-->
                                 </li>
+                                <li class="nav-item @(ViewBag.Page == "about"?"nav-item-active":"")">
+                                    <a class="nav-link" asp-controller="about" asp-action="index">
+                                        <span>About Us</span><i class=""></i>
+                                    </a>
+                                </li>
                                 <li class="nav-item ">
                                     <a class="nav-link" href="#">
                                         <span>Services</span><i class="fas fa-chevron-down"></i>

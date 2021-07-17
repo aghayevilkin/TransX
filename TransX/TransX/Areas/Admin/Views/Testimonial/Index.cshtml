@@ -1,0 +1,79 @@
+﻿@model List<Testimonials>
+@{
+    ViewData["Title"] = "Testimonial";
+    var test = 0;
+    foreach (var item in Model)
+    {
+        if (item.Image != null) { test = 1; }
+    }
+}
+
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Testimonials</h4>
+            <div class="mr-2">
+                @if (test == 0)
+                {
+                    <a asp-controller="Testimonial" asp-action="createImage" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create Image</a>
+                }
+                else
+                {
+                }
+                <a asp-controller="Testimonial" asp-action="create" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create</a>
+
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Image
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                                <td><img src="~/Uploads/Images/Testimonials/@ViewBag.Testimonial" alt="image" width="100" style=" width: 25rem; height: 200px; border-radius: 10px; object-fit: fill;" /></td>
+                                <td><a asp-area="admin" asp-controller="testimonial" asp-action="updateImage" asp-route-id="@ViewBag.TestimonialId" class="btn btn-success mb-2">Update</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                User
+                            </th>
+                            <th>Aded Date</th>
+                            <th>Content</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            if (item.User != null)
+                            {
+                               <tr>
+                                   <td>@item.User.Name @item.User.Surname</td>
+                                   <td>@item.AddedDate</td>
+                                   <td>@Html.Raw(item.Content)</td>
+                                   <td><a asp-area="admin" asp-controller="testimonial" asp-action="update" asp-route-id="@item.Id" class="btn btn-success mb-2">Update</a></td>
+                                   <td><a onclick="return confirm('Are you sure?')" asp-area="admin" asp-controller="testimonial" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
+                               </tr>
+                        }
+                    }
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>

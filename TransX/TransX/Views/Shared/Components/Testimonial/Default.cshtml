@@ -1,0 +1,45 @@
+﻿@model List<Testimonials>
+@{
+    Layout = null;
+}
+
+<section id="testimonials" class="section-style mb-0" style="margin-top:10%;">
+    <div class="testimonials-bg-img">
+        <img class="test-img" src="~/img/testimonials-bg.png" alt="img">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="title-style-one">
+                    <span class="pre-title">testimonials</span>
+                    <h3 class="title">
+                        Excellent company <span class="green-color">quality</span> services
+                    </h3>
+                    <span class="title-layout">People</span>
+                </div>
+                <div class="test-nav position-relative"></div>
+                <img class="testimonials-img" style="width: 370px; height: 272px;"
+                     src="~/Uploads/Images/Testimonials/@ViewBag.Testimonial " alt="">
+            </div>
+            <div class="col-lg-6 offset-lg-1 ">
+                <div class="test-slider">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="slider-card">
+                            <div class="slider-content">
+                                <p>
+                                    @Html.Raw(item.Content)
+                                </p>
+                                <div class="test-author">
+                                    <img src="~/img/quotes.png" alt="img">
+                                    <h6>@item.User.Name @item.User.Surname</h6><span>@item.User.Profision</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

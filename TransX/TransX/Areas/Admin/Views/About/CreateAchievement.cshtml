@@ -1,0 +1,38 @@
+﻿@model Achievement
+@{
+    ViewData["Title"] = "Create Achievement";
+}
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mt-5">Create Achievement</h2>
+            </div>
+            <div class="col-6">
+                <form asp-controller="about" asp-action="CreateAchievement" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="Name">Title</label>
+                        <input type="text" class="form-control" id="title" asp-for="Title" placeholder="Title">
+                        <span id="messages" asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Count Number</label>
+                        <input  class="form-control" asp-for="CountNum" placeholder="1">
+                        <span id="messages" asp-validation-for="CountNum" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">CountSub</label>
+                        <input  class="form-control" asp-for="CountSub" placeholder="CountSub">
+                        <span id="messages" asp-validation-for="CountSub" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button asp-action="index" class="btn btn-danger">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

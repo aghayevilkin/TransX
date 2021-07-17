@@ -1,0 +1,24 @@
+﻿@model Testimonials
+@{
+    ViewData["Title"] = "Create Testimonials";
+}
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-area="admin" asp-controller="Testimonial" asp-action="create" method="post"  enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="Content">Content</label>
+                        <textarea class="form-control" id="Content" asp-for="Content" rows="6"></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" id="submitbtn" class="btn btn-primary">Add</button>
+                    <button asp-action="index" class="btn btn-danger">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,276 @@
+﻿@model VmAbout
+@{
+    ViewData["Title"] = "About";
+    var counterAchievements = 0;
+    var counterHistory = 0;
+    var counterServices = 0;
+}
+
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Page Header</h4>
+            <div class="mr-2">
+                @if (Model.pageHeader == null)
+                {
+                    <a asp-controller="about" asp-action="createheader" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create PageHeader</a>
+                }
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Subtitle
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @if (Model.pageHeader != null)
+                            {
+                                <td><img src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="image" width="100" style=" width: 30rem; height: 100px; border-radius: 10px; object-fit: cover;" /></td>
+                                <td>@Model.pageHeader.Title</td>
+                                <td>@Model.pageHeader.Subtitle</td>
+                                <td>
+                                    <a asp-controller="about" asp-action="updateHeader" asp-route-id="@Model.pageHeader.Id" class="btn btn-primary"><i class="fas fa-pen"></i> Update</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert alert-danger">Page Header  boshdur Xais olunur elave edin</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">About Mission</h4>
+            <div class="mr-2">
+                @if (Model.AboutMission == null)
+                {
+                    <a asp-controller="about" asp-action="createMission" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create Mission</a>
+                }
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Subtitle
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @if (Model.AboutMission != null)
+                            {
+                                <td><img src="~/Uploads/Images/Abouts/@Model.AboutMission.Image" alt="image" width="100" style=" width: 30rem; height: 270px; border-radius: 10px; object-fit: fill;" /></td>
+                                <td>@Html.Raw(Model.AboutMission.Title)</td>
+                                <td>@Html.Raw(Model.AboutMission.SubTitle)</td>
+                                <td>
+                                    <a asp-controller="about" asp-action="updateMission" asp-route-id="@Model.AboutMission.Id" class="btn btn-primary"><i class="fas fa-pen"></i> Update</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert alert-danger">About Mission  boshdur Xais olunur elave edin</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">About</h4>
+            <div class="mr-2">
+                @if (Model.About == null)
+                {
+                    <a asp-controller="about" asp-action="create" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create About</a>
+                }
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                ImageTitle
+                            </th>
+                            <th>
+                                Content
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @if (Model.About != null)
+                            {
+                                <td><img src="~/Uploads/Images/Abouts/@Model.About.Image" alt="image" width="100" style=" width: 30rem; height: 270px; border-radius: 10px; object-fit: fill;" /></td>
+                                <td>@Html.Raw(Model.About.Title)</td>
+                                <td>@Html.Raw(Model.About.ImageTitle)</td>
+                                <td>@Html.Raw(Model.About.Content != null && Model.About.Content.Length > 150 ? Model.About.Content.Substring(0, 150) : Model.About.Content)</td>
+                                <td>
+                                    <a asp-controller="about" asp-action="update" asp-route-id="@Model.About.Id" class="btn btn-primary"><i class="fas fa-pen"></i> Update</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert alert-danger">About  boshdur Xais olunur elave edin</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">About Achievements</h4>
+            <div class="mr-2">
+                <a asp-controller="about" asp-action="CreateAchievement" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create Achievements</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Count/Sub
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Achievements)
+                        {
+                            counterAchievements++;
+                            <tr>
+                                <td>@counterAchievements</td>
+                                <td>@item.Title</td>
+                                <td>@item.CountNum @item.CountSub</td>
+                                <td>
+                                    <a asp-area="admin" asp-controller="about" asp-action="UpdateAchievement" asp-route-id="@item.Id" class="btn btn-success mb-2">Update</a>
+                                    <a onclick="return confirm('Are you sure?')" asp-area="admin" asp-controller="about" asp-action="DeleteAchievement" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">About Histories</h4>
+            <div class="mr-2">
+                <a asp-controller="about" asp-action="CreateHistory" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create Histories</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Subtitle
+                            </th>
+                            <th>Year</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Histories)
+                        {
+                            counterHistory++;
+                            <tr>
+                                <td>@counterHistory</td>
+                                <td>@item.Title</td>
+                                <td>@item.SubTitle</td>
+                                <td>@item.Year</td>
+                                <td>
+                                    <a asp-area="admin" asp-controller="about" asp-action="UpdateHistory" asp-route-id="@item.Id" class="btn btn-success mb-2">Update</a>
+                                    <a onclick="return confirm('Are you sure?')" asp-area="admin" asp-controller="about" asp-action="DeleteHistory" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">About Services</h4>
+            <div class="mr-2">
+                <a asp-controller="about" asp-action="CreateAboutServices" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create About Services</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Icon
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AboutServices)
+                        {
+                            counterServices++;
+                            <tr>
+                                <td>@counterServices</td>
+                                <td>@item.Title</td>
+                                <td>@item.Icon</td>
+                                <td>
+                                    <a asp-area="admin" asp-controller="about" asp-action="UpdateAboutServices" asp-route-id="@item.Id" class="btn btn-success mb-2">Update</a>
+                                    <a onclick="return confirm('Are you sure?')" asp-area="admin" asp-controller="about" asp-action="DeleteAboutServices" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

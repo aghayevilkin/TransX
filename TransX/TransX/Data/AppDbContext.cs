@@ -26,5 +26,13 @@ namespace TransX.Data
         public DbSet<PageHeader> PageHeaders { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Testimonials> Testimonials { get; set; }
+        public DbSet<Partner> Partners { get; set; }
+        public DbSet<AboutServices> AboutServices { get; set; }
+        public DbSet<History> Histories { get; set; }
+        public DbSet<Achievement> Achievements { get; set; }
+        public DbSet<AboutMission> AboutMissions { get; set; }
+        public DbSet<About> Abouts { get; set; }
+        public DbSet<AboutVideo> AboutVideos { get; set; }
     }
 }

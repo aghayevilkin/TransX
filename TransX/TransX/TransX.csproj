@@ -124,6 +124,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Uploads\Images\Abouts\" />
+    <Folder Include="wwwroot\Uploads\Images\Testimonials\" />
+    <Folder Include="wwwroot\Uploads\Images\Partners\" />
     <Folder Include="wwwroot\Uploads\Images\Settings\" />
     <Folder Include="wwwroot\Uploads\Images\PageHeader\" />
   </ItemGroup>

@@ -1,0 +1,422 @@
+﻿@model VmAbout
+@{
+    ViewData["Title"] = "About us";
+}
+
+@if (Model.pageHeader != null)
+{
+    <section class="hero-banner">
+        <picture>
+            <source srcset="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" media="(min-width: 992px)">
+            <img class="bg-img"
+                 src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="img">
+        </picture>
+        <div class="hero-layout"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="align-container">
+                        <div class="align-container-item">
+                            <span class="hero-overlay">@Model.pageHeader.Subtitle</span>
+                            <h1 class="hero-title">@Model.pageHeader.Title</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div class="banner-area-wrapper">
+        <div class="container">
+            <div class="row">
+                <h3 class="alert alert-danger text-center">Page Header Elave Edin</h3>
+            </div>
+        </div>
+    </div>
+}
+<section class="section-style-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-xl-5 position-relative">
+                <img class="w-100 mb-5" src="~/Uploads/Images/Abouts/@Model.About.Image" alt="img">
+                <div class="about-img-block">
+                    <img class="img-about" src="~/img/badge-img.png" alt="img">
+                    <h3 class="about-img-title mb-0">@Html.Raw(Model.About.ImageTitle)</h3>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 offset-xl-1">
+                <div class="title-style-one mb-5">
+                    <span class="pre-title">About us</span>
+                    <h3 class="title">@Html.Raw(Model.About.Title)</h3>
+                </div>
+                <p>@Html.Raw(Model.About.Content) </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-style-two pt-0">
+    <div class="container">
+        <div class="row flex-column-reverse flex-lg-row">
+            <div class="col-lg-6 col-xl-6 mt-5 mt-lg-0">
+                <div class="title-style-one mb-5">
+                    <h3 class="title">@Html.Raw(Model.AboutMission.Title)</h3>
+                </div>
+                <p>@Html.Raw(Model.AboutMission.SubTitle)</p>
+            </div>
+            <div class="col-lg-6 col-xl-5 offset-xl-1">
+                <img class="w-100 mb-5" src="~/Uploads/Images/Abouts/@Model.AboutMission.Image" alt="img">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="achievement-section">
+    <img class="achievement-img" src="~/img/achievement-section.png" alt="img">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="title-style-one title-center">
+                    <span class="pre-title">Achievement</span>
+                    <h3 class="title">High work achievements</h3>
+                </div>
+            </div>
+        </div>
+        <div class="counter-area  text-center ">
+            <div class="row align-items-center">
+                @foreach (var item in Model.Achievements)
+                {
+                    <div class="col-md-6 col-lg-4 text-center">
+                        <div class="single-counterup">
+                            <span class="count-num">@item.CountNum</span>
+                            <span class=" count-sub">@item.CountSub</span>
+                            <h6 class="title">@item.Title</h6>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-style-two video-section pt-0 pb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <a class="video-block" href="https://www.youtube.com/watch?v=hSbVJ4y6I-8">
+                    <img class="bg-img" src="~/img/video-block.jpg" alt="img">
+                    <div class="video-block-inner">
+                        <span class="video-icon">
+                            <svg class="icon">
+                                <use xlink:href="#play"></use>
+                            </svg>
+                        </span><span>Video presentation</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-style-two history bg-ligray">
+    <div class="container marbot-70">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="title-style-one">
+                    <span class="pre-title">HISTORY</span>
+                    <h3 class="title">Our company long History</h3>
+                </div>
+            </div>
+            <div class="col-md-5 text-md-right top-30">
+                <div class="about-slider-nav"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="about-slider">
+                <div class="history-slide" style="width: 1%; display: inline-block;">
+                    <div class="history-slide-top">
+                        <div class="history-slide-date"><span>1993</span><span>year</span></div>
+                    </div>
+                    <div class="history-slide-lower">
+                        <h6 class="history-slide-title">Brook trout powen harelip sucker</h6>
+                        <p class="mb-0">Temperate ocean-bass, hussar Steve fish combtail gourami arrowtooth eel, blue whiting, Indian mul soapfish. Slickhead smelt catfish</p>
+                    </div>
+                </div>
+                @foreach (var item in Model.Histories)
+                {
+                    <div class="history-slide" style="width: 100%; display: inline-block;">
+                        <div class="history-slide-top">
+                            <div class="history-slide-date"><span>@item.Year</span><span>year</span></div>
+                        </div>
+                        <div class="history-slide-lower">
+                            <h6 class="history-slide-title">@item.Title</h6>
+                            <p class="mb-0">@item.SubTitle</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-style-two about-service">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="title-style-one title-center ">
+                <span class="pre-title">SERVICES</span>
+                <h3 class="title">To be comfortable for you </h3>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.AboutServices)
+            {
+                <div class="col-6 col-sm-4 col-lg-3 text-center">
+                    <div class="icon-item">
+                        <div class="icon-item-img">
+                            <svg class="icon">
+                                <use xlink:href="@item.Icon"></use>
+                            </svg>
+                        </div>
+                        <h6 class="icon-item-title mb-0">@item.Title</h6>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<section class="section-style-two servicestyle bg-darkgray pb-0">
+    <div class="team-bg">
+        <img class="section-bg-img top-50 right-0" src="~/img/testimonials-bg.png" alt="">
+    </div>
+    <div class="container">
+        <div class="row align-items-center maroffset-50">
+            <div class="col-xl-6 marbot-70">
+                <div class="title-style-one title-white">
+                    <span class="pre-title">Team</span>
+                    <h3 class="title">The team that support and help you</h3>
+                    <p class="text mt-5">
+                        ustralian herring zingel arowana Pacific cod Red chub freshwater
+                        hatchetfish plaice; albacore starry flounder kingfish Owens pupfish butterflyfish
+                        noodlefish Atlantic eel
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="team-card">
+                    <div class="team-card-img">
+                        <img class="bg-img" src="~/img/team_3.jpg" alt="team">
+                    </div>
+                    <div class="team-card-description">
+                        <h6 class="team-card-name">Claid Owen</h6><span class="team-card-position">
+                            Company
+                            CEO
+                        </span>
+                        <ul class="socials socials-blue  ">
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#twitter"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="team-card">
+                    <div class="team-card-img">
+                        <img class="bg-img" src="~/img/team_4.jpg" alt="team">
+                    </div>
+                    <div class="team-card-description">
+                        <h6 class="team-card-name">Ginger Trap</h6><span class="team-card-position">
+                            Service
+                            analytic
+                        </span>
+                        <ul class="socials socials-blue  ">
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#twitter"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="team-card">
+                    <div class="team-card-img">
+                        <img class="bg-img" src="~/img/team_5.jpg" alt="team">
+                    </div>
+                    <div class="team-card-description">
+                        <h6 class="team-card-name">Caroline Garcia</h6><span class="team-card-position">Product manager</span>
+                        <ul class="socials socials-blue  ">
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#twitter"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="team-card">
+                    <div class="team-card-img">
+                        <img class="bg-img" src="~/img/team_6.jpg" alt="team">
+                    </div>
+                    <div class="team-card-description">
+                        <h6 class="team-card-name">Alex Time</h6><span class="team-card-position">
+                            Manager
+                            Mehico
+                        </span>
+                        <ul class="socials socials-blue  ">
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#twitter"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="team-card">
+                    <div class="team-card-img">
+                        <img class="bg-img" src="~/img/team_7.jpg" alt="team">
+                    </div>
+                    <div class="team-card-description">
+                        <h6 class="team-card-name">Pier Woodman</h6><span class="team-card-position">
+                            HR
+                            manager
+                        </span>
+                        <ul class="socials socials-blue  ">
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#twitter"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="team-card">
+                    <div class="team-card-img">
+                        <img class="bg-img" src="~/img/team_8.jpg" alt="team">
+                    </div>
+                    <div class="team-card-description">
+                        <h6 class="team-card-name">Alex Morgan</h6><span class="team-card-position">
+                            Content
+                            videomaker
+                        </span>
+                        <ul class="socials socials-blue  ">
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#twitter"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="socials-item">
+                                <a class="socials-link" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+@await Component.InvokeAsync("Testimonial");
+@await Component.InvokeAsync("Partners");
