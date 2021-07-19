@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,10 +34,12 @@ namespace TransX.Controllers
             {
                 Setting = _context.Settings.FirstOrDefault(),
                 About = _context.Abouts.FirstOrDefault(),
+                AboutVideo = _context.AboutVideos.FirstOrDefault(),
                 AboutMission = _context.AboutMissions.FirstOrDefault(),
                 AboutServices = _context.AboutServices.ToList(),
                 Achievements = _context.Achievements.ToList(),
                 Histories = _context.Histories.ToList(),
+                CustomUser = _context.CustomUsers.Include(sc => sc.SocialToUsers).ThenInclude(s => s.Social).Where(aa => aa.IsTeam == true).Take(6).ToList(),
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "about").FirstOrDefault(),
             };
             return View(model);

@@ -256,9 +256,9 @@ namespace TransX.Controllers
                     MailMessage mail = new MailMessage();
                     mail.From = new MailAddress("transxmanagement@gmail.com", "TransX Managements Confirm Email");
                     mail.To.Add(user.Email);
-                    mail.Body = "<h1>Hi Bro</h1>" +
-                        "<p>For Confirm Email please visit the link below</p>" +
-                        "<a href='https://localhost:44374/account/ConfirmEmail?userId=" + user.Id + "&token=" + token + "'>Confirm Email</a>";
+                    mail.Body = "<table style = 'Margin:0 auto;background:#f6f6f6;border-collapse:collapse;border-color:transparent;border-spacing:0;float:none;margin:0 auto;padding:0;text-align:center;vertical-align:top;width:100%' >Dear " + user.UserName + "<td height = '50px' style='Margin:0;border-collapse:collapse!important;color:#0a0a0a;font-family:Open Sans,sans-serif;font-size:32px;font-weight:400;line-height:32px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'></td></tr></tbody></table><table class='m_4511308450920007087container-radius' style='border-top-width:0;border-top-color:#efefef;border-left-width:0;border-right-width:0;border-bottom-width:1px;border-bottom-color:#efefef;border-right-color:#efefef;border-left-color:#efefef;border-style:solid;border-bottom-left-radius:3px;border-bottom-right-radius:3px;display:table;padding-bottom:50px;border-spacing:60px 0;border-collapse:separate;width:100%;background:#f6f6f6;max-width:800px'><tbody><tr><td><table class='m_4511308450920007087row' style='border-collapse:collapse;border-color:transparent;border-spacing:0;display:table;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style = 'padding:0;text-align:left;vertical-align:top' ></ tr ></ tbody ></ table> Dear " + user.UserName + ",</p><p>Thanks for getting started with our TransX!</p><p>We need a little more information to complete your registration, including a confirmation of your email address. </p><p>Click below to confirm your email address:<br>" +
+                            "<a href='https://localhost:44374/account/ConfirmEmail?userId=" + user.Id + "&token=" + token + "'>Confirm Email</a>" +
+                        "</td></tr></tbody></table></td></tr></tbody></table>";
                     mail.IsBodyHtml = true;
                     mail.Subject = "Confirm Email";
 
@@ -326,9 +326,9 @@ namespace TransX.Controllers
                     MailMessage mail = new MailMessage();
                     mail.From = new MailAddress("transxmanagement@gmail.com", "TransX Managements Confirm Email");
                     mail.To.Add(customUser.Email);
-                    mail.Body = "<h1>Hi Bro</h1>" +
-                        "<p>For Confirm Email please visit the link below</p>" +
-                        "<a href='https://localhost:44374/account/ConfirmEmail?userId=" + customUser.Id + "&token=" + token + "'>Confirm Email</a>";
+                    mail.Body = "<table style = 'Margin:0 auto;background:#f6f6f6;border-collapse:collapse;border-color:transparent;border-spacing:0;float:none;margin:0 auto;padding:0;text-align:center;vertical-align:top;width:100%' >Dear " + customUser.UserName + "<td height = '50px' style='Margin:0;border-collapse:collapse!important;color:#0a0a0a;font-family:Open Sans,sans-serif;font-size:32px;font-weight:400;line-height:32px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'></td></tr></tbody></table><table class='m_4511308450920007087container-radius' style='border-top-width:0;border-top-color:#efefef;border-left-width:0;border-right-width:0;border-bottom-width:1px;border-bottom-color:#efefef;border-right-color:#efefef;border-left-color:#efefef;border-style:solid;border-bottom-left-radius:3px;border-bottom-right-radius:3px;display:table;padding-bottom:50px;border-spacing:60px 0;border-collapse:separate;width:100%;background:#f6f6f6;max-width:800px'><tbody><tr><td><table class='m_4511308450920007087row' style='border-collapse:collapse;border-color:transparent;border-spacing:0;display:table;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style = 'padding:0;text-align:left;vertical-align:top' ></ tr ></ tbody ></ table> Dear " + customUser.Name +" " + customUser.Surname + ",</p><p>Thanks for getting started with our TransX!</p><p>We need a little more information to complete your registration, including a confirmation of your email address. </p><p>Click below to confirm your email address:<br>" +
+                            "<a href='https://localhost:44374/account/ConfirmEmail?userId=" + customUser.Id + "&token=" + token + "'>Confirm Email</a>" +
+                        "</td></tr></tbody></table></td></tr></tbody></table>";
                     mail.IsBodyHtml = true;
                     mail.Subject = "Confirm Email";
 
@@ -561,7 +561,6 @@ namespace TransX.Controllers
             }
 
 
-
             var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider,
                 info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
 
@@ -586,6 +585,7 @@ namespace TransX.Controllers
                         };
 
                         await _userManager.CreateAsync(user);
+                        await _userManager.AddToRoleAsync(user, "Customer");
 
                         var token = HttpUtility.UrlEncode(await _userManager.GenerateEmailConfirmationTokenAsync(user));
 
@@ -594,9 +594,11 @@ namespace TransX.Controllers
                         MailMessage mail = new MailMessage();
                         mail.From = new MailAddress("transxmanagement@gmail.com", "TransX Managements Confirm Email");
                         mail.To.Add(user.Email);
-                        mail.Body = "<h1>Hi Bro</h1>" +
-                            "<p>For Confirm Email please visit the link below</p>" +
-                            "<a href='https://localhost:44374/account/ConfirmEmail?userId=" + user.Id + "&token=" + token + "'>Confirm Email</a>";
+                        mail.Body = "<table style = 'Margin:0 auto;background:#f6f6f6;border-collapse:collapse;border-color:transparent;border-spacing:0;float:none;margin:0 auto;padding:0;text-align:center;vertical-align:top;width:100%' >Dear " + user.UserName + "<td height = '50px' style='Margin:0;border-collapse:collapse!important;color:#0a0a0a;font-family:Open Sans,sans-serif;font-size:32px;font-weight:400;line-height:32px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'></td></tr></tbody></table><table class='m_4511308450920007087container-radius' style='border-top-width:0;border-top-color:#efefef;border-left-width:0;border-right-width:0;border-bottom-width:1px;border-bottom-color:#efefef;border-right-color:#efefef;border-left-color:#efefef;border-style:solid;border-bottom-left-radius:3px;border-bottom-right-radius:3px;display:table;padding-bottom:50px;border-spacing:60px 0;border-collapse:separate;width:100%;background:#f6f6f6;max-width:800px'><tbody><tr><td><table class='m_4511308450920007087row' style='border-collapse:collapse;border-color:transparent;border-spacing:0;display:table;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style = 'padding:0;text-align:left;vertical-align:top' ></ tr ></ tbody ></ table> Dear " + user.UserName + ",</p><p>Thanks for getting started with our TransX!</p><p>We need a little more information to complete your registration, including a confirmation of your email address. </p><p>Click below to confirm your email address:<br>" +
+                            "<a href='https://localhost:44374/account/ConfirmEmail?userId=" + user.Id + "&token=" + token + "'>Confirm Email</a>" +
+                        "</td></tr></tbody></table></td></tr></tbody></table>";
+
+                            
                         mail.IsBodyHtml = true;
                         mail.Subject = "Confirm Email";
 

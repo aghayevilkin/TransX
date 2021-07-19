@@ -52,6 +52,19 @@
                         </label>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="text-switch status-switch mt-2">
+                        <p>IsTeam</p>
+                        <input type="checkbox" asp-for="IsTeam" id="team" class="text-switch-check" />
+                        <label for="team" class="text-switch-label">
+                            <span class="text-swtch-data">
+                                <span class="left">Active</span>
+                                <span class="dot-circle"></span>
+                                <span class="right">Inactive</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
                 <input asp-for="@Model.Id" hidden>
                 <button type="submit" class="btn btn-success mr-2">Update</button>
                 <button asp-action="users" class="btn btn-danger">Cancel</button>

@@ -1,0 +1,41 @@
+﻿@model AboutVideo
+@{
+    ViewData["Title"] = "Create Video";
+}
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mt-5">Create Video</h2>
+            </div>
+            <div class="col-6">
+                <form asp-controller="about" asp-action="CreateVideo" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="Name">Title</label>
+                        <input type="text" class="form-control" id="title" asp-for="Title" placeholder="Title">
+                        <span id="messages" asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Video Link</label>
+                        <input type="text" class="form-control" id="title" asp-for="VideoLink" placeholder="Video Link">
+                        <span id="messages" asp-validation-for="VideoLink" class="text-danger"></span>
+                    </div>
+                    <div class="input-file">
+                        <span id="messages" asp-validation-for="ImageFile" class="text-danger"></span>
+                        <img id="file_upload" src="~/Uploads/Images/no-image.png" alt="your image" class="upload-img" />
+                        <div class="input-file-upload">
+                            <span class="upload-label">Upload Image</span>
+                            <input type='file' onchange="readURL(this);" asp-for="ImageFile" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button asp-action="index" class="btn btn-danger">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

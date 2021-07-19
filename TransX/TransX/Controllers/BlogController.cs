@@ -56,7 +56,7 @@ namespace TransX.Controllers
             {
                 Blogs = products,
                 RecentPost = _context.Blogs.Include(c => c.User).OrderByDescending(o => o.AddedDate).Take(4).ToList(),
-                Categories = _context.BlogCategories.Include(b => b.Blogs).ToList(),
+                Categories = _context.BlogCategories.Include(b => b.Blogs).Where(bb => bb.Blogs.Any(s => s.BlogStatus == BlogStatus.Active)).ToList(),
                 Comments = _context.BlogComments.ToList(),
                 Tags = _context.BlogTags.Include(b => b.TagToBlogs).ThenInclude(bl => bl.Blog).ToList(),
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "blog").FirstOrDefault(),

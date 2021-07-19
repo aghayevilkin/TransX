@@ -143,71 +143,36 @@
                                 </ul>
                             </div>
                         </li>
-                        @*<li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#about" aria-expanded="false" aria-controls="about">
-                        <i class="fa fa-eye menu-icon"></i>
-                        <span class="menu-title">About</span>
-                        <span class="badge badge-info">1</span>
-                    </a>
-                    <div class="collapse" id="about">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" asp-controller="about" asp-action="index"> About </a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#contact" aria-expanded="false" aria-controls="contact">
-                        <i class="fa fa-address-card-o menu-icon"></i>
-                        <span class="menu-title">Contact</span>
-                        <span class="badge badge-warning">1</span>
-                    </a>
-                    <div class="collapse" id="contact">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" asp-controller="contact" asp-action="index"> Contact</a></li>
-                        </ul>
-                    </div>
-                </li>*@
+
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#blog" aria-expanded="false" aria-controls="blog">
-                                <i class="fa fa-ravelry menu-icon"></i>
-                                <span class="menu-title">Blog</span>
-                                <span class="badge badge-primary">2</span>
+                            <a class="nav-link" data-toggle="collapse" href="#about" aria-expanded="false" aria-controls="about">
+                                <i class="fa fa-eye menu-icon"></i>
+                                <span class="menu-title">About</span>
+                                <span class="badge badge-info">4</span>
                             </a>
-                            <div class="collapse" id="blog">
+                            <div class="collapse" id="about">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="blog" asp-action="index">Blog</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="blog" asp-action="create">Create Blog</a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="about" asp-action="index"> About </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="about" asp-action="CreateAchievement"> Create Achievement </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="about" asp-action="CreateHistory"> Create History </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="about" asp-action="CreateAboutServices"> Create AboutServices </a></li>
                                 </ul>
                             </div>
                         </li>
-                        @*<li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#courses" aria-expanded="false" aria-controls="courses">
-                        <i class=" icon-book-open menu-icon"></i>
-                        <span class="menu-title">Courses</span>
-                        <span class="badge badge-danger">2</span>
-                    </a>
-                    <div class="collapse" id="courses">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" asp-controller="courses" asp-action="index">Courses</a></li>
-                            <li class="nav-item"> <a class="nav-link" asp-controller="courses" asp-action="create">Create Course</a></li>
-                        </ul>
-                    </div>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#event" aria-expanded="false" aria-controls="event">
-                        <i class=" fa fa-superpowers menu-icon"></i>
-                        <span class="menu-title">Event</span>
-                        <span class="badge badge-danger">3</span>
-                    </a>
-                    <div class="collapse" id="event">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="index">Event</a></li>
-                            <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="create">Create Event</a></li>
-                            <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="speaker">Speaker</a></li>
-                        </ul>
-                    </div>
-                </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#blog" aria-expanded="false" aria-controls="blog">
+                                <i class="fas fa-blog menu-icon"></i>
+                                <span class="menu-title">Blog</span>
+                                <span class="badge badge-info">2</span>
+                            </a>
+                            <div class="collapse" id="blog">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="blog" asp-action="index"> Blog </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="blog" asp-action="Create"> Create Blog </a></li>
+                                </ul>
+                            </div>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="false" aria-controls="users">
@@ -236,23 +201,34 @@
                             </div>
                         </li>
 
-                        @*<li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#e-commerce" aria-expanded="false" aria-controls="e-commerce">
-                        <i class="icon-briefcase menu-icon"></i>
-                        <span class="menu-title">Teacher</span>
-                        <span class="badge badge-info">6</span>
-                    </a>
-                    <div class="collapse" id="e-commerce">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="index"> Teacher </a></li>
-                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="create"> Teacher Create </a></li>
-                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="social"> Social </a></li>
-                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="socialtoteacher"> Social To Teacher </a></li>
-                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="skill"> Skill </a></li>
-                            <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="skilltoteacher"> Skill To Teacher </a></li>
-                        </ul>
-                    </div>
-                </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#testimonial" aria-expanded="false" aria-controls="testimonial">
+                                <i class="fas fa-quote-right menu-icon"></i>
+                                <span class="menu-title">Testimonials</span>
+                                <span class="badge badge-success">2</span>
+                            </a>
+                            <div class="collapse" id="testimonial">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="testimonial" asp-action="index"> Testimonials </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="testimonial" asp-action="create"> Create Testimonials </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#partner" aria-expanded="false" aria-controls="partner">
+                                <i class="fas fa-handshake menu-icon"></i>
+                                <span class="menu-title">Partners</span>
+                                <span class="badge badge-success">2</span>
+                            </a>
+                            <div class="collapse" id="partner">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="partner" asp-action="index"> Partners </a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="partner" asp-action="create"> Create Partners </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="setting">
                                 <i class="fa fa-cogs menu-icon"></i>

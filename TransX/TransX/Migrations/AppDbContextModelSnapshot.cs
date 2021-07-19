@@ -681,6 +681,22 @@ namespace TransX.Migrations
                     b.ToTable("TagToBlogs");
                 });
 
+            modelBuilder.Entity("TransX.Models.TeamImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TeamImages");
+                });
+
             modelBuilder.Entity("TransX.Models.Testimonials", b =>
                 {
                     b.Property<int>("Id")
@@ -720,6 +736,9 @@ namespace TransX.Migrations
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsTeam")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsVerify")
                         .HasColumnType("bit");

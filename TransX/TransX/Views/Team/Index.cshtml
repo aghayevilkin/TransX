@@ -1,0 +1,114 @@
+﻿@model VmTeam
+@{
+    ViewData["Title"] = "Team";
+}
+
+
+@if (Model.pageHeader != null)
+{
+    <section class="hero-banner">
+        <picture>
+            <source srcset="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" media="(min-width: 992px)">
+            <img class="bg-img"
+                 src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="img">
+        </picture>
+        <div class="hero-layout"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="align-container">
+                        <div class="align-container-item">
+                            <span class="hero-overlay">@Model.pageHeader.Subtitle</span>
+                            <h1 class="hero-title">@Model.pageHeader.Title</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div class="banner-area-wrapper">
+        <div class="container">
+            <div class="row">
+                <h3 class="alert alert-danger text-center">Page Header Elave Edin</h3>
+            </div>
+        </div>
+    </div>
+}
+<section id="services" class=" about-service section-style">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-7">
+                <div class="title-style-one">
+                    <span class="pre-title">About</span>
+                    <h3 class="title">
+                        Powerfull Features of <span class="green-color">Transporterium</span>
+                        company
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row maroffset-50">
+            @foreach (var item in Model.AboutServices)
+            {
+                <div class="col-md-6 col-xl-3">
+                    <div class="icon-item">
+                        <div class="icon-item-img">
+                            <svg class="icon">
+                                <use xlink:href="@item.Icon"></use>
+                            </svg>
+                        </div>
+                        <h6 class="icon-item-title">@item.Title</h6>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<section class="achievement-section">
+    <img class="achievement-img" src="~/Uploads/Images/Teams/@Model.TeamImage.Image" alt="img">
+</section>
+<section class="style-section-one ">
+    <div class="container">
+        <div class="row mb-5 mt-5">
+            <div class="title-style-one title-center ">
+                <span class="pre-title">CREATRIVE PEOPLE</span>
+                <h3 class="title">Professional Master <span class="green-color">Team</span></h3>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.CustomUser)
+            {
+                if (item.Image != null)
+                {
+                    <div class="col-sm-6 col-lg-4 col-xl-3">
+                        <div class="team-card">
+                            <div class="team-card-img">
+                                <img class="bg-img" src="~/Uploads/Images/Accounts/@item.Image" alt="team">
+                            </div>
+                            <div class="team-card-description">
+                                <h6 class="team-card-name">@item.Name @item.Surname</h6><span class="team-card-position">@item.Profision</span>
+                                <ul class="socials socials-blue  ">
+                                    @foreach (var item2 in item.SocialToUsers)
+                                    {
+                                        <li class="socials-item">
+                                            <a class="socials-link" href="@item2.Link">
+                                                <svg class="icon">
+                                                    <use xlink:href="@item2.Social.Icon"></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+@await Component.InvokeAsync("Testimonial");
+@await Component.InvokeAsync("Partners");

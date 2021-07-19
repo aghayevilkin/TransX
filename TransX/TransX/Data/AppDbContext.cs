@@ -34,5 +34,6 @@ namespace TransX.Data
         public DbSet<AboutMission> AboutMissions { get; set; }
         public DbSet<About> Abouts { get; set; }
         public DbSet<AboutVideo> AboutVideos { get; set; }
+        public DbSet<TeamImage> TeamImages { get; set; }
     }
 }

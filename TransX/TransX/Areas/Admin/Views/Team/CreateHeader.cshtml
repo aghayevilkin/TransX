@@ -1,0 +1,42 @@
+﻿@model PageHeader
+@{
+    ViewData["Title"] = "Create Page Header";
+}
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mt-5">Create Header</h2>
+            </div>
+            <div class="col-6">
+                <form asp-controller="team" asp-action="CreateHeader" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="Name">Title</label>
+                        <input type="text" class="form-control" id="title" asp-for="Title" placeholder="Title">
+                        <input type="hidden" class="form-control" id="Page" name="Page" placeholder="Page" value="team">
+                        <span id="messages" asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Subtitle</label>
+                        <input type="text" class="form-control" id="title" asp-for="Subtitle" placeholder="Subtitle">
+                        <span id="messages" asp-validation-for="Subtitle" class="text-danger"></span>
+                    </div>
+                    <div class="input-file">
+                        <span id="messages" asp-validation-for="ImageFile" class="text-danger"></span>
+                        <img id="file_upload" src="~/Uploads/Images/no-image.png" alt="your image" class="upload-img" />
+                        <div class="input-file-upload">
+                            <span class="upload-label">Upload Image</span>
+                            <input type='file' onchange="readURL(this);" asp-for="ImageFile" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button asp-action="index" class="btn btn-danger">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

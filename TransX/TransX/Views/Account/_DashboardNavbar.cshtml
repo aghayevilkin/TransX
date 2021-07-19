@@ -15,13 +15,17 @@
                 }
                 else
                 {
-                      <label for="image"><img id="file_upload" src="~/img/user-3.jpg" class="img-fluid avater upload-img" alt="My Image"></label>
+                      <label for="image"><img id="file_upload" src="~/img/avatar1.png" class="img-fluid avater upload-img" alt="My Image"></label>
                 }
 
                 <h4>
                     @Model.User.Name @Model.User.Surname  @if (Model.User.IsVerify != false)
                     {
                         <img class="verificationicon" src="~/img/verification.svg" alt="img">
+                    }
+                    else if (Model.User.IsTeam!=false)
+                    {
+                        <img style=" width: 2rem;" class="verificationicon" src="~/img/isteam.png" alt="img">
                     }
                 </h4>
 

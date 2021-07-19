@@ -68,6 +68,10 @@ else
                                     {
                                         <img class="verificationicon" src="~/img/verification.svg" alt="img">
                                     }
+                                    else if (Model.Blog.User.IsTeam != false)
+                                    {
+                                        <img class="verificationicon" src="~/img/isteam.png" alt="img">
+                                    }
                                 </div>
                                 <div class="col-md-6 text-center">
                                     @foreach (var tags in Model.Tags)
@@ -141,6 +145,10 @@ else
                                                         {
                                                             <img class="verificationicon" src="~/img/verification.svg" alt="img">
                                                         }
+                                                        else if (item.User.IsTeam != false)
+                                                        {
+                                                            <img class="verificationicon" src="~/img/isteam.png" alt="img">
+                                                        }
                                                     </div>
                                                     @if (SignInManager.IsSignedIn(User))
                                                     {
@@ -209,6 +217,10 @@ else
                                                             @if (item2.User.IsVerify != false)
                                                             {
                                                                 <img class="verificationicon" src="~/img/verification.svg" alt="img">
+                                                            }
+                                                            else if (true)
+                                                            {
+                                                                <img class="verificationicon" src="~/img/isteam.png" alt="img">
                                                             }
                                                         </div>
                                                         <div class="col-12">

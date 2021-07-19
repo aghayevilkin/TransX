@@ -39,6 +39,7 @@ namespace TransX.Areas.Admin.Controllers
             {
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "about").FirstOrDefault(),
                 About = _context.Abouts.FirstOrDefault(),
+                AboutVideo = _context.AboutVideos.FirstOrDefault(),
                 AboutMission = _context.AboutMissions.FirstOrDefault(),
                 AboutServices =_context.AboutServices.ToList(),
                 Achievements =_context.Achievements.ToList(),
@@ -781,6 +782,143 @@ namespace TransX.Areas.Admin.Controllers
 
                     _context.SaveChanges();
                     Notify("About Updated");
+
+                    return RedirectToAction("Index");
+                }
+
+            }
+            return View(model);
+        }
+
+
+        //Video
+        public IActionResult CreateVideo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateVideo(AboutVideo model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.ImageFile != null)
+                {
+                    if (model.ImageFile.ContentType == "image/png" || model.ImageFile.ContentType == "image/jpeg" || model.ImageFile.ContentType == "image/gif" || model.ImageFile.ContentType == "image/svg")
+                    {
+                        if (model.ImageFile.Length <= 2097152)
+                        {
+                            string fileName = Guid.NewGuid() + "-" + DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + model.ImageFile.FileName;
+                            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Abouts", fileName);
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                model.ImageFile.CopyTo(stream);
+                            }
+
+                            model.Image = fileName;
+
+                            _context.AboutVideos.Add(model);
+                            _context.SaveChanges();
+                            Notify("About Video Created");
+
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            Notify("Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                            ModelState.AddModelError("ImageFile", "Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!");
+                        }
+                    }
+                    else
+                    {
+                        Notify("Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                        ModelState.AddModelError("ImageFile", "Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!");
+                    }
+                }
+                else
+                {
+                    Notify("No Image Found!", notificationType: NotificationType.warning);
+                    ModelState.AddModelError("ImageFile", "No Image Found!");
+                }
+
+            }
+            return View(model);
+        }
+
+
+        public IActionResult UpdateVideo(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            AboutVideo model = _context.AboutVideos.Find(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+
+            AboutVideo aboutVideo = _context.AboutVideos.FirstOrDefault();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateVideo(AboutVideo model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (model.ImageFile != null)
+                {
+
+                    if (model.ImageFile.ContentType == "image/png" || model.ImageFile.ContentType == "image/jpeg" || model.ImageFile.ContentType == "image/gif" || model.ImageFile.ContentType == "image/svg")
+                    {
+                        if (model.ImageFile.Length <= 2097152)
+                        {
+                            string oldFilePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Abouts", model.Image);
+                            if (System.IO.File.Exists(oldFilePath))
+                            {
+                                System.IO.File.Delete(oldFilePath);
+                            }
+
+                            string fileName = Guid.NewGuid() + "-" + DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + model.ImageFile.FileName;
+                            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Abouts", fileName);
+
+
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                model.ImageFile.CopyTo(stream);
+                            }
+
+                            model.Image = fileName;
+
+                            _context.Entry(model).State = EntityState.Modified;
+                            Notify("About Video Updated");
+                            _context.SaveChanges();
+
+
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            Notify("Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                            ModelState.AddModelError("ImageFile", "Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!");
+                        }
+                    }
+                    else
+                    {
+                        Notify("Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                        ModelState.AddModelError("ImageFile", "Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!");
+                    }
+                }
+                else
+                {
+                    _context.Entry(model).State = EntityState.Modified;
+
+                    _context.SaveChanges();
+                    Notify("About Video Updated");
 
                     return RedirectToAction("Index");
                 }

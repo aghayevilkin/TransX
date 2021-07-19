@@ -20,6 +20,8 @@ namespace TransX.Models
         public string Image { get; set; }
         [Required]
         public bool IsVerify { get; set; }
+        [Required]
+        public bool IsTeam { get; set; }
 
         public string Profision { get; set; }
         public string About { get; set; }

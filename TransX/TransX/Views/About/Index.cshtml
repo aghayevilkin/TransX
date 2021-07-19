@@ -102,14 +102,14 @@ else
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <a class="video-block" href="https://www.youtube.com/watch?v=hSbVJ4y6I-8">
-                    <img class="bg-img" src="~/img/video-block.jpg" alt="img">
+                <a class="video-block" href="@Model.AboutVideo.VideoLink">
+                    <img class="bg-img" src="~/Uploads/Images/Abouts/@Model.AboutVideo.Image" alt="img">
                     <div class="video-block-inner">
                         <span class="video-icon">
                             <svg class="icon">
                                 <use xlink:href="#play"></use>
                             </svg>
-                        </span><span>Video presentation</span>
+                        </span><span>@Model.AboutVideo.Title</span>
                     </div>
                 </a>
             </div>
@@ -200,220 +200,36 @@ else
                     </p>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-4 col-xl-3">
-                <div class="team-card">
-                    <div class="team-card-img">
-                        <img class="bg-img" src="~/img/team_3.jpg" alt="team">
+            @foreach (var item in Model.CustomUser)
+            {
+                if (item.Image != null)
+                {
+                    <div class="col-sm-6 col-lg-4 col-xl-3">
+                        <div class="team-card">
+                            <div class="team-card-img">
+                                <img class="bg-img" src="~/Uploads/Images/Accounts/@item.Image" alt="team">
+                            </div>
+                            <div class="team-card-description">
+                                <h6 class="team-card-name">@item.Name @item.Surname</h6><span class="team-card-position">
+                                    @item.Profision
+                                </span>
+                                <ul class="socials socials-blue  ">
+                                    @foreach (var item2 in item.SocialToUsers)
+                                    {
+                                        <li class="socials-item">
+                                           <a class="socials-link" href="@item2.Link">
+                                               <svg class="icon">
+                                                   <use xlink:href="@item2.Social.Icon"></use>
+                                               </svg>
+                                           </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="team-card-description">
-                        <h6 class="team-card-name">Claid Owen</h6><span class="team-card-position">
-                            Company
-                            CEO
-                        </span>
-                        <ul class="socials socials-blue  ">
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#linkedin"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 col-xl-3">
-                <div class="team-card">
-                    <div class="team-card-img">
-                        <img class="bg-img" src="~/img/team_4.jpg" alt="team">
-                    </div>
-                    <div class="team-card-description">
-                        <h6 class="team-card-name">Ginger Trap</h6><span class="team-card-position">
-                            Service
-                            analytic
-                        </span>
-                        <ul class="socials socials-blue  ">
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#linkedin"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 col-xl-3">
-                <div class="team-card">
-                    <div class="team-card-img">
-                        <img class="bg-img" src="~/img/team_5.jpg" alt="team">
-                    </div>
-                    <div class="team-card-description">
-                        <h6 class="team-card-name">Caroline Garcia</h6><span class="team-card-position">Product manager</span>
-                        <ul class="socials socials-blue  ">
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#linkedin"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 col-xl-3">
-                <div class="team-card">
-                    <div class="team-card-img">
-                        <img class="bg-img" src="~/img/team_6.jpg" alt="team">
-                    </div>
-                    <div class="team-card-description">
-                        <h6 class="team-card-name">Alex Time</h6><span class="team-card-position">
-                            Manager
-                            Mehico
-                        </span>
-                        <ul class="socials socials-blue  ">
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#linkedin"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 col-xl-3">
-                <div class="team-card">
-                    <div class="team-card-img">
-                        <img class="bg-img" src="~/img/team_7.jpg" alt="team">
-                    </div>
-                    <div class="team-card-description">
-                        <h6 class="team-card-name">Pier Woodman</h6><span class="team-card-position">
-                            HR
-                            manager
-                        </span>
-                        <ul class="socials socials-blue  ">
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#linkedin"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 col-xl-3">
-                <div class="team-card">
-                    <div class="team-card-img">
-                        <img class="bg-img" src="~/img/team_8.jpg" alt="team">
-                    </div>
-                    <div class="team-card-description">
-                        <h6 class="team-card-name">Alex Morgan</h6><span class="team-card-position">
-                            Content
-                            videomaker
-                        </span>
-                        <ul class="socials socials-blue  ">
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a class="socials-link" href="#">
-                                    <svg class="icon">
-                                        <use xlink:href="#linkedin"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
+                }
+            }
 
         </div>
     </div>

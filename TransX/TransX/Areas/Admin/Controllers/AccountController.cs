@@ -202,6 +202,7 @@ namespace TransX.Areas.Admin.Controllers
                 customUser.Adress = model.Adress;
                 customUser.About = model.About;
                 customUser.IsVerify = model.IsVerify;
+                customUser.IsTeam = model.IsTeam;
 
                 var selectedRole = _context.Roles.Find(model.RoleId);
                 if (selectedRole == null)
