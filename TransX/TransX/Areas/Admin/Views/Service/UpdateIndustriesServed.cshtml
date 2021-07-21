@@ -1,0 +1,24 @@
+﻿@model IndustriesServed
+@{
+    ViewData["Title"] = "Update Industries Served";
+}
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-area="admin" asp-controller="service" asp-action="updateindustriesserved" method="post">
+                    <div class="form-group">
+                        <label asp-for="Name">Name</label>
+                        <input class="form-control" id="Name" asp-for="Name">
+                        <span id="messages" asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button asp-action="industriesserved" class="btn btn-danger">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

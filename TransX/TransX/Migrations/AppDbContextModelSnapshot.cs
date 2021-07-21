@@ -341,6 +341,49 @@ namespace TransX.Migrations
                     b.ToTable("Achievements");
                 });
 
+            modelBuilder.Entity("TransX.Models.Benefit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Benefits");
+                });
+
+            modelBuilder.Entity("TransX.Models.BenefitsToService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BenefitId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BenefitId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("BenefitsToServices");
+                });
+
             modelBuilder.Entity("TransX.Models.Blog", b =>
                 {
                     b.Property<int>("Id")
@@ -471,6 +514,44 @@ namespace TransX.Migrations
                     b.ToTable("Histories");
                 });
 
+            modelBuilder.Entity("TransX.Models.IndustriesServed", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IndustriesServeds");
+                });
+
+            modelBuilder.Entity("TransX.Models.IndustriesServedToService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IndustriesServedId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IndustriesServedId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("IndustriesServedToServices");
+                });
+
             modelBuilder.Entity("TransX.Models.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -552,6 +633,101 @@ namespace TransX.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Partners");
+                });
+
+            modelBuilder.Entity("TransX.Models.Service", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<double>("PricePerKm")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("TransX.Models.ServiceCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceCategories");
+                });
+
+            modelBuilder.Entity("TransX.Models.ServiceOffered", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceOffereds");
+                });
+
+            modelBuilder.Entity("TransX.Models.ServiceOfferedToService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceOfferedId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("ServiceOfferedId");
+
+                    b.ToTable("ServiceOfferedToServices");
                 });
 
             modelBuilder.Entity("TransX.Models.Setting", b =>
@@ -810,6 +986,25 @@ namespace TransX.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TransX.Models.BenefitsToService", b =>
+                {
+                    b.HasOne("TransX.Models.Benefit", "Benefit")
+                        .WithMany("BenefitsToServices")
+                        .HasForeignKey("BenefitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TransX.Models.Service", "Service")
+                        .WithMany("BenefitsToServices")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Benefit");
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("TransX.Models.Blog", b =>
                 {
                     b.HasOne("TransX.Models.BlogCategory", "Category")
@@ -848,6 +1043,61 @@ namespace TransX.Migrations
                     b.Navigation("ParentComment");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TransX.Models.IndustriesServedToService", b =>
+                {
+                    b.HasOne("TransX.Models.IndustriesServed", "IndustriesServed")
+                        .WithMany("IndustriesServedToServices")
+                        .HasForeignKey("IndustriesServedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TransX.Models.Service", "Service")
+                        .WithMany("IndustriesServedToServices")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IndustriesServed");
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("TransX.Models.Service", b =>
+                {
+                    b.HasOne("TransX.Models.ServiceCategory", "Category")
+                        .WithMany("Services")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TransX.Models.CustomUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TransX.Models.ServiceOfferedToService", b =>
+                {
+                    b.HasOne("TransX.Models.Service", "Service")
+                        .WithMany("ServiceOfferedToServices")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TransX.Models.ServiceOffered", "ServiceOffered")
+                        .WithMany("ServiceOfferedToServices")
+                        .HasForeignKey("ServiceOfferedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Service");
+
+                    b.Navigation("ServiceOffered");
                 });
 
             modelBuilder.Entity("TransX.Models.SocialToUser", b =>
@@ -895,6 +1145,11 @@ namespace TransX.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TransX.Models.Benefit", b =>
+                {
+                    b.Navigation("BenefitsToServices");
+                });
+
             modelBuilder.Entity("TransX.Models.Blog", b =>
                 {
                     b.Navigation("Comments");
@@ -910,6 +1165,30 @@ namespace TransX.Migrations
             modelBuilder.Entity("TransX.Models.BlogTag", b =>
                 {
                     b.Navigation("TagToBlogs");
+                });
+
+            modelBuilder.Entity("TransX.Models.IndustriesServed", b =>
+                {
+                    b.Navigation("IndustriesServedToServices");
+                });
+
+            modelBuilder.Entity("TransX.Models.Service", b =>
+                {
+                    b.Navigation("BenefitsToServices");
+
+                    b.Navigation("IndustriesServedToServices");
+
+                    b.Navigation("ServiceOfferedToServices");
+                });
+
+            modelBuilder.Entity("TransX.Models.ServiceCategory", b =>
+                {
+                    b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("TransX.Models.ServiceOffered", b =>
+                {
+                    b.Navigation("ServiceOfferedToServices");
                 });
 
             modelBuilder.Entity("TransX.Models.Social", b =>

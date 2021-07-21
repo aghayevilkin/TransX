@@ -1,0 +1,203 @@
+﻿@model VmService
+@{
+    ViewData["Title"] = "Services";
+}
+
+@if (Model.pageHeader != null)
+{
+    <section class="hero-banner">
+        <picture>
+            <source srcset="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" media="(min-width: 992px)">
+            <img class="bg-img"
+                 src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="img">
+        </picture>
+        <div class="hero-layout"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="align-container">
+                        <div class="align-container-item">
+                            <span class="hero-overlay">@Model.pageHeader.Subtitle</span>
+                            <h1 class="hero-title">@Model.pageHeader.Title</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div class="banner-area-wrapper">
+        <div class="container">
+            <div class="row">
+                <h3 class="alert alert-danger text-center">Page Header Elave Edin</h3>
+            </div>
+        </div>
+    </div>
+}
+<section id="services" class="section-style">
+    <div class="container marbot-70">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="title-style-one">
+                    <span class="pre-title">Services</span>
+                    <h3 class="title">Transporterium Services </h3>
+                </div>
+            </div>
+            <div class="col-lg-8 top-lg-0">
+                <p>
+                    Rockling Devario deep sea bonefish cutthroat trout streamer fish kaluga sailback
+                    scorpionfish sand dab, turkeyfish golden loach sand diver. Leopard danio píntano
+                    bonnetmouth; blue whiting, suckermouth armored catfish luderick blackchin kingfish.
+                    Greenling sleeper; Owens pupfish large-eye bream kokanee sprat shrimpfish. Pacific hake
+                    false trevally queen parrotfish Black prickleback humuhumunukunukuapua'a mosshead
+                    warbonnet sweeper!
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row maroffset-50">
+            <div class="col-md-6 col-xl-3">
+                <div class="icon-item">
+                    <div class="icon-item-img icon-img-small">
+                        <img src="~/img/road_freight.svg"
+                             style="height: 60px; width: 90px;">
+                    </div>
+                    <h6 class="icon-item-title">Road Freight</h6>
+                    <p class="icon-item-text">
+                        Kokanee sprat shrimpfish. Pacific hake false trevally queen
+                        parrotfish Black prickleback
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="icon-item">
+                    <div class="icon-item-img icon-img-small">
+                        <img src="~/img/shipping.svg"
+                             style="height: 60px; width: 90px;">
+                    </div>
+                    <h6 class="icon-item-title">Shipping Freight</h6>
+                    <p class="icon-item-text">
+                        Greenling sleeper; Owens pupfish large-eye bream kokanee sprat
+                        shrimpfish. Pacific hake false
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="icon-item">
+                    <div class="icon-item-img icon-img-small">
+                        <img src="~/img/plane.svg"
+                             style="height: 60px; width: 90px;">
+                    </div>
+                    <h6 class="icon-item-title">Air Freight</h6>
+                    <p class="icon-item-text">
+                        Mosshead warbonnet sweeper! Greenling sleeper; Owens pupfish
+                        large-eye bream kokanee sprat
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="icon-item">
+                    <div class="icon-item-img icon-img-small">
+                        <img src="~/img/train.svg"
+                             style="height: 60px; width: 90px;">
+                    </div>
+                    <h6 class="icon-item-title">Train Freight</h6>
+                    <p class="icon-item-text">
+                        Pacific hake false trevally queen parrotfish Black prickleback
+                        humuhumunukunukuapua'a
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="services" class="bg-ligray pb-0 servicestyle-two section-style-two">
+    <div class="container marbot-70">
+        <div class="row">
+            <div class="col-12">
+                <div class="title-style-one title-center ">
+                    <span class="pre-title">Services</span>
+                    <h3 class="title">We manage lead logistics for leadership </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row maroffset-50">
+            @{ var i = 01;}
+            @foreach (var item in Model.Services)
+            {
+                <div class="col-md-6 col-xl-3">
+                    <div class="service-card">
+                        <div class="service-overlay"></div>
+                        <div class="service-layout">Transporterium Services</div><img class="bg-img"
+                                                                                      src="~/Uploads/Images/Services/@item.Image" alt="img">
+                        <div class="service-details">
+                            <h5 class="service-title"><a asp-controller="service" asp-action="details" asp-route-id="@item.Id">@item.Title</a></h5>
+                            <div class="service-count">@i</div>
+                        </div>
+                    </div>
+                </div>
+                i++;
+            }
+        </div>
+    </div>
+</section>
+<section class="section-style-two bg-darkgray">
+    <img class="section-bg-img top-50 right-0" src="~/img/testimonials-bg.png" alt="">
+    <div class="container">
+        <div class="row marbot-70">
+            <div class="title-style-one title-white ">
+                <span class="pre-title">Steps for work</span>
+                <h3 class="title">How we works</h3>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-6 col-xl-3">
+                <div class="card-count title-white">
+                    <div class="card-item-count"><span>01</span></div>
+                    <h6 class="count-card-title">Listening you</h6>
+                    <p class="count-card-text mt-2">
+                        Kokanee sprat shrimpfish. Pacific hake false trevally
+                        queen parrotfish Black prickleback
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card-count title-white">
+                    <div class="card-item-count"><span>02</span></div>
+                    <h6 class="count-card-title">Lane pairing analysis</h6>
+                    <p class="count-card-text mt-2">
+                        Greenling sleeper; Owens pupfish large-eye bream kokanee
+                        sprat shrimpfish. Pacific hake false
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card-count title-white">
+                    <div class="card-item-count"><span>03</span></div>
+                    <h6 class="count-card-title">Check all details</h6>
+                    <p class="count-card-text mt-2">
+                        Mosshead warbonnet sweeper! Greenling sleeper; Owens
+                        pupfish large-eye bream kokanee sprat
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card-count title-white">
+                    <div class="card-item-count"><span>04</span></div>
+                    <h6 class="count-card-title">Fast & efficient delivery</h6>
+                    <p class="count-card-text mt-2">
+                        Pacific hake false trevally queen parrotfish Black
+                        prickleback humuhumunukunukuapua'a
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@await Component.InvokeAsync("Testimonial");
+@await Component.InvokeAsync("Partners");

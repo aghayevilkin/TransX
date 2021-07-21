@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="~/areas/admin/css/style.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="~/areas/admin/css/sweetalert2.min.css" rel="stylesheet" />
     <!-- endinject -->
     <link rel="shortcut icon" href="~/areas/admin/images/favicon.png" />
@@ -202,6 +203,19 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#team" aria-expanded="false" aria-controls="team">
+                                <i class="fab fa-teamspeak menu-icon"></i>
+                                <span class="menu-title">Teams</span>
+                                <span class="badge badge-success">1</span>
+                            </a>
+                            <div class="collapse" id="team">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="team" asp-action="index"> Teams </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#testimonial" aria-expanded="false" aria-controls="testimonial">
                                 <i class="fas fa-quote-right menu-icon"></i>
                                 <span class="menu-title">Testimonials</span>
@@ -278,6 +292,7 @@
                 <script src="~/areas/admin/js/script.js"></script>
                 <!-- End custom js for this page-->
                 <script src="~/plugin/sweetalert2.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
                 @RenderSection("Scripts", required: false)
                 @await Html.PartialAsync("_notificationPartial")
 </body>

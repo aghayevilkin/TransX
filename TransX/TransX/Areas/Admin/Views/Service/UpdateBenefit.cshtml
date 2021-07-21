@@ -1,0 +1,29 @@
+﻿@model Benefit
+@{
+    ViewData["Title"] = "Update Benefit";
+}
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-area="admin" asp-controller="service" asp-action="updatebenefit" method="post">
+                    <div class="form-group">
+                        <label asp-for="Title">Title</label>
+                        <input class="form-control" id="Name" asp-for="Title">
+                        <span id="messages" asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Icon">Icon</label>
+                        <input class="form-control" id="Icon" asp-for="Icon">
+                        <span id="messages" asp-validation-for="Icon" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button asp-action="benefit" class="btn btn-danger">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+﻿@model VmService
+@{
+    ViewData["Title"] = "Services";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Services</h4>
+            <div class="mr-2">
+                @if (Model.pageHeader == null)
+                {
+                    <a asp-controller="service" asp-action="createheader" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create PageHeader</a>
+                }
+                @if (Model.pageHeaderDetails == null)
+                {
+                    <a asp-controller="service" asp-action="Createheaderdetails" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create PageHeader Details</a>
+                }
+                <a asp-controller="service" asp-action="create" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Add</a>
+                <a asp-controller="service" asp-action="category" class="btn btn-danger">Category</a>
+                <a asp-controller="service" asp-action="benefit" class="btn btn-inverse-primary">Benefits</a>
+                <a asp-controller="service" asp-action="serviceoffered" class="btn btn-inverse-success">Service Offered</a>
+                <a asp-controller="service" asp-action="industriesserved" class="btn btn-dribbble">Industries Served</a>
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Subtitle
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @if (Model.pageHeader != null)
+                            {
+                                <td><img src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="image" width="100" style=" width: 30rem; height: 100px; border-radius: 10px; object-fit: cover;" /></td>
+                                <td>@Model.pageHeader.Title</td>
+                                <td>@Model.pageHeader.Subtitle</td>
+                                <td>
+                                    <a asp-controller="service" asp-action="updateHeader" asp-route-id="@Model.pageHeader.Id" class="btn btn-primary"><i class="fas fa-pen"></i> Update</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert alert-danger">Page Header  boshdur Xais olunur elave edin</td>
+                            }
+                        </tr>
+                        <tr>
+                            @if (Model.pageHeaderDetails != null)
+                            {
+                                <td><img src="~/Uploads/Images/PageHeader/@Model.pageHeaderDetails.Image" alt="image" width="100" style=" width: 30rem; height: 100px; border-radius: 10px; object-fit: cover;" /></td>
+                                <td>@Model.pageHeaderDetails.Title</td>
+                                <td>@Model.pageHeaderDetails.Subtitle</td>
+                                <td>
+                                    <a asp-controller="service" asp-action="updateheaderdetails" asp-route-id="@Model.pageHeaderDetails.Id" class="btn btn-primary"><i class="fas fa-pen"></i> Update</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert alert-danger">Page Header Details  boshdur Xais olunur elave edin</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Image
+                                </th>
+                                <th>
+                                    Title
+                                </th>
+                                <th>
+                                    Content
+                                </th>
+                                <th>
+                                    Category
+                                </th>
+                                <th>
+                                    User
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Services)
+                            {
+                                <tr>
+                                    <td><img src="~/Uploads/Images/Services/@item.Image" alt="image" width="100" style=" width: 100px; height: 100px; border-radius: 10px; object-fit: cover;" /></td>
+                                    <td>@item.Title</td>
+                                    <td>@Html.Raw(item.Content != null && item.Content.Length > 150 ? item.Content.Substring(0, 150) : item.Content)</td>
+                                    <td>@item.Category.Name</td>
+                                    <td>@item.User.UserName</td>
+                                    <td>@item.AddedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="service" asp-action="update" asp-route-id="@item.Id" class="btn btn-success">Update</a>
+                                        <a onclick="return confirm('Are you sure?')" asp-area="admin" asp-controller="service" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

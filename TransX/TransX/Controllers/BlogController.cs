@@ -83,7 +83,7 @@ namespace TransX.Controllers
                 RecentPost = _context.Blogs.OrderByDescending(o => o.AddedDate).Take(3).ToList(),
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "blogdetails").FirstOrDefault(),
                 pageHeaderDetails = _context.PageHeaders.Where(p => p.Page == "blogdetails").FirstOrDefault(),
-                Tags = _context.BlogTags.Include(tb=>tb.TagToBlogs).ThenInclude(b=>b.Blog).ToList(),
+                Tags = _context.BlogTags.Include(tb=>tb.TagToBlogs).ThenInclude(b=>b.Blog).Where(t=>t.TagToBlogs.Any(tbb=>tbb.BlogId==id)).ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
             };
 

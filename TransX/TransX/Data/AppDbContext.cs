@@ -35,5 +35,13 @@ namespace TransX.Data
         public DbSet<About> Abouts { get; set; }
         public DbSet<AboutVideo> AboutVideos { get; set; }
         public DbSet<TeamImage> TeamImages { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Benefit> Benefits { get; set; }
+        public DbSet<BenefitsToService> BenefitsToServices { get; set; }
+        public DbSet<ServiceCategory> ServiceCategories { get; set; }
+        public DbSet<ServiceOffered> ServiceOffereds { get; set; }
+        public DbSet<ServiceOfferedToService> ServiceOfferedToServices { get; set; }
+        public DbSet<IndustriesServed> IndustriesServeds { get; set; }
+        public DbSet<IndustriesServedToService> IndustriesServedToServices { get; set; }
     }
 }
