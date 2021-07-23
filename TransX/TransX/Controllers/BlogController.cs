@@ -74,6 +74,7 @@ namespace TransX.Controllers
             ViewBag.Page = "blog";
             int catId = _context.Blogs.Find(id).CategoryId;
             var userIdd= _userManager.GetUserId(User);
+            ViewBag.categoryId = catId;
             VmBlog model = new VmBlog()
             {
                 Blog = _context.Blogs.Include(t => t.TagToBlogs).ThenInclude(t => t.Tag).Include(u => u.User).ThenInclude(us => us.SocialToUsers).FirstOrDefault(b => b.Id == id),

@@ -45,72 +45,23 @@ else
                     <h3 class="title">Transporterium Services </h3>
                 </div>
             </div>
-            <div class="col-lg-8 top-lg-0">
-                <p>
-                    Rockling Devario deep sea bonefish cutthroat trout streamer fish kaluga sailback
-                    scorpionfish sand dab, turkeyfish golden loach sand diver. Leopard danio píntano
-                    bonnetmouth; blue whiting, suckermouth armored catfish luderick blackchin kingfish.
-                    Greenling sleeper; Owens pupfish large-eye bream kokanee sprat shrimpfish. Pacific hake
-                    false trevally queen parrotfish Black prickleback humuhumunukunukuapua'a mosshead
-                    warbonnet sweeper!
-                </p>
-            </div>
         </div>
     </div>
     <div class="container">
         <div class="row maroffset-50">
-            <div class="col-md-6 col-xl-3">
-                <div class="icon-item">
-                    <div class="icon-item-img icon-img-small">
-                        <img src="~/img/road_freight.svg"
-                             style="height: 60px; width: 90px;">
+            @foreach (var item in Model.TransporteriumServices)
+            {
+                <div class="col-md-6 col-xl-3">
+                    <div class="icon-item">
+                        <div class="icon-item-img icon-img-small">
+                            <img src="~/Uploads/Images/Services/@item.Image"
+                                 style="height: 60px; width: 90px;">
+                        </div>
+                        <h6 class="icon-item-title">@item.Title</h6>
+                        <p class="icon-item-text">@item.SubTitle</p>
                     </div>
-                    <h6 class="icon-item-title">Road Freight</h6>
-                    <p class="icon-item-text">
-                        Kokanee sprat shrimpfish. Pacific hake false trevally queen
-                        parrotfish Black prickleback
-                    </p>
                 </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="icon-item">
-                    <div class="icon-item-img icon-img-small">
-                        <img src="~/img/shipping.svg"
-                             style="height: 60px; width: 90px;">
-                    </div>
-                    <h6 class="icon-item-title">Shipping Freight</h6>
-                    <p class="icon-item-text">
-                        Greenling sleeper; Owens pupfish large-eye bream kokanee sprat
-                        shrimpfish. Pacific hake false
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="icon-item">
-                    <div class="icon-item-img icon-img-small">
-                        <img src="~/img/plane.svg"
-                             style="height: 60px; width: 90px;">
-                    </div>
-                    <h6 class="icon-item-title">Air Freight</h6>
-                    <p class="icon-item-text">
-                        Mosshead warbonnet sweeper! Greenling sleeper; Owens pupfish
-                        large-eye bream kokanee sprat
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="icon-item">
-                    <div class="icon-item-img icon-img-small">
-                        <img src="~/img/train.svg"
-                             style="height: 60px; width: 90px;">
-                    </div>
-                    <h6 class="icon-item-title">Train Freight</h6>
-                    <p class="icon-item-text">
-                        Pacific hake false trevally queen parrotfish Black prickleback
-                        humuhumunukunukuapua'a
-                    </p>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
@@ -127,7 +78,8 @@ else
     </div>
     <div class="container">
         <div class="row maroffset-50">
-            @{ var i = 01;}
+            @{ var i = 1;
+               var j = 0;}
             @foreach (var item in Model.Services)
             {
                 <div class="col-md-6 col-xl-3">
@@ -137,7 +89,16 @@ else
                                                                                       src="~/Uploads/Images/Services/@item.Image" alt="img">
                         <div class="service-details">
                             <h5 class="service-title"><a asp-controller="service" asp-action="details" asp-route-id="@item.Id">@item.Title</a></h5>
-                            <div class="service-count">@i</div>
+                            <div class="service-count">
+                                @if (i <10)
+                                {
+                                    j = 0; @j @i
+                                }
+                                else
+                                {
+                                    @i
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,46 +117,29 @@ else
             </div>
         </div>
         <div class="row ">
-            <div class="col-md-6 col-xl-3">
-                <div class="card-count title-white">
-                    <div class="card-item-count"><span>01</span></div>
-                    <h6 class="count-card-title">Listening you</h6>
-                    <p class="count-card-text mt-2">
-                        Kokanee sprat shrimpfish. Pacific hake false trevally
-                        queen parrotfish Black prickleback
-                    </p>
+            @{ var ii = 1;
+                var jj = 0;}
+            @foreach (var item in Model.ServiceStepsforWorks)
+            {
+                <div class="col-md-6 col-xl-3">
+                    <div class="card-count title-white">
+                        <div class="card-item-count">
+                            <span>
+                                @if (ii < 10)
+                                {
+                                    jj = 0;@jj @ii
+                                }
+                                else
+                                {
+                                    @ii
+                                }
+                            </span></div>
+                        <h6 class="count-card-title">@item.Title</h6>
+                        <p class="count-card-text mt-2">@item.SubTitle</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="card-count title-white">
-                    <div class="card-item-count"><span>02</span></div>
-                    <h6 class="count-card-title">Lane pairing analysis</h6>
-                    <p class="count-card-text mt-2">
-                        Greenling sleeper; Owens pupfish large-eye bream kokanee
-                        sprat shrimpfish. Pacific hake false
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="card-count title-white">
-                    <div class="card-item-count"><span>03</span></div>
-                    <h6 class="count-card-title">Check all details</h6>
-                    <p class="count-card-text mt-2">
-                        Mosshead warbonnet sweeper! Greenling sleeper; Owens
-                        pupfish large-eye bream kokanee sprat
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="card-count title-white">
-                    <div class="card-item-count"><span>04</span></div>
-                    <h6 class="count-card-title">Fast & efficient delivery</h6>
-                    <p class="count-card-text mt-2">
-                        Pacific hake false trevally queen parrotfish Black
-                        prickleback humuhumunukunukuapua'a
-                    </p>
-                </div>
-            </div>
+                ii ++;
+            }
         </div>
     </div>
 </section>

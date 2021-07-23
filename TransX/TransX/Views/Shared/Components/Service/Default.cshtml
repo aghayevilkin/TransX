@@ -1,0 +1,9 @@
+﻿@model List<Service>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <li><a asp-controller="service" asp-action="details" asp-route-id="@item.Id"><span>@item.Title</span></a></li>
+}

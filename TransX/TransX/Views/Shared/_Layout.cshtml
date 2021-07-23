@@ -284,16 +284,13 @@
                                         <span>About Us</span><i class=""></i>
                                     </a>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="#">
+                                <li class="nav-item  @(ViewBag.Page == "service"?"nav-item-active":"")">
+                                    <a class="nav-link" asp-controller="service" asp-action="index">
                                         <span>Services</span><i class="fas fa-chevron-down"></i>
                                     </a>
                                     <!-- sub menu start-->
                                     <ul class="nav-sub-list">
-                                        <li><a href="service-details.html"><span>Truck Freight</span></a></li>
-                                        <li><a href="service-details.html"><span>Ship Freight</span></a></li>
-                                        <li><a href="service-details.html"><span>Plane Freight</span></a></li>
-                                        <li><a href="service-details.html"><span>Train Freight</span></a></li>
+                                        @await Component.InvokeAsync("Service")
                                     </ul>
                                     <!-- sub menu end-->
                                 </li>

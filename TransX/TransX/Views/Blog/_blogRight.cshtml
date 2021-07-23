@@ -6,7 +6,7 @@
             {
                 @if (category.Blogs.Count != 0)
                 {
-                    <li class="servdet-list-item @(ViewBag.categoryId == @category.Id?"item-active":"")">
+                    <li class="servdet-list-item @(ViewBag.categoryId == category.Id?"item-active":"")">
                         <a class=" servdet-list-link"
                            asp-controller="Blog" asp-action="Index" asp-route-id="@category.Id"><span>@category.Name</span><span>@category.Blogs.Count</span></a>
                     </li>

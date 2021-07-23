@@ -1,0 +1,46 @@
+﻿@model List<ServiceStepsforWork>
+@{
+    ViewData["Title"] = "Steps for Work";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Service Steps for Work</h4>
+            <div class="mr-2">
+                <a asp-controller="service" asp-action="createstepsforwork" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Add</a>
+                <a asp-controller="service" asp-action="index" class="btn btn-danger"> Service</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Subtitle</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var i = 1;}
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td>@item.Title</td>
+                                <td>@item.SubTitle</td>
+                                <td>
+                                    <a asp-area="admin" asp-controller="service" asp-action="updatestepsforwork" asp-route-id="@item.Id" class="btn btn-success">Update</a>
+                                    <a onclick="return confirm('Are you sure?')" asp-area="admin" asp-controller="service" asp-action="deletestepsforwork" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

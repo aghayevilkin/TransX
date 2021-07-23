@@ -730,6 +730,26 @@ namespace TransX.Migrations
                     b.ToTable("ServiceOfferedToServices");
                 });
 
+            modelBuilder.Entity("TransX.Models.ServiceStepsforWork", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("SubTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceStepsforWorks");
+                });
+
             modelBuilder.Entity("TransX.Models.Setting", b =>
                 {
                     b.Property<int>("Id")
@@ -898,6 +918,30 @@ namespace TransX.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Testimonials");
+                });
+
+            modelBuilder.Entity("TransX.Models.TransporteriumService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("SubTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TransporteriumServices");
                 });
 
             modelBuilder.Entity("TransX.Models.CustomUser", b =>

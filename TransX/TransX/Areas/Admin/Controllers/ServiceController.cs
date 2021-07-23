@@ -234,6 +234,24 @@ namespace TransX.Areas.Admin.Controllers
 
             service.BenefitIds = benefitIds.ToArray();
 
+            List<int> serviceOfferedIds = new List<int>();
+
+            foreach (var item in service.ServiceOfferedToServices)
+            {
+                serviceOfferedIds.Add(item.ServiceOfferedId);
+            }
+
+            service.ServiceOfferedIds = serviceOfferedIds.ToArray();
+
+            List<int> industriesServedIds = new List<int>();
+
+            foreach (var item in service.IndustriesServedToServices)
+            {
+                industriesServedIds.Add(item.IndustriesServedId);
+            }
+
+            service.IndustriesServedIds = industriesServedIds.ToArray();
+
             return View(service);
         }
 
@@ -252,8 +270,6 @@ namespace TransX.Areas.Admin.Controllers
                         List<BlogCategory> categories = _context.BlogCategories.ToList();
                         categories.Insert(0, new BlogCategory() { Id = 0, Name = "Select" });
                         ViewBag.Categories = categories;
-                        List<BlogTag> tags = _context.BlogTags.ToList();
-                        ViewBag.Tags = tags;
                         return View(model);
                     }
                     if (model.ImageFile.ContentType == "image/png" || model.ImageFile.ContentType == "image/jpeg" || model.ImageFile.ContentType == "image/gif" || model.ImageFile.ContentType == "image/svg")
@@ -366,8 +382,6 @@ namespace TransX.Areas.Admin.Controllers
                         List<BlogCategory> categories = _context.BlogCategories.ToList();
                         categories.Insert(0, new BlogCategory() { Id = 0, Name = "Select" });
                         ViewBag.Categories = categories;
-                        List<BlogTag> tags = _context.BlogTags.ToList();
-                        ViewBag.Tags = tags;
                         return View(model);
                     }
 
@@ -819,6 +833,291 @@ namespace TransX.Areas.Admin.Controllers
             return RedirectToAction("IndustriesServed");
         }
 
+
+
+        //Transporterium Service
+        public IActionResult Transporterium()
+        {
+            List<TransporteriumService> model = _context.TransporteriumServices.ToList();
+            return View(model);
+        }
+
+        public IActionResult CreateTransporterium()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateTransporterium(TransporteriumService model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.ImageFile != null)
+                {
+                    if (model.ImageFile.ContentType == "image/png" || model.ImageFile.ContentType == "image/jpeg" || model.ImageFile.ContentType == "image/gif" || model.ImageFile.ContentType == "image/svg+xml")
+                    {
+                        if (model.ImageFile.Length <= 2097152)
+                        {
+                            string fileName = Guid.NewGuid() + "-" + DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + model.ImageFile.FileName;
+                            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Services", fileName);
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                model.ImageFile.CopyTo(stream);
+                            }
+
+                            model.Image = fileName;
+
+                            _context.TransporteriumServices.Add(model);
+                            _context.SaveChanges();
+                            Notify("Transporterium Service Created");
+
+                            return RedirectToAction("Transporterium");
+                        }
+                        else
+                        {
+                            Notify("Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                            ModelState.AddModelError("ImageFile", "Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!");
+                        }
+                    }
+                    else
+                    {
+                        Notify("Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                        ModelState.AddModelError("ImageFile", "Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!");
+                    }
+                }
+                else
+                {
+                    Notify("No Image Found!", notificationType: NotificationType.warning);
+                    ModelState.AddModelError("ImageFile", "No Image Found!");
+                }
+
+            }
+            return View(model);
+        }
+
+
+        public IActionResult UpdateTransporterium(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            TransporteriumService model = _context.TransporteriumServices.Find(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateTransporterium(TransporteriumService model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (model.ImageFile != null)
+                {
+
+                    if (model.ImageFile.ContentType == "image/png" || model.ImageFile.ContentType == "image/jpeg" || model.ImageFile.ContentType == "image/gif" || model.ImageFile.ContentType == "image/svg+xml")
+                    {
+                        if (model.ImageFile.Length <= 2097152)
+                        {
+                            string oldFilePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Services", model.Image);
+                            if (System.IO.File.Exists(oldFilePath))
+                            {
+                                System.IO.File.Delete(oldFilePath);
+                            }
+
+                            string fileName = Guid.NewGuid() + "-" + DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + model.ImageFile.FileName;
+                            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Services", fileName);
+
+
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                model.ImageFile.CopyTo(stream);
+                            }
+
+                            model.Image = fileName;
+
+                            _context.Entry(model).State = EntityState.Modified;
+                            Notify("Transporterium Service Updated");
+                            _context.SaveChanges();
+
+
+                            return RedirectToAction("Transporterium");
+                        }
+                        else
+                        {
+                            Notify("Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                            ModelState.AddModelError("ImageFile", "Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!");
+                        }
+                    }
+                    else
+                    {
+                        Notify("Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
+                        ModelState.AddModelError("ImageFile", "Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!");
+                    }
+                }
+                else
+                {
+                    _context.Entry(model).State = EntityState.Modified;
+
+                    _context.SaveChanges();
+                    Notify("Transporterium Service Updated");
+
+                    return RedirectToAction("Transporterium");
+                }
+
+            }
+            return View(model);
+        }
+
+        public IActionResult DeleteTransporterium(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            TransporteriumService transporterium = _context.TransporteriumServices.FirstOrDefault(i => i.Id == id);
+            if (transporterium == null)
+            {
+                return NotFound();
+            }
+
+            //Delete image
+            string oldFilePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads/Images/Services", transporterium.Image);
+            if (System.IO.File.Exists(oldFilePath))
+            {
+                System.IO.File.Delete(oldFilePath);
+            }
+
+
+            _context.TransporteriumServices.Remove(transporterium);
+            _context.SaveChanges();
+            Notify("Transporterium Service Deleted");
+            return RedirectToAction("Transporterium");
+        }
+
+
+
+        //Service Steps for Work
+        public IActionResult StepsforWork()
+        {
+            List<ServiceStepsforWork> model = _context.ServiceStepsforWorks.ToList();
+            return View(model);
+        }
+        
+        public IActionResult CreateStepsforWork()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateStepsforWork(ServiceStepsforWork model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Title != null)
+                {
+                    if (model.SubTitle != null)
+                    {
+                        _context.ServiceStepsforWorks.Add(model);
+                        _context.SaveChanges();
+                        Notify("Service Steps for Work Created");
+                        return RedirectToAction("StepsforWork");
+                    }
+                    else
+                    {
+                        Notify("About Services Not Created", notificationType: NotificationType.error);
+                        ModelState.AddModelError("SubTitle", "Subtitle must be empty");
+                    }
+
+                }
+                else
+                {
+                    Notify("Service Steps for Work Not Created", notificationType: NotificationType.error);
+                    ModelState.AddModelError("Title", "Title must be empty");
+                }
+
+
+            }
+            return View(model);
+        }
+
+        public IActionResult UpdateStepsforWork(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ServiceStepsforWork model = _context.ServiceStepsforWorks.FirstOrDefault(i => i.Id == id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateStepsforWork(ServiceStepsforWork model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Title != null)
+                {
+                    if (model.SubTitle != null)
+                    {
+                        _context.Entry(model).State = EntityState.Modified;
+                        _context.SaveChanges();
+                        Notify("Service Steps for Work Update");
+
+                        return RedirectToAction("StepsforWork");
+                    }
+                    else
+                    {
+                        Notify("About Services Not Created", notificationType: NotificationType.error);
+                        ModelState.AddModelError("SubTitle", "Subtirle must be empty");
+                    }
+
+                }
+                else
+                {
+                    Notify("About Services Not Created", notificationType: NotificationType.error);
+                    ModelState.AddModelError("Title", "Title must be empty");
+                }
+
+
+            }
+            return View(model);
+        }
+
+        public IActionResult DeleteStepsforWork(int? id)
+        {
+            if (id == null)
+            {
+                Notify("Id must be empty", notificationType: NotificationType.error);
+
+                return RedirectToAction("StepsforWork");
+            }
+
+            ServiceStepsforWork model = _context.ServiceStepsforWorks.FirstOrDefault(i => i.Id == id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+
+            _context.ServiceStepsforWorks.Remove(model);
+            _context.SaveChanges();
+            Notify("Service Steps for Work Deleted");
+
+            return RedirectToAction("StepsforWork");
+        }
 
 
         //PageHeader

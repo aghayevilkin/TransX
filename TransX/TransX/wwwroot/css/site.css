@@ -137,3 +137,17 @@ blockquote {
     margin-right: 15px;
     vertical-align: middle;
 }
+
+
+/*Blog Bookmarked*/
+
+/*.blog-card-two{
+    position:relative;
+}
+.blog-bookmarked {
+    position: absolute;
+    top: 15.938rem;
+    right: 5px;
+    color: #00997D;
+    cursor:pointer;
+}*/

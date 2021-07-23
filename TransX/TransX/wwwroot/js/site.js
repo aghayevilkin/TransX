@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
     $(".commentBTN").click(function () {
         var id = $(this).data().id;
-        console.log(id);
         var par = $(this).parent().parent().parent()
         var paaa = par.find("#CommentSub").attr('class');
         $("."+paaa).toggle("slow", function () {
@@ -12,7 +11,6 @@
 
     $(".socialBTN").click(function () {
         var id = $(this).data().id;
-        console.log(id);
         var par = $(this).parent().parent().parent()
         var paaa = par.find("#SocialSub").attr('class');
         $("." + paaa).toggle("slow", function () {
@@ -22,10 +20,30 @@
 
 
     $("#image").click(function () {
-        console.log("clicked");
         $("#imgSubBtn").removeClass("d-none");
 
     });
+
+    //$(".blog-bookmarked").click(function () {
+    //    var id = $(this).data().id;
+    //    var par = $(this).parent().parent().parent()
+    //    var paaa = par.find(".blog-bookmarked").attr('class');
+
+    //    $(this).removeClass('far');
+    //    $(this).addClass('fas');
+    //    console.log(id);
+    //    console.log(paaa);
+    //});
+
+    //$(".blog-bookmarked").dblclick(function () {
+    //    var id = $(this).data().id;
+    //    var par = $(this).parent().parent().parent()
+    //    var paaa = par.find(".blog-bookmarked").attr('class');
+    //    $(this).removeClass('fas');
+    //    $(this).addClass('far');
+    //    console.log(id);
+    //    console.log(paaa);
+    //});
 
 });
 

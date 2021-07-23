@@ -255,3 +255,11 @@ C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Adm
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\CreateIndustriesServed.cshtml.g.cs
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\UpdateIndustriesServed.cshtml.g.cs
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\Update.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Service\Default.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Service\Details.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\CreateTransporterium.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\UpdateTransporterium.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\Transporterium.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\CreateStepsforWork.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\UpdateStepsforWork.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\StepsforWork.cshtml.g.cs
