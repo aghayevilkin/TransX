@@ -141,7 +141,7 @@ blockquote {
 
 /*Blog Bookmarked*/
 
-/*.blog-card-two{
+.blog-card-two{
     position:relative;
 }
 .blog-bookmarked {
@@ -150,4 +150,4 @@ blockquote {
     right: 5px;
     color: #00997D;
     cursor:pointer;
-}*/
+}

@@ -45,5 +45,6 @@ namespace TransX.Data
         public DbSet<IndustriesServedToService> IndustriesServedToServices { get; set; }
         public DbSet<TransporteriumService> TransporteriumServices { get; set; }
         public DbSet<ServiceStepsforWork> ServiceStepsforWorks { get; set; }
+        public DbSet<SavedBlogs> SavedBlogs { get; set; }
     }
 }

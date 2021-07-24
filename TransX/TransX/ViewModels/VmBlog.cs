@@ -15,6 +15,7 @@ namespace TransX.ViewModels
         public List<BlogComment> Comments { get; set; }
         public BlogComment Comment { get; set; }
         public List<BlogTag> Tags { get; set; }
+        public List<SavedBlogs> SavedBlogs { get; set; }
         public VmBlog Filter { get; set; }
         public int? catId { get; set; }
     }

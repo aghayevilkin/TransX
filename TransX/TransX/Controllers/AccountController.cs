@@ -58,6 +58,7 @@ namespace TransX.Controllers
             VmProfile model = new VmProfile()
             {
                 Posts = _context.Blogs.Include(u => u.User).Include(tp => tp.TagToBlogs).ThenInclude(t => t.Tag).Where(p=>p.UserId== userId).OrderByDescending(o => o.AddedDate).ToList(),
+                SavedBlogs = _context.SavedBlogs.Include(pp => pp.Blog).ThenInclude(cat => cat.Category).Include(u => u.User).Where(sa => sa.UserId == userId).OrderByDescending(o => o.AddedDate).ToList(),
                 Tags = _context.BlogTags.Include(b => b.TagToBlogs).ThenInclude(bl => bl.Blog).ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
                 User = customUsers,
@@ -782,7 +783,53 @@ namespace TransX.Controllers
             return View("Error");
         }
 
+        //Saved Blogs
+        public IActionResult SavedBlogs()
+        {
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Include(u => u.SocialToUsers).ThenInclude(sc => sc.Social).Where(aa => aa.SocialToUsers.Any(bb => bb.User.Id == userId)).ToList();
 
+            SavedBlogs savedBlogsDate = _context.SavedBlogs.Where(u => u.UserId == userId).OrderByDescending(d => d.AddedDate).LastOrDefault();
+            if (savedBlogsDate != null)
+            {
+                ViewBag.LastSavedPostDate = savedBlogsDate.AddedDate;
+            }
+
+
+            VmProfile model = new VmProfile()
+            {
+                Posts = _context.Blogs.Include(c => c.Category).Include(u => u.User).Include(tp => tp.TagToBlogs).ThenInclude(t => t.Tag).Where(p => p.UserId == userId).OrderByDescending(o => o.AddedDate).ToList(),
+                SavedBlogs = _context.SavedBlogs.Include(pp => pp.Blog).ThenInclude(cat => cat.Category).Include(u => u.User).Where(sa => sa.UserId == userId).OrderByDescending(o => o.AddedDate).ToList(),
+                Setting = _context.Settings.FirstOrDefault(),
+                User = customUsers,
+                UserS = customUserS,
+            };
+            return View(model);
+        }
+
+        public IActionResult SavedBlogsDelete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            SavedBlogs model = _context.SavedBlogs.FirstOrDefault(i => i.Id == id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            _context.SavedBlogs.Remove(model);
+            _context.SaveChanges();
+
+            Notify("Saved Blog Deleted");
+            return RedirectToAction("SavedBlogs");
+        }
+
+
+        //My Posts
         public IActionResult Posts()
         {
             string userId = _userManager.GetUserId(User);

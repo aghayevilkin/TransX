@@ -1,4 +1,5 @@
 ﻿@model VmBlog
+@inject SignInManager<IdentityUser> SignInManager
 @{
     ViewData["Title"] = "Blog";
 }
@@ -63,7 +64,10 @@ else
                                         {
                                             <span>@(blog.Comments != null ? blog.Comments.Count : 0) Comments</span>
                                         }
-                                        @*<i class="far fa-bookmark fa-2x blog-bookmarked" data-id="@blog.Id"></i>*@
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            <i class="@(blog.SavedBlogs.Any(s=>s.UserId==ViewBag.UserId)==true?"fas added":"far")  fa-bookmark fa-2x blog-bookmarked" data-id="@blog.Id"></i>
+                                        }
                                     </div>
                                 </div>
                             </div>

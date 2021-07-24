@@ -35,5 +35,6 @@ namespace TransX.Models
         public CustomUser User { get; set; }
         public List<BlogComment> Comments { get; set; }
         public List<TagToBlog> TagToBlogs { get; set; }
+        public List<SavedBlogs> SavedBlogs { get; set; }
     }
 }

@@ -27,12 +27,16 @@ namespace TransX.Controllers
         }
         public IActionResult Index(int? id, int? tagId, int? year, int? month, VmBlog VmFilter, string searchData, int page = 1)
         {
+            var userId = _userManager.GetUserId(User);
             TempData["Controller"] = "Blog";
 
             decimal pageItemCount = 4;
             ViewBag.Page = "blog";
+            ViewBag.UserId = userId;
+
+
             ViewBag.categoryId = id;
-            IList<Blog> blogs = _context.Blogs.Include(u => u.User).Where(b => (id != null ? b.CategoryId == id : true) &&
+            IList<Blog> blogs = _context.Blogs.Include(saved=>saved.SavedBlogs).Include(u => u.User).Where(b => (id != null ? b.CategoryId == id : true) &&
                                                           (tagId != null ? b.TagToBlogs.Any(t => t.TagId == tagId) : true) &&
                                                           (year != null ? b.AddedDate.Year == year : true) &&
                                                           (month != null ? b.AddedDate.Month == month : true) &&
@@ -114,6 +118,63 @@ namespace TransX.Controllers
             }
             return RedirectToAction("Details", new { id = bId });
 
+        }
+
+
+        public JsonResult addToBookmarked(int? blogId)
+        {
+            var userId = _userManager.GetUserId(User);
+            if (blogId==null)
+            {
+                return Json(404);
+            }
+
+            bool isExist = _context.SavedBlogs.Any(aa => aa.BlogId == blogId && aa.UserId == userId);
+
+            if (!isExist)
+            {
+                SavedBlogs model = new SavedBlogs()
+                {
+                    BlogId = (int)blogId,
+                    UserId = userId,
+                    AddedDate = DateTime.Now,
+                };
+
+                _context.SavedBlogs.Add(model);
+                _context.SaveChanges();
+            }
+            else
+            {
+                return Json(404);
+            }
+
+            
+
+            return Json(200);
+        }
+
+        public JsonResult removeFromBookmarked(int? blogId) 
+        {
+            var userId = _userManager.GetUserId(User);
+            if (blogId == null)
+            {
+                return Json(404);
+            }
+
+            bool isExist = _context.SavedBlogs.Any(aa => aa.BlogId == blogId && aa.UserId == userId);
+
+            if (isExist)
+            {
+                SavedBlogs model = _context.SavedBlogs.FirstOrDefault(aa => aa.BlogId == blogId && aa.UserId == userId);
+
+                _context.SavedBlogs.Remove(model);
+                _context.SaveChanges();
+            }
+            else
+            {
+                return Json(404);
+            }
+            return Json(200);
         }
 
     }
