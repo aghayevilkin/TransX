@@ -139,43 +139,30 @@ else
     <div class="container">
         <div class="row flex-column-reverse flex-lg-row">
             <div class="col-lg-6">
-                <form asp-controller="contact" asp-action="message" method="post">
+                <form id="message-form" method="post">
                     <div class="col-12">
                         <h5 class="contact-form-subtitle">Send review</h5>
                     </div>
-                    <div class="text text-danger text-center" asp-validation-summary="All"></div>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <input type="hidden" asp-for="Message.Name" value="@ViewBag.User" />
-                        <input type="hidden" asp-for="Message.Email" value="@ViewBag.Email" />
-                    }
-                    else
-                    {
-                        <div class="form-group row">
-                            <div class="col-md-6 mb-3 ">
-                                <input type="text" class="form-control form-input" asp-for="Message.Name" id="validationDefault01"
-                                       placeholder="Your Name" required>
-                                <span class="text text-danger" asp-validation-for="Message.Name"></span>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="email" class="form-control form-input" asp-for="Message.Email" id="inputEmail3"
-                                       placeholder="Your Email" required>
-                                <span class="text text-danger" asp-validation-for="Message.Email"></span>
-                            </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3 ">
+                            <input type="text" class="form-control form-input" id="name-input"
+                                   placeholder="Your Name">
                         </div>
-                    }
+                        <div class="col-md-6">
+                            <input type="email" class="form-control form-input" id="email-input"
+                                   placeholder="Your Email">
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <input type="text" class="form-control form-input" asp-for="Message.Subject" id="formGroupExampleInput"
+                            <input type="text" class="form-control form-input" id="subject-input"
                                    placeholder="Subject">
-                            <span class="text text-danger" asp-validation-for="Message.Subject"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control form-input form-mesage large-mesage" asp-for="Message.Content"
-                                  id="exampleFormControlTextarea1" placeholder="Message" rows="3"></textarea>
-                        <span class="text text-danger" asp-validation-for="Message.Content"></span>
+                        <textarea class="form-control form-input form-mesage large-mesage"
+                                  id="content-input" placeholder="Message" rows="3"></textarea>
                     </div>
                     <button class="btn button-border-green " href="#">
                         <span>Send mesage</span>

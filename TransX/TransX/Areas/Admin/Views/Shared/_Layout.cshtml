@@ -160,7 +160,7 @@
                                 </ul>
                             </div>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#service" aria-expanded="false" aria-controls="service">
                                 <i class="fa fa-eercast menu-icon"></i>
@@ -186,6 +186,32 @@
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" asp-controller="blog" asp-action="index"> Blog </a></li>
                                     <li class="nav-item"> <a class="nav-link" asp-controller="blog" asp-action="Create"> Create Blog </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#contact" aria-expanded="false" aria-controls="contact">
+                                <i class="fas fa-envelope-open-text menu-icon"></i>
+                                <span class="menu-title">Contact</span>
+                                <span class="badge badge-danger">1</span>
+                            </a>
+                            <div class="collapse" id="contact">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="contact" asp-action="index"> Contact</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#subscribe" aria-expanded="false" aria-controls="subscribe">
+                                <i class="fas fa-bell menu-icon"></i>
+                                <span class="menu-title">Subscribers</span>
+                                <span class="badge badge-dark">1</span>
+                            </a>
+                            <div class="collapse" id="subscribe">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="contact" asp-action="subscribers"> Subscribers</a></li>
                                 </ul>
                             </div>
                         </li>

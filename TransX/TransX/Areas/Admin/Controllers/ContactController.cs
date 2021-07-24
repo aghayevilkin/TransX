@@ -200,5 +200,34 @@ namespace TransX.Areas.Admin.Controllers
         }
 
 
+        //Subscribes
+        public IActionResult Subscribers()
+        {
+            List<Subscribe> model = _context.Subscribes.ToList();
+            return View(model);
+        }
+
+        public IActionResult DeleteSubscriber(int? id)
+        {
+            if (id == null)
+            {
+                Notify("You have not selected a message!", notificationType: NotificationType.warning);
+                return RedirectToAction("Subscribers");
+            }
+
+            Subscribe model = _context.Subscribes.FirstOrDefault(i => i.Id == id);
+            if (model == null)
+            {
+                Notify("Subscriber not deleted!", notificationType: NotificationType.error);
+                return RedirectToAction("Subscribers");
+            }
+
+
+            Notify("Subscriber Deleted");
+            _context.Subscribes.Remove(model);
+            _context.SaveChanges();
+
+            return RedirectToAction("Subscribers");
+        }
     }
 }

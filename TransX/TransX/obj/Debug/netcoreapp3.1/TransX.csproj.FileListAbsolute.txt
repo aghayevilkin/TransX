@@ -264,3 +264,4 @@ C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Adm
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\UpdateStepsforWork.cshtml.g.cs
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\StepsforWork.cshtml.g.cs
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Account\SavedBlogs.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Contact\Subscribers.cshtml.g.cs

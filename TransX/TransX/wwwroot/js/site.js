@@ -99,6 +99,114 @@
     });
 
 
+
+
+    $("#subscribe-form").submit(function (e) {
+        e.preventDefault();
+
+        var email = $("#subscribe-input").val();
+
+        var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+
+        if (email == "") {
+            toastr.error('Please, input your email address.', { timeOut: 2000 });
+        }
+        else if (!pattern.test(email)) {
+            toastr.error('Not a valid e-mail address.', { timeOut: 2000 });
+        }
+        else {
+            $.ajax({
+
+                url: "/contact/addSubscribe/",
+                type: "get",
+                dataType: "json",
+
+                data: { email: email },
+                success: function (response) {
+                    if (response == 200) {
+                        //success
+                        $("#subscribe-input").val('');
+                        toastr.success('Now you are our subscriber, Thank you!', { timeOut: 2000 });
+
+                    } else if (response == 411) {
+                        //error
+                        toastr.error('You can subscribe once with this email!', { timeOut: 2000 });
+                    }
+                    else {
+                        //error
+                        toastr.error('Please, input your email address.', { timeOut: 2000 });
+                    }
+                },
+                error: function (response) {
+
+                    console.log("error: " + response);
+                }
+
+            });
+
+        }
+
+    });
+
+
+
+    $("#message-form").submit(function (e) {
+        e.preventDefault();
+
+        var name = $("#name-input").val();
+        var email = $("#email-input").val();
+        var subject = $("#subject-input").val();
+        var content = $("#content-input").val();
+
+        var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+
+        if (name == "") {
+            toastr.error('Please, input your name.', { timeOut: 2000 });
+
+        } else if (email == "") {
+            toastr.error('Please, input your email address.', { timeOut: 2000 });
+        }
+        else if (subject == "") {
+            toastr.error('Please, enter subject.', { timeOut: 2000 });
+        } else if (content == "") {
+            toastr.error('Please, enter message.', { timeOut: 2000 });
+        }
+        else if (!pattern.test(email)) {
+            toastr.error('Not a valid e-mail address.', { timeOut: 2000 });
+        }
+        else {
+            $.ajax({
+
+                url: "/contact/addMessage/",
+                type: "get",
+                dataType: "json",
+
+                data: { email: email, name: name, subject: subject, content: content },
+                success: function (response) {
+                    if (response == 200) {
+                        //success
+                        $("#name-input").val('');
+                        $("#email-input").val('');
+                        $("#subject-input").val('');
+                        $("#content-input").val('');
+                        toastr.success('You have now sent us a message, Thank you!', { timeOut: 2000 });
+
+                    } else {
+                        //error
+                        toastr.error('Please, fill out the form completely.', { timeOut: 2000 });
+                    }
+                },
+                error: function (response) {
+
+                    console.log("error: " + response);
+                }
+
+            });
+
+        }
+
+    });
+
 });
 
 

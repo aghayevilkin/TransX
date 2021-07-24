@@ -64,5 +64,61 @@ namespace TransX.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
+
+        public JsonResult addSubscribe(string email)
+        {
+            if (email == null)
+            {
+                return Json(404);
+            }
+            bool isExist = _context.Subscribes.Any(aa => aa.Email == email);
+            if (!isExist)
+            {
+                Subscribe subscribe = new Subscribe()
+                {
+                    Email = email,
+                    AddedDate = DateTime.Now
+                };
+
+                _context.Subscribes.Add(subscribe);
+                _context.SaveChanges();
+            }
+            else
+            {
+                return Json(411);
+            }
+            
+
+            return Json(200);
+        }
+
+
+        public JsonResult addMessage(string email, string name, string subject, string content)
+        {
+            if (email == null && name ==null && subject ==null && content==null)
+            {
+                return Json(404);
+            }
+
+            Message message = new Message()
+            {
+                Email = email,
+                Name = name,
+                Subject = subject,
+                Content = content,
+                AddedDate = DateTime.Now
+            };
+
+            _context.Messages.Add(message);
+            _context.SaveChanges();
+
+
+
+
+            return Json(200);
+        }
+
     }
 }
