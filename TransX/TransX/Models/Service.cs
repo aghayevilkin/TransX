@@ -44,5 +44,6 @@ namespace TransX.Models
         public List<BenefitsToService> BenefitsToServices { get; set; }
         public List<ServiceOfferedToService> ServiceOfferedToServices { get; set; }
         public List<IndustriesServedToService> IndustriesServedToServices { get; set; }
+        public List<RequestQuote> RequestQuotes { get; set; }
     }
 }

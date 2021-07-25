@@ -207,6 +207,59 @@
 
     });
 
+
+    $("#requestquote-form").submit(function (e) {
+        e.preventDefault();
+
+        var from = $("#from-input").val();
+        var to = $("#to-input").val();
+        var when = $("#when-input").val();
+        var service = $("#service-input").val();
+
+        if (from == "") {
+            toastr.error('Please, enter from.', { timeOut: 2000 });
+
+        } else if (to == "") {
+            toastr.error('Please, enter To.', { timeOut: 2000 });
+        }
+        else if (when == "") {
+            toastr.error('Please, enter when.', { timeOut: 2000 });
+        } else if (service == 0) {
+            toastr.error('Please, enter transport.', { timeOut: 2000 });
+        }
+        else {
+            $.ajax({
+
+                url: "/home/addRequestQuote/",
+                type: "get",
+                dataType: "json",
+
+                data: { from: from, to: to, when: when, service: service },
+                success: function (response) {
+                    if (response == 200) {
+                        //success
+                        $("#from-input").val('');
+                        $("#to-input").val('');
+                        $("#when-input").val('');
+                        $("#service-input").val(0);
+                        toastr.success('You have now sent us a request for quotation, Thank you!', { timeOut: 2000 });
+
+                    } else {
+                        //error
+                        toastr.error('Please, fill out the form completely.', { timeOut: 2000 });
+                    }
+                },
+                error: function (response) {
+
+                    console.log("error: " + response);
+                }
+
+            });
+
+        }
+
+    });
+
 });
 
 

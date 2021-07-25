@@ -39,5 +39,6 @@ namespace TransX.Models
         public List<Testimonials> Testimonials { get; set; }
         public List<BlogComment> BlogComments { get; set; }
         public List<SavedBlogs> SavedBlogs { get; set; }
+        public List<RequestQuote> RequestQuotes { get; set; }
     }
 }

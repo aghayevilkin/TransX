@@ -40,6 +40,7 @@
                 <li class="@(ViewBag.Section == "dashboard"?"active":"")"><a asp-controller="account" asp-action="index"><i class="ti-user"></i>My Profile</a></li>
                 <li class="@(ViewBag.Section == "posts"?"active":"")"><a asp-controller="account" asp-action="posts"><i class="fas fa-blog"></i>Post Listings</a></li>
                 <li class="@(ViewBag.Section == "savedblogs"?"active":"")"><a asp-controller="account" asp-action="savedblogs"><i class="ti-bookmark"></i>List of saved blogs</a></li>
+                <li class="@(ViewBag.Section == "requestquote"?"active":"")"><a asp-controller="account" asp-action="RequestQuote"><i class="far fa-file-alt"></i>List of Request a Quote</a></li>
                 <li class="@(ViewBag.Section == "postcreate"?"active":"")"><a asp-controller="account" asp-action="postcreate"><i class="ti-pencil-alt"></i>Submit New Post</a></li>
                 @if (!userHasPassword)
                 {

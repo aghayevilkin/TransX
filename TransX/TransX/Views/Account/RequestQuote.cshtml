@@ -1,0 +1,108 @@
+﻿@model VmProfile
+@{
+    ViewData["Title"] = "My Request a Quote";
+    ViewBag.Section = "requestquote";
+}
+
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <h2 class="ipt-title">Welcome!</h2>
+                <span class="ipn-subtitle">Welcome To Your Account</span>
+
+            </div>
+        </div>
+    </div>
+</div>
+<section class="bg-light my-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="filter_search_opt">
+                    <a href="javascript:void(0);" onclick="openFilterSearch()">Dashboard Navigation<i class="ml-2 ti-menu"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-12">
+
+                <div class="simple-sidebar sm-sidebar" id="filter_search">
+
+                    <div class="search-sidebar_header">
+                        <h4 class="ssh_heading">Close Filter</h4>
+                        <button onclick="closeFilterSearch()" class="w3-bar-item w3-button w3-large"><i class="ti-close"></i></button>
+                    </div>
+
+                    <partial name="_DashboardNavbar" />
+
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-12">
+                <div class="dashboard-wraper">
+
+                    <!-- Bookmark Property -->
+                    <div class="form-submit">
+                    </div>
+
+                    <table class="property-table-wrap responsive-table bkmark">
+
+                        <tbody>
+                            <tr>
+                                <th><i class="fa fa-file-text"></i> My List of Request a Quote</th>
+                                <th></th>
+                            </tr>
+
+                            @if (Model.RequestQuotes.Count != 0)
+                            {
+                                @foreach (var item in Model.RequestQuotes)
+                                {
+                                    <tr>
+                                        <td class="property-container">
+                                            <div class="title">
+                                                <svg class="icon request-icon">
+                                                    <use xlink:href="#pin"></use>
+                                                </svg>
+                                                <h4 class="request-h4">From: @item.From</h4>
+                                                <br />
+                                                <svg class="icon request-icon">
+                                                    <use xlink:href="#pin"></use>
+                                                </svg>
+                                                <h4 class="request-h4">To: @item.To</h4>
+                                                <br />
+                                                <svg class="icon request-icon">
+                                                    <use xlink:href="#calendar_2"></use>
+                                                </svg>
+                                                <h4 class="request-h4">To: @item.When.ToString("dd MMMM yyyy | H:mm")</h4>
+                                                <br />
+                                                <span class="table-property-price">Transport: @item.Service.Title</span>
+                                            </div>
+                                        </td>
+                                        <td class="action">
+                                            <a onclick="return confirm('Are you sure?')" asp-controller="account" asp-action="RequestQuoteDelete" asp-route-id="@item.Id" class="delete"><i class="ti-close"></i> Delete</a>
+
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>List of request a quote is empty</td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

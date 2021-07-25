@@ -151,3 +151,11 @@ blockquote {
     color: #00997D;
     cursor:pointer;
 }
+
+/*Request a Quote*/
+.request-h4{
+    display:inline-block !important;
+}
+.request-icon {
+    color: #124B98;
+}

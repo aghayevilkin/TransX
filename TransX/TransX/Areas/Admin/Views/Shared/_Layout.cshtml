@@ -47,14 +47,14 @@
                             <span class="btn">+ Create new</span>
                         </a>
                         <div class="dropdown-menu navbar-dropdown dropdown-left" aria-labelledby="actionDropdown">
-                            <a class="dropdown-item" asp-controller="blog" asp-action="create">
-                                <i class="fa fa-ravelry menu-icon"></i>
-                                Create Blog
+                            <a class="dropdown-item" href="#">
+                                <i class="icon-user text-primary"></i>
+                                User Account
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" asp-controller="account" asp-action="users">
+                            <a class="dropdown-item" href="#">
                                 <i class="icon-user-following text-warning"></i>
-                                User
+                                Admin User
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">
@@ -65,7 +65,6 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="home" asp-action="index"><i class="fa fa-institution menu-icon"></i> Home </a></li>
                 </ul>
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                     <span class="icon-menu"></span>
@@ -199,6 +198,19 @@
                             <div class="collapse" id="contact">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" asp-controller="contact" asp-action="index"> Contact</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#request" aria-expanded="false" aria-controls="request">
+                                <i class="far fa-file-alt menu-icon"></i>
+                                <span class="menu-title">Request a Quote</span>
+                                <span class="badge badge-success">1</span>
+                            </a>
+                            <div class="collapse" id="request">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="home" asp-action="RequestQuote"> Request a Quote</a></li>
                                 </ul>
                             </div>
                         </li>

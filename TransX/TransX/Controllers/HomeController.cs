@@ -30,12 +30,44 @@ namespace TransX.Controllers
 
         public IActionResult Index()
         {
+            List<Service> services = _context.Services.ToList();
+            services.Insert(0, new Service() { Id = 0, Title = "Choose transport" });
+            ViewBag.Services = services;
             ViewBag.Page = "home";
             VmBase model = new VmBase()
             {
                 Setting = _context.Settings.FirstOrDefault(),
             };
             return View(model);
+        }
+
+
+
+        public JsonResult addRequestQuote(string from, string to, DateTime when, int service)
+        {
+            var userId = _userManager.GetUserId(User);
+            if (from == null && to == null && when == null && service == 0)
+            {
+                return Json(404);
+            }
+
+            RequestQuote model = new RequestQuote()
+            {
+                From = from,
+                To = to,
+                When = when,
+                ServiceId = service,
+                UserId = userId,
+                AddedDate = DateTime.Now,
+            };
+
+            _context.RequestQuotes.Add(model);
+            _context.SaveChanges();
+
+
+
+
+            return Json(200);
         }
 
 

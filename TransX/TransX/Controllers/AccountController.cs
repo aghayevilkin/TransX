@@ -59,6 +59,7 @@ namespace TransX.Controllers
             {
                 Posts = _context.Blogs.Include(u => u.User).Include(tp => tp.TagToBlogs).ThenInclude(t => t.Tag).Where(p=>p.UserId== userId).OrderByDescending(o => o.AddedDate).ToList(),
                 SavedBlogs = _context.SavedBlogs.Include(pp => pp.Blog).ThenInclude(cat => cat.Category).Include(u => u.User).Where(sa => sa.UserId == userId).OrderByDescending(o => o.AddedDate).ToList(),
+                RequestQuotes = _context.RequestQuotes.Include(u => u.User).Include(s => s.Service).Where(us => us.UserId == userId).OrderByDescending(a => a.AddedDate).ToList(),
                 Tags = _context.BlogTags.Include(b => b.TagToBlogs).ThenInclude(bl => bl.Blog).ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
                 User = customUsers,
@@ -826,6 +827,45 @@ namespace TransX.Controllers
 
             Notify("Saved Blog Deleted");
             return RedirectToAction("SavedBlogs");
+        }
+
+
+        //My Request a Quote
+        public IActionResult RequestQuote()
+        {
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Include(u => u.SocialToUsers).ThenInclude(sc => sc.Social).Where(aa => aa.SocialToUsers.Any(bb => bb.User.Id == userId)).ToList();
+
+
+            VmProfile model = new VmProfile()
+            {
+                RequestQuotes = _context.RequestQuotes.Include(u=>u.User).Include(s=>s.Service).Where(us=>us.UserId == userId).OrderByDescending(a=>a.AddedDate).ToList(),
+                Setting = _context.Settings.FirstOrDefault(),
+                User = customUsers,
+                UserS = customUserS,
+            };
+            return View(model);
+        }
+
+        public IActionResult RequestQuoteDelete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            RequestQuote model = _context.RequestQuotes.FirstOrDefault(i => i.Id == id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            _context.RequestQuotes.Remove(model);
+            _context.SaveChanges();
+
+            Notify("My Request a Quote Deleted");
+            return RedirectToAction("RequestQuote");
         }
 
 
