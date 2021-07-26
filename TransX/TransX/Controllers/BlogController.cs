@@ -59,12 +59,13 @@ namespace TransX.Controllers
             VmBlog model = new VmBlog()
             {
                 Blogs = products,
-                RecentPost = _context.Blogs.Include(c => c.User).OrderByDescending(o => o.AddedDate).Take(4).ToList(),
+                RecentPost = _context.Blogs.Include(c => c.User).Where(s => s.BlogStatus == BlogStatus.Active).OrderByDescending(o => o.AddedDate).Take(4).ToList(),
                 Categories = _context.BlogCategories.Include(b => b.Blogs).Where(bb => bb.Blogs.Any(s => s.BlogStatus == BlogStatus.Active)).ToList(),
                 Comments = _context.BlogComments.ToList(),
                 Tags = _context.BlogTags.Include(b => b.TagToBlogs).ThenInclude(bl => bl.Blog).ToList(),
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "blog").FirstOrDefault(),
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
             };
 
             return View(model);
@@ -85,11 +86,12 @@ namespace TransX.Controllers
                 Blogs = _context.Blogs.Include(u => u.User).ThenInclude(us => us.SocialToUsers).ThenInclude(s => s.Social).Where(aa=>aa.User.SocialToUsers.Any(bb=>bb.User.Id==userIdd)).ToList(),
                 Categories = _context.BlogCategories.Include(b => b.Blogs).ToList(),
                 Comments = _context.BlogComments.Include(u => u.User).Where(c => c.BlogId == id).ToList(),
-                RecentPost = _context.Blogs.OrderByDescending(o => o.AddedDate).Take(3).ToList(),
+                RecentPost = _context.Blogs.Where(s => s.BlogStatus == BlogStatus.Active).OrderByDescending(o => o.AddedDate).Take(3).ToList(),
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "blogdetails").FirstOrDefault(),
                 pageHeaderDetails = _context.PageHeaders.Where(p => p.Page == "blogdetails").FirstOrDefault(),
                 Tags = _context.BlogTags.Include(tb=>tb.TagToBlogs).ThenInclude(b=>b.Blog).Where(t=>t.TagToBlogs.Any(tbb=>tbb.BlogId==id)).ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
             };
 
 

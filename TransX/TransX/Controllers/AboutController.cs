@@ -33,6 +33,7 @@ namespace TransX.Controllers
             VmAbout model = new VmAbout()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 About = _context.Abouts.FirstOrDefault(),
                 AboutVideo = _context.AboutVideos.FirstOrDefault(),
                 AboutMission = _context.AboutMissions.FirstOrDefault(),

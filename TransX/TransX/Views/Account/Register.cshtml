@@ -101,6 +101,6 @@
     <div class="modal-divider"><span>Or login via</span></div>
     @await Component.InvokeAsync("ExternalLogin")
     <div class="text-center">
-        <p class="mt-5"><i class="ti-user mr-1"></i>Already Have An Account? <a href="#" class="link">Go For LogIn</a></p>
+        <p class="mt-5"><i class="ti-user mr-1"></i>Already Have An Account? <a asp-controller="account" asp-action="login" class="link">Go For LogIn</a></p>
     </div>
 </div>

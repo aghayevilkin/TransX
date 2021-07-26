@@ -33,6 +33,7 @@ namespace TransX.Controllers
             VmTeam model = new VmTeam()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "team").FirstOrDefault(),
                 TeamImage = _context.TeamImages.FirstOrDefault(),
                 CustomUser =_context.CustomUsers.Include(sc=>sc.SocialToUsers).ThenInclude(s=>s.Social).Where(aa => aa.IsTeam==true).ToList(),

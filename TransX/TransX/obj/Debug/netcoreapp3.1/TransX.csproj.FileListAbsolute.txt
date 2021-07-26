@@ -267,3 +267,9 @@ C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Acc
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Contact\Subscribers.cshtml.g.cs
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Account\RequestQuote.cshtml.g.cs
 C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Home\RequestQuote.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Views\Faq\Index.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Faq\CreateHeader.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Faq\UpdateHeader.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Faq\CreateFaq.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Faq\UpdateFaq.cshtml.g.cs
+C:\Users\ASUS\source\repos\TransX\TransX\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Faq\Index.cshtml.g.cs

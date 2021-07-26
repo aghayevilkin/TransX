@@ -1,0 +1,132 @@
+﻿@model VmFaq
+@{
+    ViewData["Title"] = "Index";
+    var a = 'a';
+    var b = 'b';
+    var i = 1;
+    var j = 1;
+}
+
+@if (Model.pageHeader != null)
+{
+    <section class="hero-banner">
+        <picture>
+            <source srcset="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" media="(min-width: 992px)">
+            <img class="bg-img"
+                 src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="img">
+        </picture>
+        <div class="hero-layout"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="align-container">
+                        <div class="align-container-item">
+                            <span class="hero-overlay">@Model.pageHeader.Subtitle</span>
+                            <h1 class="hero-title">@Model.pageHeader.Title</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div class="banner-area-wrapper">
+        <div class="container">
+            <div class="row">
+                <h3 class="alert alert-danger text-center">Page Header Elave Edin</h3>
+            </div>
+        </div>
+    </div>
+}
+<section class="fag-section section-style-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="col-12">
+                    <h3 class="fag-title">General questions</h3>
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        @foreach (var item in Model.Faqs)
+                        {
+                            if (item.IsQuestions == false)
+                            {
+                                <div class="accordion-item">
+                                    <div class="accordion-title-block">
+                                        <h5 class="accordion-header" id="flush-headingOne">
+                                            @item.Title
+                                        </h5>
+                                        <span class="accordion-close collapsed" type="button"
+                                              data-bs-toggle="collapse" data-bs-target="#@a@i"
+                                              aria-expanded="false" aria-controls="flush-collapseOne">
+                                        </span>
+                                    </div>
+
+                                    <div id="@a@i" class="accordion-collapse collapse"
+                                         aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            @item.Subtitle
+                                        </div>
+                                    </div>
+                                </div>
+                                i++;
+                            }
+                        }
+
+                    </div>
+                </div>
+                <div class="col-12 martop-140">
+                    <h3 class="fag-title">Other questions</h3>
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        @foreach (var item in Model.Faqs)
+                        {
+                            if (item.IsQuestions == true)
+                            {
+                                <div class="accordion-item">
+                                    <div class="accordion-title-block">
+                                        <h5 class="accordion-header" id="flush-headingOne">
+                                            @item.Title
+                                        </h5>
+                                        <span class="accordion-close collapsed" type="button"
+                                              data-bs-toggle="collapse" data-bs-target="#@b@j"
+                                              aria-expanded="false" aria-controls="flush-collapseOne">
+                                        </span>
+                                    </div>
+
+                                    <div id="@b@j" class="accordion-collapse collapse"
+                                         aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            @item.Subtitle
+                                        </div>
+                                    </div>
+                                </div>
+                                j++;
+                            }
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-xl-3 offset-xl-1">
+                <div class="contact-card-blue contact-blue-style ">
+                    <img class="contact-card-blue-img"
+                         src="~/img/contact_background.png" alt="img">
+                    <h4 class="contact-card-blue-title">How we can help you!</h4>
+                    <p class="contact-card-blue-text">
+                        Ronquil coho salmon red snapper duckbill
+                        lungfish southern angelfish
+                    </p>
+                    <a class="button button-white mt-3" asp-controller="contact" asp-action="index">
+                        <span>Contact us</span>
+                        <svg class="icon">
+                            <use xlink:href="#arrow"></use>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>

@@ -1,0 +1,49 @@
+﻿@model Faq
+@{
+    ViewData["Title"] = "Update Faq";
+}
+
+<link rel="stylesheet" href="~/css/checked.css">
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mt-5">Update Faq</h2>
+            </div>
+            <div class="col-6">
+                <form asp-controller="faq" asp-action="Updatefaq" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="Name">Title</label>
+                        <input type="text" class="form-control" id="title" asp-for="Title" placeholder="Title">
+                        <span id="messages" asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Subtitle</label>
+                        <input type="text" class="form-control" id="title" asp-for="Subtitle" placeholder="Subtitle">
+                        <span id="messages" asp-validation-for="Subtitle" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="text-switch status-switch mt-2">
+                            <p>IsQuestions</p>
+                            <input type="checkbox" asp-for="IsQuestions" id="check4" class="text-switch-check" />
+                            <label for="check4" class="text-switch-label">
+                                <span class="text-swtch-data">
+                                    <span class="left">Other </span>
+                                    <span class="dot-circle"></span>
+                                    <span class="right">General</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button asp-action="index" class="btn btn-danger">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

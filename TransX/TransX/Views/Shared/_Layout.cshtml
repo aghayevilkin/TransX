@@ -37,48 +37,18 @@
                             <use xlink:href="#close"></use>
                         </svg>
                     </div>
-                    <div class="d-block d-lg-none mb-3">
-                        <div class="sidebar-item sidebar-slide " data-category="screen-one">
-                            <span>Home</span><span>
-                                <svg class="icon">
-                                    <use xlink:href="#chevron-right"></use>
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="sidebar-item sidebar-slide item--active" data-category="screen-two">
-                            <span>Pages</span><span>
-                                <svg class="icon">
-                                    <use xlink:href="#chevron-right"></use>
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="sidebar-item sidebar-slide " data-category="screen-three">
-                            <span>Services</span><span>
-                                <svg class="icon">
-                                    <use xlink:href="#chevron-right"></use>
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="sidebar-item sidebar-slide" data-category="screen-five">
-                            <span>Shop</span><span>
-                                <svg class="icon">
-                                    <use xlink:href="#chevron-right"></use>
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="sidebar-item  sidebar-slide" data-category="screen-four">
-                            <span>Elements</span><span>
-                                <svg class="icon">
-                                    <use xlink:href="#chevron-right"></use>
-                                </svg>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="sidebar-item "><a class="sidebar-link" href="#">Documents</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="#">Information</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="#">Additional docs</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="#">Pricing</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="#">Downloads</a></div>
+                    <div class="sidebar-item "><a class="sidebar-link" asp-controller="home" asp-action="index">Home</a></div>
+                    <div class="sidebar-item "><a class="sidebar-link" asp-controller="about" asp-action="index">About Us</a></div>
+                    <div class="sidebar-item "><a class="sidebar-link" asp-controller="service" asp-action="index">Services</a></div>
+                    <div class="sidebar-item "><a class="sidebar-link" asp-controller="blog" asp-action="index">Blogs</a></div>
+                    <div class="sidebar-item "><a class="sidebar-link" asp-controller="contact" asp-action="index">Contact</a></div>
+                    @if (SignInManager.IsSignedIn(User))
+                    { }
+                    else
+                    {
+                        <div class="sidebar-item "><a class="sidebar-link" asp-controller="account" asp-action="Login">Login</a></div>
+                        <div class="sidebar-item "><a class="sidebar-link" asp-controller="account" asp-action="register">Sign Up</a></div>
+                    }
                     <div class="menu-sidebar-block mt-5">
                         <span class="block-title">Email</span><a class="sidebar-link"
                                                                  href="mailto:support@helpo.org">support@helpo.org</a>
@@ -89,89 +59,59 @@
                     </div>
                     <div class="menu-sidebar-block">
                         <ul class="socials mt-5 ">
-                            <li class="socials-item">
-                                <a href="#" class="socials-link">
-                                    <svg class="icon">
-                                        <use xlink:href="#youtube"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a href="#" class="socials-link">
-                                    <svg class="icon">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a href="#" class="socials-link">
-                                    <svg class="icon">
-                                        <use xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a href="#" class="socials-link">
-                                    <svg class="icon">
-                                        <use xlink:href="#linkedin"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a href="#" class="socials-link">
-                                    <svg class="icon">
-                                        <use xlink:href="#inst"></use>
-                                    </svg>
-                                </a>
-                            </li>
+                            @foreach (var item in Model.Socials)
+                            {
+                                <li class="socials-item">
+                                    <a target="_blank" href="@item.Link" class="socials-link">
+                                        <svg class="icon">
+                                            <use xlink:href="@item.Icon"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                     <div class="menu-sidebar-block mt-5">
-                        <a href="#"><button type="button" class="btn button-style-one ">Get a Quote</button></a>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="Admin" asp-controller="home" asp-action="index">
+                                    <button type="button" class="btn button-style-one d-md-none d-lg-block ">
+                                        Admin Panel
+                                    </button>
+                                </a>
+                            }
+                            else if (User.IsInRole("Moderator"))
+                            {
+                                <a asp-area="Admin" asp-controller="home" asp-action="index">
+                                    <button type="button" class="btn button-style-one d-md-none d-lg-block ">
+                                        Admin Panel
+                                    </button>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#">
+                                    <button type="button" class="btn button-style-one d-md-none d-lg-block ">
+                                        Get
+                                        a Quote
+                                    </button>
+                                </a>
+                            }
+                        }
+                        else
+                        {
+                            <a href="#">
+                                <button type="button" class="btn button-style-one d-md-none d-lg-block ">
+                                    Get
+                                    a Quote
+                                </button>
+                            </a>
+                        }
                     </div>
 
 
-                </div>
-            </div>
-            <div class="sidebar-inner" data-value="screen-one">
-                <div class="sidebar sidebar-sub">
-                    <div class="sidebar-title">
-                        <h6 class="sidebar-back">
-                            <svg class="icon">
-                                <use xlink:href="#chevron-left"></use>
-                            </svg> <span>Home</span>
-                        </h6>
-                    </div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="index.html">Home 1</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="#">Home 2</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="#">Home 3</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="#">Home 4</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="#">Home 5</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="#">Home 6</a></div>
-                </div>
-            </div>
-            <div class="sidebar-inner" data-value="screen-two">
-                <div class="sidebar sidebar-sub">
-                    <div class="sidebar-title">
-                        <h6 class="sidebar-back">
-                            <svg class="icon">
-                                <use xlink:href="#chevron-left"></use>
-                            </svg> <span>Pages</span>
-                        </h6>
-                    </div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="about.html">About</a></div>
-                    <div class="sidebar-item item-active">
-                        <a class="sidebar-link" href="services.html">Services</a>
-                    </div>
-                    <div class="sidebar-item">
-                        <a class="sidebar-link" href="service-details.html">Service Details</a>
-                    </div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="calculator.html">Calculator</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="contact.html">Contacts</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="blog.html">Blog</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="blog-details.html">Blog Post</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="faq.html">F.A.Q</a></div>
-                    <div class="sidebar-item"><a class="sidebar-link" href="404.html">404</a></div>
                 </div>
             </div>
         </div>
@@ -197,41 +137,16 @@
                         </div>
                         <div class=" col-xl-4 text-end  ">
                             <ul class="socials ">
-                                <li class="socials-item">
-                                    <a href="#" class="socials-link">
-                                        <svg class="icon">
-                                            <use xlink:href="#youtube"></use>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li class="socials-item">
-                                    <a href="#" class="socials-link">
-                                        <svg class="icon">
-                                            <use xlink:href="#facebook"></use>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li class="socials-item">
-                                    <a href="#" class="socials-link">
-                                        <svg class="icon">
-                                            <use xlink:href="#twitter"></use>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li class="socials-item">
-                                    <a href="#" class="socials-link">
-                                        <svg class="icon">
-                                            <use xlink:href="#linkedin"></use>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li class="socials-item">
-                                    <a href="#" class="socials-link">
-                                        <svg class="icon">
-                                            <use xlink:href="#inst"></use>
-                                        </svg>
-                                    </a>
-                                </li>
+                                @foreach (var item in Model.Socials)
+                                {
+                                    <li class="socials-item">
+                                        <a target="_blank" href="@item.Link" class="socials-link">
+                                            <svg class="icon">
+                                                <use xlink:href="@item.Icon"></use>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -266,15 +181,9 @@
                                     </a>
                                     <!-- sub menu start-->
                                     <ul class="nav-sub-list">
-                                        <li><a href="about.html"><span>About Us</span></a></li>
-                                        <li><a href="services.html"><span>Services</span></a></li>
-                                        <li><a href="service-details.html"><span>Service Details</span></a></li>
                                         <li><a href="request.html"><span>Request Quote</span></a></li>
                                         <li><a href="calculator.html"><span>Calculator</span></a></li>
-                                        <li><a href="contact.html"><span>Contacts</span></a></li>
-                                        <li><a href="blog.html"><span>Blog</span></a></li>
-                                        <li><a href="blog-details.html"><span>Blog Post</span></a></li>
-                                        <li><a href="faq.html"><span>F.A.Q</span></a></li>
+                                        <li><a asp-controller="faq" asp-action="index"><span>F.A.Q</span></a></li>
                                         <li><a href="404.html"><span>404</span></a></li>
                                     </ul>
                                     <!-- sub menu end-->
@@ -395,18 +304,13 @@
                     <div class="col-md-6 col-lg-4 top-30 top-md-0">
                         <h6 class="footer-title ">Main menu</h6>
                         <ul class="footer-menu ">
-                            <li><a href="#">About us</a></li>
-                            <li><a href="#">Pricing plan</a></li>
-                            <li><a href="#">Elements</a></li>
-                            <li><a href="#">Team</a></li>
-                            <li><a href="#">Warehouse</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">Calculator</a></li>
-                            <li><a href="#">Site map</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">FAQ</a></li>
+                            <li><a asp-controller="about" asp-action="index">About us</a></li>
+                            <li><a asp-controller="team" asp-action="index">Team</a></li>
+                            <li><a asp-controller="contact" asp-action="index">Contact</a></li>
+                            <li><a asp-controller="calculator" asp-action="index">Calculator</a></li>
+                            <li><a asp-controller="blog" asp-action="index">Blogs</a></li>
+                            <li><a asp-controller="service" asp-action="index">Services</a></li>
+                            <li><a asp-controller="faq" asp-action="index">FAQ</a></li>
                         </ul>
 
                     </div>
@@ -433,42 +337,17 @@
                         <div class=" center-footer d-none d-lg-block">
                             <a href="#">Terms and conditions</a><a href="#">Privacy policy</a><a href="#">Cookies</a>
                         </div>
-                        <ul class="socials ">
-                            <li class="socials-item">
-                                <a href="#" class="socials-link">
-                                    <svg class="icon">
-                                        <use xlink:href="#youtube"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a href="#" class="socials-link">
-                                    <svg class="icon">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a href="#" class="socials-link">
-                                    <svg class="icon">
-                                        <use xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a href="#" class="socials-link">
-                                    <svg class="icon">
-                                        <use xlink:href="#linkedin"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="socials-item">
-                                <a href="#" class="socials-link">
-                                    <svg class="icon">
-                                        <use xlink:href="#inst"></use>
-                                    </svg>
-                                </a>
-                            </li>
+                        <ul class="socials mt-5 ">
+                            @foreach (var item in Model.Socials)
+                            {
+                                <li class="socials-item">
+                                    <a target="_blank" href="@item.Link" class="socials-link">
+                                        <svg class="icon">
+                                            <use xlink:href="@item.Icon"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>

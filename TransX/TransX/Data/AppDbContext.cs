@@ -47,5 +47,6 @@ namespace TransX.Data
         public DbSet<ServiceStepsforWork> ServiceStepsforWorks { get; set; }
         public DbSet<SavedBlogs> SavedBlogs { get; set; }
         public DbSet<RequestQuote> RequestQuotes { get; set; }
+        public DbSet<Faq> Faqs { get; set; }
     }
 }

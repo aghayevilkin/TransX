@@ -37,6 +37,7 @@ namespace TransX.Controllers
             VmBase model = new VmBase()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
             };
             return View(model);
         }

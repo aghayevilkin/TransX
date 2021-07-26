@@ -35,6 +35,7 @@ namespace TransX.Controllers
                 TransporteriumServices = _context.TransporteriumServices.ToList(),
                 ServiceStepsforWorks = _context.ServiceStepsforWorks.ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "service").FirstOrDefault(),
             };
             return View(model);
@@ -65,6 +66,7 @@ namespace TransX.Controllers
                 ServiceOffereds = _context.ServiceOffereds.Include(tb => tb.ServiceOfferedToServices).ThenInclude(b => b.Service).Where(t => t.ServiceOfferedToServices.Any(tbb => tbb.ServiceId == id)).ToList(),
                 IndustriesServeds = _context.IndustriesServeds.Include(tb => tb.IndustriesServedToServices).ThenInclude(b => b.Service).Where(t => t.IndustriesServedToServices.Any(tbb => tbb.ServiceId == id)).ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
             };
 
 

@@ -101,7 +101,6 @@ namespace TransX.Areas.Admin.Controllers
             return View(aboutServices);
         }
 
-
         [HttpPost]
         public IActionResult UpdateAboutServices(AboutServices model)
         {

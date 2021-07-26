@@ -62,6 +62,7 @@ namespace TransX.Controllers
                 RequestQuotes = _context.RequestQuotes.Include(u => u.User).Include(s => s.Service).Where(us => us.UserId == userId).OrderByDescending(a => a.AddedDate).ToList(),
                 Tags = _context.BlogTags.Include(b => b.TagToBlogs).ThenInclude(bl => bl.Blog).ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 User = customUsers,
                 UserS = customUserS,
             };
@@ -82,6 +83,7 @@ namespace TransX.Controllers
                 Posts = _context.Blogs.Include(u => u.User).Include(tp => tp.TagToBlogs).ThenInclude(t => t.Tag).OrderByDescending(o => o.AddedDate).ToList(),
                 Tags = _context.BlogTags.Include(b => b.TagToBlogs).ThenInclude(bl => bl.Blog).ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 User = customUsers,
                 UserS = customUserS,
             };
@@ -93,6 +95,7 @@ namespace TransX.Controllers
         public IActionResult UpdateUser(VmProfile model)
         {
             model.Setting = _context.Settings.FirstOrDefault();
+            model.Socials = _context.Socials.ToList();
             string userId = _userManager.GetUserId(User);
             model.User.Id = userId;
             
@@ -120,6 +123,7 @@ namespace TransX.Controllers
         public IActionResult UpdateUserImage(VmProfile model)
         {
             model.Setting = _context.Settings.FirstOrDefault();
+            model.Socials = _context.Socials.ToList();
             string userId = _userManager.GetUserId(User);
 
                 CustomUser customUser = _context.CustomUsers.Find(userId);
@@ -169,6 +173,7 @@ namespace TransX.Controllers
         public IActionResult SocialCreate(VmProfile model)
         {
             model.Setting = _context.Settings.FirstOrDefault();
+            model.Socials = _context.Socials.ToList();
             if (ModelState.IsValid)
             {
                 string userId = _userManager.GetUserId(User);
@@ -224,6 +229,7 @@ namespace TransX.Controllers
             VmBase model = new VmBase()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 ReturnUrl = returnUrl,
                 ExternalLogins=(await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList(),
             };
@@ -236,6 +242,7 @@ namespace TransX.Controllers
         {
             Setting setting = _context.Settings.FirstOrDefault();
             model.Setting = setting;
+            model.Socials = _context.Socials.ToList();
             model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
@@ -300,6 +307,7 @@ namespace TransX.Controllers
             VmBase model = new VmBase()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList(),
             };
             return View(model);
@@ -311,6 +319,7 @@ namespace TransX.Controllers
         {
             Setting setting = _context.Settings.FirstOrDefault();
             model.Setting = setting;
+            model.Socials = _context.Socials.ToList();
             model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
@@ -388,6 +397,7 @@ namespace TransX.Controllers
             VmProfile model = new VmProfile()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 User = customUsers,
             };
             return View(model);
@@ -398,6 +408,7 @@ namespace TransX.Controllers
             VmChangePassword model = new VmChangePassword()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
             };
             return View(model);
         }
@@ -409,6 +420,7 @@ namespace TransX.Controllers
         {
             Setting setting = _context.Settings.FirstOrDefault();
             model.Setting = setting;
+            model.Socials = _context.Socials.ToList();
 
             string userId = _userManager.GetUserId(User);
             CustomUser customUsers = _context.CustomUsers.Find(userId);
@@ -462,6 +474,7 @@ namespace TransX.Controllers
             VmProfile model = new VmProfile()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 User = customUsers,
             };
 
@@ -474,6 +487,7 @@ namespace TransX.Controllers
         {
             Setting setting = _context.Settings.FirstOrDefault();
             model.Setting = setting;
+            model.Socials = _context.Socials.ToList();
 
             string userId = _userManager.GetUserId(User);
             CustomUser customUsers = _context.CustomUsers.Find(userId);
@@ -642,6 +656,7 @@ namespace TransX.Controllers
             VmForgotPassword model = new VmForgotPassword() 
             {
                 Setting=_context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
             };
             return View(model);
         }
@@ -652,6 +667,7 @@ namespace TransX.Controllers
         {
             Setting setting = _context.Settings.FirstOrDefault();
             model.Setting = setting;
+            model.Socials = _context.Socials.ToList();
 
             if (ModelState.IsValid)
             {
@@ -710,6 +726,7 @@ namespace TransX.Controllers
             VmResetPassword model = new VmResetPassword()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
             };
 
             return View(model);
@@ -721,6 +738,7 @@ namespace TransX.Controllers
         {
             Setting setting = _context.Settings.FirstOrDefault();
             model.Setting = setting;
+            model.Socials = _context.Socials.ToList();
             if (ModelState.IsValid)
             {
 
@@ -772,6 +790,7 @@ namespace TransX.Controllers
             VmBase model = new VmBase()
             {
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
             };
 
             if (result.Succeeded)
@@ -803,6 +822,7 @@ namespace TransX.Controllers
                 Posts = _context.Blogs.Include(c => c.Category).Include(u => u.User).Include(tp => tp.TagToBlogs).ThenInclude(t => t.Tag).Where(p => p.UserId == userId).OrderByDescending(o => o.AddedDate).ToList(),
                 SavedBlogs = _context.SavedBlogs.Include(pp => pp.Blog).ThenInclude(cat => cat.Category).Include(u => u.User).Where(sa => sa.UserId == userId).OrderByDescending(o => o.AddedDate).ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 User = customUsers,
                 UserS = customUserS,
             };
@@ -842,6 +862,7 @@ namespace TransX.Controllers
             {
                 RequestQuotes = _context.RequestQuotes.Include(u=>u.User).Include(s=>s.Service).Where(us=>us.UserId == userId).OrderByDescending(a=>a.AddedDate).ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 User = customUsers,
                 UserS = customUserS,
             };
@@ -888,6 +909,7 @@ namespace TransX.Controllers
                 Posts = _context.Blogs.Include(c=>c.Category).Include(u => u.User).Include(tp => tp.TagToBlogs).ThenInclude(t => t.Tag).Where(p => p.UserId == userId).OrderByDescending(o => o.AddedDate).ToList(),
                 Tags = _context.BlogTags.Include(b => b.TagToBlogs).ThenInclude(bl => bl.Blog).ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 User = customUsers,
                 UserS = customUserS,
             };
@@ -913,6 +935,7 @@ namespace TransX.Controllers
                 Categories = ViewBag.Categories,
                 Tags = ViewBag.Tags,
                 Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
                 User = customUsers,
                 UserS=customUserS,
             };
@@ -931,6 +954,7 @@ namespace TransX.Controllers
 
 
             model.Setting = _context.Settings.FirstOrDefault();
+            model.Socials = _context.Socials.ToList();
             if (ModelState.IsValid)
             {
                 if (model.Post.CategoryId == 0)
