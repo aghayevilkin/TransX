@@ -45,5 +45,6 @@ namespace TransX.Models
         public List<ServiceOfferedToService> ServiceOfferedToServices { get; set; }
         public List<IndustriesServedToService> IndustriesServedToServices { get; set; }
         public List<RequestQuote> RequestQuotes { get; set; }
+        public List<Request> Requests { get; set; }
     }
 }

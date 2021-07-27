@@ -260,6 +260,105 @@
 
     });
 
+
+    $("#request-form").submit(function (e) {
+        e.preventDefault();
+
+        var name = $("#name-input").val();
+        var email = $("#email-input").val();
+        var service = $("#service-input").val();
+        var cities = $("#cities-input").val();
+        var citiestwo = $("#citiestwo-input").val();
+        var weight = $("#weight-input").val();
+        var height = $("#height-input").val();
+        var width = $("#width-input").val();
+        var length = $("#length-input").val();
+        if ($("input[type='radio'].radioBtnClass").is(':checked')) {
+            var InsuranceOrPackaging = $("input[type='radio'].radioBtnClass:checked").val();
+        }
+
+        var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+
+
+        if (name == "") {
+            toastr.error('Please, enter name.', { timeOut: 2000 });
+
+        } else 
+
+        if (email == "") {
+            toastr.error('Please, input your email address.', { timeOut: 2000 });
+        }
+        else if (!pattern.test(email)) {
+            toastr.error('Not a valid e-mail address.', { timeOut: 2000 });
+        }
+        else if (service == 0) {
+            toastr.error('Please choose transportation.', { timeOut: 2000 });
+        } else if (cities == 0) {
+            toastr.error('Please, choose delivery city.', { timeOut: 2000 });
+        } else if (citiestwo == 0) {
+            toastr.error('Please, choose city of departure.', { timeOut: 2000 });
+        }
+        else {
+            $.ajax({
+
+                url: "/request/addRequest/",
+                type: "get",
+                dataType: "json",
+
+                data: { name: name, email: email, service: service, cities: cities, citiestwo: citiestwo, weight: weight, height: height, width: width, length: length, InsuranceOrPackaging: InsuranceOrPackaging },
+                success: function (response) {
+                    if (response == 200) {
+                        //success
+                        $("#name-input").val('');
+                        $("#email-input").val('');
+                        $("#service-input").val(0);
+                        $("#cities-input").val(0);
+                        $("#citiestwo-input").val(0);
+                        $("#weight-input").val('');
+                        $("#height-input").val('');
+                        $("#width-input").val('');
+                        $("#length-input").val('');
+                        toastr.success('You have now sent us a request for quotation, Thank you!', { timeOut: 2000 });
+
+                    } else {
+                        //error
+                        toastr.error('Please, fill out the form completely.', { timeOut: 2000 });
+                    }
+                },
+                error: function (response) {
+
+                    console.log("error: " + response);
+                }
+
+            });
+
+        }
+
+    });
+
+
+    $('#weight-input').keyup(function () {
+        if ($(this).val() <= 1) {
+            $("#weight-input").val(1);
+        }
+    });
+    $('#height-input').keyup(function () {
+        if ($(this).val() <= 1) {
+            $("#height-input").val(1);
+        }
+    });
+    $('#width-input').keyup(function () {
+        if ($(this).val() <= 1) {
+            $("#width-input").val(1);
+        }
+    });
+    $('#length-input').keyup(function () {
+        if ($(this).val() <= 1) {
+            $("#length-input").val(1);
+        }
+    });
+
+
 });
 
 

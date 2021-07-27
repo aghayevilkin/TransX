@@ -18,6 +18,7 @@ namespace TransX.ViewModels
         public Message Message { get; set; }
         public List<Message> Messages { get; set; }
         public List<Social> Socials { get; set; }
+        public CustomUser CustomUser { get; set; }
 
 
         public string ReturnUrl { get; set; }

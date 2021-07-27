@@ -40,5 +40,6 @@ namespace TransX.Models
         public List<BlogComment> BlogComments { get; set; }
         public List<SavedBlogs> SavedBlogs { get; set; }
         public List<RequestQuote> RequestQuotes { get; set; }
+        public List<Request> Requests { get; set; }
     }
 }

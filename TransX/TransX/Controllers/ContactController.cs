@@ -28,19 +28,13 @@ namespace TransX.Controllers
         public IActionResult Index()
         {
             string userId = _userManager.GetUserId(User);
-            CustomUser customUsers = _context.CustomUsers.Find(userId);
 
-            if (customUsers!=null)
-            {
-                ViewBag.User = customUsers.Name;
-                ViewBag.Email = customUsers.Email;
-            }
-            
             VmBase model = new VmBase()
             {
                 pageHeader = _context.PageHeaders.Where(p => p.Page == "contact").FirstOrDefault(),
                 Setting = _context.Settings.FirstOrDefault(),
                 Socials = _context.Socials.ToList(),
+                CustomUser = _context.CustomUsers.FirstOrDefault(u=>u.Id==userId),
             };
 
             return View(model);

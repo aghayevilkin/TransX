@@ -1,0 +1,144 @@
+﻿@model VmRequest
+@inject SignInManager<IdentityUser> SignInManager
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (Model.pageHeader != null)
+{
+    <section class="hero-banner">
+        <picture>
+            <source srcset="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" media="(min-width: 992px)">
+            <img class="bg-img"
+                 src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="img">
+        </picture>
+        <div class="hero-layout"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="align-container">
+                        <div class="align-container-item">
+                            <span class="hero-overlay">@Model.pageHeader.Subtitle</span>
+                            <h1 class="hero-title">@Model.pageHeader.Title</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div class="banner-area-wrapper">
+        <div class="container">
+            <div class="row">
+                <h3 class="alert alert-danger text-center">Page Header Elave Edin</h3>
+            </div>
+        </div>
+    </div>
+}
+<section class="request-quote section-style-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <form class="form quote-form" id="request-form" method="post">
+                    <div class="row">
+                        @if (!SignInManager.IsSignedIn(User))
+                        {
+                            <div class="col-12">
+                                <h6 class="form-title">Personal data</h6>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3 ">
+                                    <input type="text" class="form-control form-input" id="name-input"
+                                           placeholder="Your Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control form-input" id="email-input"
+                                           placeholder="Your Email">
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3 ">
+                                    <input type="hidden" class="form-control form-input" value="@Model.CustomUser.Name" id="name-input"
+                                           placeholder="Your Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="hidden" class="form-control form-input" value="@Model.CustomUser.Email" id="email-input"
+                                           placeholder="Your Email">
+                                </div>
+                            </div>
+                        }
+                        <div class="col-12 mt-5">
+                            <h6 class="form-title">Shipment data</h6>
+                        </div>
+                        <div class="col-sm-6 col-xl-4">
+                            <select id="service-input" class="form-select form-input" asp-items="@(new SelectList(ViewBag.Services, "Id", "Title"))">
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-xl-4">
+                            <select id="cities-input" class="form-select form-input" asp-items="@(new SelectList(ViewBag.Cities, "Id", "Name"))">
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-xl-4">
+                            <select id="citiestwo-input" class="form-select form-input" asp-items="@(new SelectList(ViewBag.CitiesTwo, "Id", "Name"))">
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-xl-2">
+                            <label for="weight-input">Weight</label>
+                            <input class="form-input requestnumber" type="number" id="weight-input" name="weight" placeholder="Weight">
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-xl-2">
+                            <label for="height-input">Height</label>
+                            <input class="form-input requestnumber" type="number" id="height-input" name="height" placeholder="Height">
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-xl-2">
+                            <label for="width-input">Width</label>
+                            <input class="form-input requestnumber" type="number" id="width-input" name="width" placeholder="Widht">
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-xl-2">
+                            <label for="length-input">Length</label>
+                            <input class="form-input requestnumber" type="number" id="length-input" name="lenght" placeholder="Lenght">
+                        </div>
+                        <div class="col-12 mt-5">
+                            <input class="form-check-input radioBtnClass" type="radio" asp-for="Request.InsuranceOrPackaging"
+                                   id="flexRadioDefault1" value="Insurance">
+                            <label class="form-check-label  me-5 " for="flexRadioDefault1">
+                                Insurance
+                            </label>
+                            <input class="form-check-input radioBtnClass" type="radio" asp-for="Request.InsuranceOrPackaging"
+                                   id="flexRadioDefault2" value="Packaging" checked>
+                            <label class="form-check-label ms-1" for="flexRadioDefault2">
+                                Packaging
+                            </label>
+                        </div>
+                        <div class="col-12">
+                            <button class="quote-form-submit mb-5" type="submit">Request a quote</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4 col-xl-3 offset-xl-1">
+                <div class="contact-card-blue contact-blue-style ">
+                    <img class="contact-card-blue-img"
+                         src="~/img/contact_background.png" alt="img">
+                    <h4 class="contact-card-blue-title">How we can help you!</h4>
+                    <p class="contact-card-blue-text">
+                        Ronquil coho salmon red snapper duckbill
+                        lungfish southern angelfish
+                    </p>
+                    <a class="button button-white mt-3" asp-controller="contact" asp-action="index">
+                        <span>Contact us</span>
+                        <svg class="icon">
+                            <use xlink:href="#arrow"></use>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

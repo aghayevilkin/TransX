@@ -48,5 +48,7 @@ namespace TransX.Data
         public DbSet<SavedBlogs> SavedBlogs { get; set; }
         public DbSet<RequestQuote> RequestQuotes { get; set; }
         public DbSet<Faq> Faqs { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<City> Cities { get; set; }
     }
 }

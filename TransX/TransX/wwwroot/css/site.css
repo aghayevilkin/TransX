@@ -1,4 +1,12 @@
-﻿.pwhints ul {
+﻿
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.pwhints ul {
     font-size: 8pt;
     list-style: none;
 }
@@ -144,12 +152,15 @@ blockquote {
 .blog-card-two{
     position:relative;
 }
+.cateBlog {
+    position: relative;
+    padding-right: 30px;
+}
 .blog-bookmarked {
     position: absolute;
-    top: 15.938rem;
-    right: 5px;
+    right: 0;
     color: #00997D;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 /*Request a Quote*/

@@ -53,7 +53,13 @@ else
                                     <div class="blog-card-img">
                                         <img class="bg-img" src="~/Uploads/Images/Blogs/@blog.Image" alt="img">
                                     </div>
-                                    <span class="blog-card-category">@blog.Category.Name</span>
+                                    <span class="blog-card-category cateBlog">
+                                        @blog.Category.Name
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            <i class="@(blog.SavedBlogs.Any(s=>s.UserId==ViewBag.UserId)==true?"fas added":"far")  fa-bookmark fa-2x blog-bookmarked" data-id="@blog.Id"></i>
+                                        }
+                                    </span>
                                     <h6 class="blog-card-title"><a asp-controller="Blog" asp-action="details" asp-route-id="@blog.Id">@blog.Title</a></h6>
                                     <div class="blog-card-text">
                                         <p>@Html.Raw(blog.Content.Length > 87 ? blog.Content.Substring(0, 87) : blog.Content)...</p>
@@ -63,11 +69,7 @@ else
                                         @if (blog.Comments != null)
                                         {
                                             <span>@(blog.Comments != null ? blog.Comments.Count : 0) Comments</span>
-                                        }
-                                        @if (SignInManager.IsSignedIn(User))
-                                        {
-                                            <i class="@(blog.SavedBlogs.Any(s=>s.UserId==ViewBag.UserId)==true?"fas added":"far")  fa-bookmark fa-2x blog-bookmarked" data-id="@blog.Id"></i>
-                                        }
+                                        }  
                                     </div>
                                 </div>
                             </div>

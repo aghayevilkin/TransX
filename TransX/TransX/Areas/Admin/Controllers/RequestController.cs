@@ -17,7 +17,7 @@ namespace TransX.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin, Moderator")]
-    public class ContactController : BaseController
+    public class RequestController : BaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -25,7 +25,7 @@ namespace TransX.Areas.Admin.Controllers
         private readonly AppDbContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ContactController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, AppDbContext context, IHostingEnvironment hostingEnvironment)
+        public RequestController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, AppDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -33,14 +33,12 @@ namespace TransX.Areas.Admin.Controllers
             _context = context;
             _hostingEnvironment = hostingEnvironment;
         }
-
-
         public IActionResult Index()
         {
-            VmBase model = new VmBase()
+            VmRequest model = new VmRequest()
             {
-                Messages = _context.Messages.OrderByDescending(a=>a.AddedDate).ToList(),
-                pageHeader = _context.PageHeaders.Where(p => p.Page == "contact").FirstOrDefault(),
+                pageHeader = _context.PageHeaders.Where(p => p.Page == "request").FirstOrDefault(),
+                Requests = _context.Requests.Include(s=>s.Service).Include(u=>u.User).OrderByDescending(i => i.AddedDate).ToList(),
             };
             return View(model);
         }
@@ -49,23 +47,23 @@ namespace TransX.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                Notify("You have not selected a message!", notificationType: NotificationType.warning);
-                return RedirectToAction("Index");
+                Notify("Id must be empty", notificationType: NotificationType.error);
+
+                return RedirectToAction("index");
             }
 
-            Message message = _context.Messages.FirstOrDefault(i => i.Id == id);
-            if (message == null)
+            Request model = _context.Requests.FirstOrDefault(i => i.Id == id);
+            if (model == null)
             {
-                Notify("Message not deleted!", notificationType: NotificationType.error);
-                return RedirectToAction("Index");
+                return NotFound();
             }
 
 
-            Notify("Message Deleted");
-            _context.Messages.Remove(message);
+            _context.Requests.Remove(model);
             _context.SaveChanges();
+            Notify("Request Deleted");
 
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
 
         //PageHeader
@@ -96,22 +94,25 @@ namespace TransX.Areas.Admin.Controllers
 
                             _context.PageHeaders.Add(model);
                             _context.SaveChanges();
-
+                            Notify("Page Header Created");
 
                             return RedirectToAction("Index");
                         }
                         else
                         {
+                            Notify("Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
                             ModelState.AddModelError("ImageFile", "Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!");
                         }
                     }
                     else
                     {
+                        Notify("Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
                         ModelState.AddModelError("ImageFile", "Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!");
                     }
                 }
                 else
                 {
+                    Notify("No Image Found!", notificationType: NotificationType.warning);
                     ModelState.AddModelError("ImageFile", "No Image Found!");
                 }
 
@@ -133,7 +134,7 @@ namespace TransX.Areas.Admin.Controllers
             }
 
 
-            PageHeader pageHeader = _context.PageHeaders.Where(p => p.Page == "contact").FirstOrDefault();
+            PageHeader pageHeader = _context.PageHeaders.Where(p => p.Page == "request").FirstOrDefault();
 
             return View(Header);
         }
@@ -169,7 +170,7 @@ namespace TransX.Areas.Admin.Controllers
                             model.Image = fileName;
 
                             _context.Entry(model).State = EntityState.Modified;
-
+                            Notify("Page Header Updated");
                             _context.SaveChanges();
 
 
@@ -177,11 +178,13 @@ namespace TransX.Areas.Admin.Controllers
                         }
                         else
                         {
+                            Notify("Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
                             ModelState.AddModelError("ImageFile", "Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!");
                         }
                     }
                     else
                     {
+                        Notify("Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
                         ModelState.AddModelError("ImageFile", "Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!");
                     }
                 }
@@ -190,44 +193,13 @@ namespace TransX.Areas.Admin.Controllers
                     _context.Entry(model).State = EntityState.Modified;
 
                     _context.SaveChanges();
-
+                    Notify("Page Header Updated");
 
                     return RedirectToAction("Index");
                 }
 
             }
             return View(model);
-        }
-
-
-        //Subscribes
-        public IActionResult Subscribers()
-        {
-            List<Subscribe> model = _context.Subscribes.ToList();
-            return View(model);
-        }
-
-        public IActionResult DeleteSubscriber(int? id)
-        {
-            if (id == null)
-            {
-                Notify("You have not selected a message!", notificationType: NotificationType.warning);
-                return RedirectToAction("Subscribers");
-            }
-
-            Subscribe model = _context.Subscribes.FirstOrDefault(i => i.Id == id);
-            if (model == null)
-            {
-                Notify("Subscriber not deleted!", notificationType: NotificationType.error);
-                return RedirectToAction("Subscribers");
-            }
-
-
-            Notify("Subscriber Deleted");
-            _context.Subscribes.Remove(model);
-            _context.SaveChanges();
-
-            return RedirectToAction("Subscribers");
         }
     }
 }

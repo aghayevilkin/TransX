@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TransX.Data;
 
 namespace TransX.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210727120355_addRequestModel")]
+    partial class addRequestModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -715,9 +717,6 @@ namespace TransX.Migrations
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Weight")
                         .HasColumnType("int");
 
@@ -727,8 +726,6 @@ namespace TransX.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ServiceId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Requests");
                 });
@@ -1275,13 +1272,7 @@ namespace TransX.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TransX.Models.CustomUser", "User")
-                        .WithMany("Requests")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Service");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TransX.Models.RequestQuote", b =>
@@ -1461,8 +1452,6 @@ namespace TransX.Migrations
                     b.Navigation("BlogComments");
 
                     b.Navigation("RequestQuotes");
-
-                    b.Navigation("Requests");
 
                     b.Navigation("SavedBlogs");
 
