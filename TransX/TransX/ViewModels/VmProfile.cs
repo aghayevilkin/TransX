@@ -14,6 +14,7 @@ namespace TransX.ViewModels
         public IList<Blog> Posts { get; set; }
         public IList<SavedBlogs> SavedBlogs { get; set; }
         public IList<RequestQuote> RequestQuotes { get; set; }
+        public IList<Request> Requests { get; set; }
         public List<BlogTag> Tags { get; set; }
         public VmChangePassword VmChangePassword { get; set; }
         public VmAddPassword VmAddPassword { get; set; }

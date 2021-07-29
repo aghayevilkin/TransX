@@ -889,6 +889,45 @@ namespace TransX.Controllers
             return RedirectToAction("RequestQuote");
         }
 
+        //My Request a Quote
+        public IActionResult Requests()
+        {
+            string userId = _userManager.GetUserId(User);
+            CustomUser customUsers = _context.CustomUsers.Find(userId);
+            List<CustomUser> customUserS = _context.CustomUsers.Include(u => u.SocialToUsers).ThenInclude(sc => sc.Social).Where(aa => aa.SocialToUsers.Any(bb => bb.User.Id == userId)).ToList();
+
+
+            VmProfile model = new VmProfile()
+            {
+                Requests = _context.Requests.Include(u => u.User).Include(s => s.Service).Where(us => us.UserId == userId).OrderByDescending(a => a.AddedDate).ToList(),
+                Setting = _context.Settings.FirstOrDefault(),
+                Socials = _context.Socials.ToList(),
+                User = customUsers,
+                UserS = customUserS,
+            };
+            return View(model);
+        }
+
+        public IActionResult RequestsDelete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Request model = _context.Requests.FirstOrDefault(i => i.Id == id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            _context.Requests.Remove(model);
+            _context.SaveChanges();
+
+            Notify("My Shipping Request Deleted");
+            return RedirectToAction("Requests");
+        }
+
 
         //My Posts
         public IActionResult Posts()

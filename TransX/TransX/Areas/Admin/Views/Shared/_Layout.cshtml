@@ -203,6 +203,19 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#shipping" aria-expanded="false" aria-controls="shipping">
+                                <img src="~/img/logistics.svg" width="22" class="mr-2" alt="Request icon" />
+                                <span class="menu-title">Shipping Request</span>
+                                <span class="badge badge-success">1</span>
+                            </a>
+                            <div class="collapse" id="shipping">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="request" asp-action="index"> Request</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#request" aria-expanded="false" aria-controls="request">
                                 <i class="far fa-file-alt menu-icon"></i>
                                 <span class="menu-title">Request a Quote</span>
@@ -264,6 +277,19 @@
                             <div class="collapse" id="team">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" asp-controller="team" asp-action="index"> Teams </a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#faq" aria-expanded="false" aria-controls="faq">
+                                <img src="~/img/faq.svg" class="mr-2" alt="faq icon" />
+                                <span class="menu-title">Faq</span>
+                                <span class="badge badge-success">1</span>
+                            </a>
+                            <div class="collapse" id="faq">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="faq" asp-action="index"> Faq </a></li>
                                 </ul>
                             </div>
                         </li>
