@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -227,6 +228,7 @@ namespace TransX.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
+            var userData = _context.CustomUsers.Include(soc=>soc.SocialToUsers).Include(rq=>rq.RequestQuotes).FirstOrDefault(i => i.Id == user.Id);
 
             if (user == null)
             {
@@ -235,6 +237,17 @@ namespace TransX.Areas.Admin.Controllers
             }
             else
             {
+                //Delete Social
+                foreach (var item in userData.SocialToUsers)
+                {
+                    _context.SocialToUsers.Remove(item);
+                }
+                //Delete Social
+                foreach (var item in userData.RequestQuotes)
+                {
+                    _context.RequestQuotes.Remove(item);
+                }
+
                 var result = await _userManager.DeleteAsync(user);
 
                 if (result.Succeeded)

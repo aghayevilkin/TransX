@@ -1,0 +1,28 @@
+﻿@model CaseStudies
+@{
+    ViewData["Title"] = "Create Case Studies";
+}
+
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-area="admin" asp-controller="home" asp-action="createcasestudies" method="post" id="basic-form" enctype="multipart/form-data">
+                    <div class="input-file">
+                        <span id="messages" asp-validation-for="ImageFile" class="text-danger"></span>
+                        <img id="file_upload" src="~/Uploads/Images/no-image.png" alt="your image" class="upload-img" />
+                        <div class="input-file-upload">
+                            <span class="upload-label">Upload Image</span>
+                            <input type='file' id="image" onchange="readURL(this);" asp-for="ImageFile" />
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitbtn" class="btn btn-primary">Add</button>
+                    <button asp-action="index" class="btn btn-danger">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

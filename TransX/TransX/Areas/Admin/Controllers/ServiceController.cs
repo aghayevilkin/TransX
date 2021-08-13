@@ -52,7 +52,7 @@ namespace TransX.Areas.Admin.Controllers
             {
                 Services = _context.Services.Include(g => g.Category).Include(u => u.User).Include(be => be.BenefitsToServices).ThenInclude(ben=>ben.Benefit)
                 .Include(so=>so.ServiceOfferedToServices).ThenInclude(sos=>sos.ServiceOffered)
-                .Include(iss=>iss.IndustriesServedToServices).ThenInclude(siss=>siss.IndustriesServed).ToList(),
+                .Include(iss=>iss.IndustriesServedToServices).ThenInclude(siss=>siss.IndustriesServed).OrderByDescending(added=>added.AddedDate).ToList(),
                 Service = new Service(),
                 Categories = ViewBag.Categories,
                 Benefits = ViewBag.Benefits,
@@ -159,6 +159,7 @@ namespace TransX.Areas.Admin.Controllers
 
 
                                 _context.SaveChanges();
+                                Notify("Service Created");
 
                                 return RedirectToAction("Index");
                             }
@@ -184,14 +185,16 @@ namespace TransX.Areas.Admin.Controllers
                     List<BlogCategory> categories = _context.BlogCategories.ToList();
                     categories.Insert(0, new BlogCategory() { Id = 0, Name = "Select" });
                     ViewBag.Categories = categories;
-                    return View(model);
+                    Notify("Categoriya secmelisiniz!", notificationType: NotificationType.warning);
+                    return RedirectToAction("create");
                 }
 
 
 
             }
 
-            return View(model);
+            Notify("Service Not Added!", notificationType: NotificationType.error);
+            return RedirectToAction("create");
         }
 
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model VmBase
 
 @inject SignInManager<IdentityUser> SignInManager
 @{
@@ -8,8 +8,8 @@
 <div class="banner">
     <div class="banner-layout"></div>
     <picture>
-        <source media="(min-width: 992px)" srcset="~/img/promo_2.jpg">
-        <img class="bg-img" src="~/img/promo_2.jpg" alt="img">
+        <source media="(min-width: 992px)" srcset="~/Uploads/Images/PageHeader/@Model.pageHeader.Image">
+        <img class="bg-img" src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="img">
     </picture>
     <div class="align-container">
         <div class="align-container-item">
@@ -17,12 +17,10 @@
                 <div class="row align-items-center position-relative ">
                     <div class="col-lg-7 col-xl-6">
                         <h2 class="banner-title">
-                            Worldwide Shipping<span class="banner-overlay">TransX</span>
+                            @Model.pageHeader.Title<span class="banner-overlay">TransX</span>
                         </h2>
                         <p class="banner-subtitle">
-                            Roach yellowfin cutthroat trout zebra pleco ocean sunfish
-                            temperate bass pikehead elephant fish. Long-finned char northern pike bluegill
-                            temperate
+                            @Model.pageHeader.Subtitle
                         </p><a class="button button-style-two" asp-controller="request" asp-action="index">
                             <span>
                                 Explore
@@ -84,7 +82,7 @@
                     <div class="row align-items-center">
                         <div class="col-12">
                             <div class="single-counterup">
-                                <span class="count-num green-color me-2">20</span>
+                                <span class="count-num green-color me-2">@Model.HomeAbout.ExperianceTransportation</span>
                                 <span class="green-color count-sub">yrs</span>
                                 <h6 class="title">Experiance in transportation</h6>
 
@@ -92,7 +90,7 @@
                         </div>
                         <div class="col-12">
                             <div class="single-counterup">
-                                <span class="count-num green-color me-2">500</span>
+                                <span class="count-num green-color me-2">@Model.HomeAbout.SkilledDrivers</span>
                                 <span class=" green-color count-sub">+</span>
                                 <h6 class="title">Skilled drivers in our fleet</h6>
 
@@ -100,7 +98,7 @@
                         </div>
                         <div class="col-12">
                             <div class="single-counterup">
-                                <span class="count-num green-color me-2">2</span>
+                                <span class="count-num green-color me-2">@Model.HomeAbout.MillesDrivenPerYear</span>
                                 <span class="count-sub green-color">billion</span>
                                 <p class="title">Milles driven per year</p>
 
@@ -112,30 +110,12 @@
             <div class="col-xl-6 offset-xl-1 ">
                 <div class="title-style-one">
                     <span class="pre-title">About transx</span>
-                    <h3 class="title">The biggest Transportation Company in South region</h3><span class="title-layout">About</span>
+                    <h3 class="title">@Model.HomeAbout.Title</h3><span class="title-layout">About</span>
                 </div>
                 <p>
-                    <strong>
-                        Rockling Devario deep sea bonefish cutthroat trout streamer fish kaluga sailback
-                        scorpionfish sand dab, turkeyfish golden loach sand diver.
-                    </strong>
+                    @Html.Raw(Model.HomeAbout.Content)
                 </p>
-                <p>
-                    Pacific hake false trevally queen parrotfish Black prickleback humuhumunukunukuapua'a
-                    mosshead warbonnet sweeper! Greenling sleeper; Owens pupfish large-eye bream kokanee
-                    sprat shrimpfish grunter, Ratfish combtooth blenny, bigeye squaretail nurseryfish
-                    yellowtail barracuda. Halibut: king-of-the-salmon.
-                </p>
-                <p>
-                    Pacific hake false trevally queen parrotfish Black prickleback humuhumunukunukuapua'a
-                    mosshead warbonnet sweeper! Greenling sleeper; Owens pupfish large-eye bream kokanee
-                    sprat shrimpfish grunter.
-                </p>
-                <p class="marbot-40">
-                    Giant sea bass sailfish mooneye boga starry flounder? Longnose
-                    lancetfish coho salmon shiner, croaker, gouramie tui chub dragonfish freshwater herring?
-                    Flounder pearlfish kokanee duckbill eel Sacramento
-                </p><a class="button button-border-green marbot-40 " href="#">
+                <a class="button button-border-green marbot-40 " asp-controller="about" asp-action="index">
                     <span>More about</span>
                     <svg class="icon">
                         <use xlink:href="#arrow"></use>
@@ -153,18 +133,7 @@
                     <span class="pre-title">Services</span>
                     <h3 class="title">Transporterium Services </h3><span class="title-layout bordlaygrey">Services</span>
                 </div>
-            </div>
-            <div class="col-lg-8 top-lg-0">
-                <p>
-                    <strong>
-                        Squarehead catfish bottlenose North American darter red velvetfish three-toothed
-                        puffer, weatherfish barfish loach minnow. Shell-ear, southern smelt
-                        barracudina.
-                    </strong> Yellowfin surgeonfish bonefish Australasian salmon tenuis,
-                    barreleye brook lamprey European chub ridgehead, sea catfish filefish sea chub.
-                    Swallower; plownose chimaera, greenling Billfish eulachon golden shiner flat
-                </p>
-                <a class="button button-border-green d-none d-lg-inline-block " href="#">
+                <a class="button button-border-green d-none d-lg-inline-block " asp-controller="service" asp-action="index">
                     <span>
                         All
                         services
@@ -178,50 +147,31 @@
     </div>
     <div class="container">
         <div class="row maroffset-50">
-            <div class="col-md-6 col-xl-3">
-                <div class="service-card">
-                    <div class="service-overlay"></div>
-                    <div class="service-layout">Transporterium Services</div><img class="bg-img"
-                                                                                  src="~/img/box_1.jpg" alt="img">
-                    <div class="service-details">
-                        <h5 class="service-title"><a href="#">Truck Freight</a></h5>
-                        <div class="service-count">01</div>
+            @{ var i = 1;
+                var j = 0;}
+            @foreach (var item in Model.Services.Take(4))
+            {
+                <div class="col-md-6 col-xl-3">
+                    <div class="service-card">
+                        <div class="service-overlay"></div>
+                        <div class="service-layout">Transporterium Services</div><img class="bg-img"
+                                                                                      src="~/Uploads/Images/Services/@item.Image" alt="img">
+                        <div class="service-details">
+                            <h5 class="service-title"><a asp-controller="service" asp-action="details" asp-route-id="@item.Id">@item.Title</a></h5>
+                            <div class="service-count">
+                                @if (i < 10)
+                                {
+                                    j = 0;@j @i
+                                }
+                                else
+                                {
+                                    @i
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="service-card">
-                    <div class="service-overlay"></div>
-                    <div class="service-layout">Transporterium Services</div><img class="bg-img"
-                                                                                  src="~/img/box_2.jpg" alt="img">
-                    <div class="service-details">
-                        <h5 class="service-title"><a href="#">Truck Freight</a></h5>
-                        <div class="service-count">02</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="service-card">
-                    <div class="service-overlay"></div>
-                    <div class="service-layout">Transporterium Services</div><img class="bg-img"
-                                                                                  src="~/img/box_3.jpg" alt="img">
-                    <div class="service-details">
-                        <h5 class="service-title"><a href="#">Truck Freight</a></h5>
-                        <div class="service-count">03</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="service-card">
-                    <div class="service-overlay"></div>
-                    <div class="service-layout">Transporterium Services</div><img class="bg-img"
-                                                                                  src="~/img/box_4.jpg" alt="img">
-                    <div class="service-details">
-                        <h5 class="service-title"><a href="#">Truck Freight</a></h5>
-                        <div class="service-count">04</div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
     <div class="container martop-50 d-block d-lg-none position-absolute">
@@ -238,15 +188,28 @@
     </div>
 </section>
 <section id="transx-img" class="section-style">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <img src="~/img/map-transx.png" alt="">
+    @if (Model.HomeImage != null)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <img src="~/Uploads/Images/Home/@Model.HomeImage.Image" alt="">
+                </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="banner-area-wrapper">
+            <div class="container">
+                <div class="row">
+                    <h3 class="alert alert-danger text-center">Home Image Elave Edin</h3>
+                </div>
+            </div>
+        </div>
+    }
 </section>
-<section id="cases" class="pt-0 section-style">
+<section id="cases" class="pt-0 section-style p-0">
     <div class="container marbot-70">
         <div class="row">
             <div class="col-lg-12">
@@ -267,210 +230,24 @@
     <div class="container-fluid">
         <div class="row">
             <div class="slider">
-                <div class="slider-card">
-                    <img class="bg-img" src="~/img/cases-slider_img-2.jpg" alt="">
-                    <div class="slider-content">
-                        <h4 class="slider-title">Bills of landingterms</h4><a class="slider-link" href="#"
-                                                                              tabindex="0">
-                            <span>Research Now</span>
-                            <svg class="icon">
-                                <use xlink:href="#arrow"></use>
-                            </svg>
-                        </a>
+                @foreach (var item in Model.CaseStudies)
+                {
+                    <div class="slider-card">
+                        <img class="bg-img" src="~/Uploads/Images/Home/@item.Image" alt="">
+                        <div class="slider-content">
+                            <h4 class="slider-title">Bills of landingterms</h4><a class="slider-link" href="#"
+                                                                                  tabindex="0">
+                                <span>Research Now</span>
+                                <svg class="icon">
+                                    <use xlink:href="#arrow"></use>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="slider-card">
-                    <img class="bg-img" src="~/img/cases-slider_img-3.jpg" alt="">
-                    <div class="slider-content">
-                        <h4 class="slider-title">Bills of landingterms</h4><a class="slider-link" href="#"
-                                                                              tabindex="0">
-                            <span>Research Now</span>
-                            <svg class="icon">
-                                <use xlink:href="#arrow"></use>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="slider-card">
-                    <img class="bg-img" src="~/img/cases-slider_img.jpg" alt="">
-                    <div class="slider-content">
-                        <h4 class="slider-title">Bills of landingterms</h4><a class="slider-link" href="#"
-                                                                              tabindex="0">
-                            <span>Research Now</span>
-                            <svg class="icon">
-                                <use xlink:href="#arrow"></use>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="slider-card">
-                    <img class="bg-img" src="~/img/cases-slider_img-3.jpg" alt="">
-                    <div class="slider-content">
-                        <h4 class="slider-title">Bills of landingterms</h4><a class="slider-link" href="#"
-                                                                              tabindex="0">
-                            <span>Research Now</span>
-                            <svg class="icon">
-                                <use xlink:href="#arrow"></use>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
-</section>
-<section id="pricing" class="pt-0 section-style">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mb-5">
-                <div class="title-style-one">
-                    <span class="pre-title">Pricing</span>
-                    <h3 class="title">The <span class="green-color">Right Price</span> for you</h3><span class="title-layout">Pricing</span>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="pricing-table">
-                    <div class="row align-items-center">
-                        <div class="col-lg-2">
-                            <h5 class="table-title">One Pack</h5>
-                        </div>
-                        <div class="col-lg-5">
-                            <span class="table-text">
-                                Custom business rules, 1
-                                warehouse
-                            </span>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="table-price">
-                                <span>95</span>
-                                <span>usd</span>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 text-lg-right">
-                            <a class="button button-border-green"
-                               href="#">
-                                <span>Get started</span>
-                                <svg class="icon">
-                                    <use xlink:href="#arrow"></use>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="pricing-table">
-                    <div class="row align-items-center">
-                        <div class="col-lg-2">
-                            <h5 class="table-title">Starter Pack</h5>
-                        </div>
-                        <div class="col-lg-5">
-                            <span class="table-text">
-                                Custom business rules, 1 warehouse,
-                                Real-time rate
-                            </span>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="table-price">
-                                <span>100</span>
-                                <span>usd</span>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 text-lg-right">
-                            <a class="button button-border-green"
-                               href="#">
-                                <span>Get started</span>
-                                <svg class="icon">
-                                    <use xlink:href="#arrow"></use>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="pricing-table bg-table-blue">
-                    <div class="row align-items-center">
-                        <div class="col-lg-2">
-                            <h5 class="table-title">Starter Pack</h5>
-                        </div>
-                        <div class="col-lg-5">
-                            <span class="table-text">
-                                Custom business rules, 1 warehouse,
-                                Real-time rate
-                            </span>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="table-price">
-                                <span>100</span>
-                                <span>usd</span>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 text-lg-right">
-                            <a class="button button-white"
-                               href="#">
-                                <span>Get started</span>
-                                <svg class="icon">
-                                    <use xlink:href="#arrow"></use>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</section>
-<section id="info" class=" info-section pt-0 section-style">
-    <img class="bg-img" src="~/img/info-bg.jpg" alt="">
-    <div class="container ">
-        <div class="row  ">
-            <div class="col-lg-7 pt-5">
-                <div class="info-text pt-5">
-                    <h3 class="info-title">
-                        Give you complete control <br> <span class="green-color">
-                            of
-                            your
-                        </span> warehouse
-                    </h3>
-                </div>
-                <p>
-                    Rockling Devario deep sea bonefish cutthroat trout streamer fish kaluga sailback
-                    scorpionfish sand dab, turkeyfish golden loach sand diver. Leopard danio píntano
-                    bonnetmouth; blue whiting, suckermouth armored catfish luderick blackchin kingfish.
-                </p>
-                <p class="pb-5">
-                    Midshipman, lightfish longfin smelt pickerel houndshark whiptail. Barracuda
-                    archerfish slimehead broadband dogfish, Pacific hake false trevally queen parrotfish
-                    Black
-                </p>
-                <a class="button button-white" href="#">
-                    <span>More about</span>
-                    <svg class="icon">
-                        <use xlink:href="#arrow"></use>
-                    </svg>
-                </a>
-            </div>
-            <div class="col-lg-4 mt-5 pt-5 offset-lg-1">
-                <div class="row">
-                    <div class="col-lg-12 col-md-6 mb-3">
-                        <div class="single-counterup">
-                            <span class="count-num green-color me-2">3000</span>
-                            <span class="green-color count-sub">m <sup>2</sup></span>
-                            <h6 class="title">Total warehouse area</h6>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6">
-                        <div class="single-counterup">
-                            <span class="count-num green-color">1200</span>
-                            <h6 class="title">Created Jobs</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 </section>
 @await Component.InvokeAsync("Testimonial");
 <section id="blog" class="bg-ligray section-style ">
@@ -485,98 +262,74 @@
             </div>
         </div>
         <div class="row ">
-            <div class="col-lg-6 col-xl-8 ">
-                <div class=" blog-card blgcard-style-one card-wide">
-                    <img class="bg-img" src="~/img/f2-blog_1.jpg" alt="img">
-                    <div class="card-content">
-                        <h6 class="blgcard-title"><a href="#">Changes to our trade credit policy</a></h6>
-                        <p>
-                            New World rivuline forehead brooder topminnow ayu electric stargazer cowfish atka
-                            mackerel sand eel bigeye smelt-whiting vimba. Whale catfish yellowtail kingfish
-                            tidewater goby, torrent catfish ribbon eel ling cod; Norwegian Atlantic salmon
-                            garden eel ribbon sawtail fish eulachon green swordtail. Angelfish elephant fish
-                            riffle dace dorab, Mexican
-                        </p>
-                    </div>
-                    <div class="card-details">
-                        <span class="blgcard-data">20 October, 2019</span>
-                        <span>12 comments</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xl-4 ">
-                <div class="blog-card blgcard-style-two card-small">
-                    <div class="card-small-img">
-                        <img class="bg-img" src="~/img/f2-blog_2.jpg" alt="img">
-                    </div>
-                    <div class="card-content">
-                        <h6 class="blgcard-title"><a href="#">Importers achieve cost savings</a></h6>
-                        <p>
-                            Kokanee sprat shrimpfish. Pacific hake false trevally queen parrotfish Black
-                            prickleback humuhumunukunukuapua'a mosshead warbonnet sweeper!
-                        </p>
-
-                        <div class="card-details">
-                            <span class="blgcard-data">20 October, 2019</span>
-                            <span>51 comments</span>
+            @foreach (var blog in Model.Blogs.Take(1))
+            {
+                if (blog.BlogStatus == BlogStatus.Active)
+                {
+                    <div class="col-lg-6 col-xl-8 ">
+                        <div class=" blog-card blgcard-style-one card-wide">
+                            <img class="bg-img" src="~/Uploads/Images/Blogs/@blog.Image" alt="img">
+                            <div class="card-content">
+                                <h6 class="blgcard-title"><a asp-controller="Blog" asp-action="details" asp-route-id="@blog.Id">@blog.Title</a></h6>
+                                <p>
+                                    @Html.Raw(blog.Content.Length > 87 ? blog.Content.Substring(0, 87) : blog.Content)...
+                                </p>
+                            </div>
+                            <div class="card-details">
+                                <span class="blgcard-data">@blog.AddedDate.Date.ToString("dd MMMM yyyy")</span>
+                                <span>@(blog.Comments != null ? blog.Comments.Count : 0) Comments</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xl-4 ">
-                <div class="blog-card blgcard-style-two card-small">
-                    <div class="card-small-img">
-                        <img class="bg-img" src="~/img/f2-blog_3.jpg" alt="img">
-                    </div>
-                    <div class="card-content">
-                        <h6 class="blgcard-title"><a href="#">What is 3D printing ?</a></h6>
-                        <p>
-                            Yellowfin surgeonfish bonefish Australasian salmon tenuis, barreleye brook
-                            lamprey European chub ridgehead, sea catfish filefish sea chub
-                        </p>
+                }
+            }
 
-                        <div class="card-details">
-                            <span class="blgcard-data">20 October, 2019</span>
-                            <span>51 comments</span>
+            @foreach (var blog in Model.Blogs.Skip(1).Take(3))
+            {
+                if (blog.BlogStatus == BlogStatus.Active)
+                {
+                    <div class="col-lg-6 col-xl-4 ">
+                        <div class="blog-card blgcard-style-two card-small">
+                            <div class="card-small-img">
+                                <img class="bg-img" src="~/Uploads/Images/Blogs/@blog.Image" alt="img">
+                            </div>
+                            <div class="card-content">
+                                <h6 class="blgcard-title"><a asp-controller="Blog" asp-action="details" asp-route-id="@blog.Id">@blog.Title</a></h6>
+                                <p>
+                                    @Html.Raw(blog.Content.Length > 87 ? blog.Content.Substring(0, 87) : blog.Content)...
+                                </p>
+
+                                <div class="card-details">
+                                    <span class="blgcard-data">@blog.AddedDate.Date.ToString("dd MMMM yyyy")</span>
+                                    <span>@(blog.Comments != null ? blog.Comments.Count : 0) Comments</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xl-4 ">
-                <div class="blog-card blgcard-style-two card-small">
-                    <div class="card-small-img">
-                        <img class="bg-img" src="~/img/f2-blog_4.jpg" alt="img">
-                    </div>
-                    <div class="card-content">
-                        <h6 class="blgcard-title"><a href="#">New subway line</a></h6>
-                        <p>
-                            Bramble shark slickhead archerfish Black angelfish marblefish bigeye walleye fire
-                            bar danio silver driftfish pelagic cod. Wolf-herring spaghetti eel
-                        </p>
+                }
+            }
 
-                        <div class="card-details">
-                            <span class="blgcard-data">20 October, 2019</span>
-                            <span>51 comments</span>
+            @foreach (var blog in Model.Blogs.Skip(4).Take(1))
+            {
+                if (Model.Blogs.Count > 4 && blog.BlogStatus == BlogStatus.Active)
+                {
+                    <div class="col-lg-6 col-xl-4 ">
+                        <div class=" blog-card blgcard-style-one card-wide">
+                            <img class="bg-img" src="~/Uploads/Images/Blogs/@blog.Image" alt="img">
+                            <div class="card-content">
+                                <h6 class="blgcard-title"><a asp-controller="Blog" asp-action="details" asp-route-id="@blog.Id">@blog.Title</a></h6>
+                                <p>
+                                    @Html.Raw(blog.Content.Length > 87 ? blog.Content.Substring(0, 87) : blog.Content)...
+                                </p>
+                            </div>
+                            <div class="card-details">
+                                <span class="blgcard-data">@blog.AddedDate.Date.ToString("dd MMMM yyyy")</span>
+                                <span>@(blog.Comments != null ? blog.Comments.Count : 0) Comments</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xl-4 ">
-                <div class=" blog-card blgcard-style-one card-wide">
-                    <img class="bg-img" src="~/img/f2-blog_5.jpg" alt="img">
-                    <div class="card-content">
-                        <h6 class="blgcard-title"><a href="#">New additions to our trucks</a></h6>
-                        <p>
-                            Yellowmargin triggerfish grideye rivuline surgeonfish golden dojo glowlight
-                            danio, rocket danio goby. Pufferfish duckbill eel tilapia fusilier fish
-                        </p>
-                    </div>
-                    <div class="card-details">
-                        <span class="blgcard-data">20 October, 2019</span>
-                        <span>12 comments</span>
-                    </div>
-                </div>
-            </div>
+                }
+            }
 
         </div>
     </div>

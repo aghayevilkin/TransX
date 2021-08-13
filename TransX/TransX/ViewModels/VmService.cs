@@ -8,8 +8,6 @@ namespace TransX.ViewModels
 {
     public class VmService : VmBase
     {
-        public Service Service { get; set; }
-        public List<Service> Services { get; set; }
         public List<Service> OtherServices { get; set; }
         public List<ServiceCategory> Categories { get; set; }
         public List<Benefit> Benefits { get; set; }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using TransX.Controllers;
 using TransX.Data;
 using TransX.Models;
 using TransX.ViewModels;
@@ -16,7 +17,7 @@ namespace TransX.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin, Moderator")]
-    public class BlogController : Controller
+    public class BlogController : BaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -44,7 +45,7 @@ namespace TransX.Areas.Admin.Controllers
             ViewBag.Tags = tags;
             VmBlog model = new VmBlog()
             {
-                Blogs = _context.Blogs.Include(g => g.Category).Include(u => u.User).Include(tb => tb.TagToBlogs).ThenInclude(t => t.Tag).ToList(),
+                Blogs = _context.Blogs.Include(g => g.Category).Include(u => u.User).Include(tb => tb.TagToBlogs).ThenInclude(t => t.Tag).OrderByDescending(added=>added.AddedDate).ToList(),
                 Blog = new Blog(),
                 Categories= ViewBag.Categories,
                 Tags= ViewBag.Tags,
@@ -56,7 +57,7 @@ namespace TransX.Areas.Admin.Controllers
 
         public IActionResult ViewAll()
         {
-            IList<Blog> blogs = _context.Blogs.Include(g => g.Category).Include(u => u.User).Include(tb => tb.TagToBlogs).ThenInclude(t => t.Tag).ToList();
+            IList<Blog> blogs = _context.Blogs.Include(g => g.Category).Include(u => u.User).Include(tb => tb.TagToBlogs).ThenInclude(t => t.Tag).OrderByDescending(added=>added.AddedDate).ToList();
             return View(blogs);
         }
 
@@ -94,7 +95,8 @@ namespace TransX.Areas.Admin.Controllers
                     ViewBag.Categories = categories;
                     List<BlogTag> tags = _context.BlogTags.ToList();
                     ViewBag.Tags = tags;
-                    return View(model);
+                    Notify("Categoriya secmelisiniz!", notificationType: NotificationType.warning);
+                    return RedirectToAction("create");
                 }
                 if (model.Blog.ImageFile != null)
                 {
@@ -110,6 +112,7 @@ namespace TransX.Areas.Admin.Controllers
                             }
 
                             model.Blog.Image = fileName;
+                            model.Blog.BlogStatus = BlogStatus.Active;
                             model.Blog.UserId = _userManager.GetUserId(User);
                             model.Blog.AddedDate = DateTime.Now;
 
@@ -118,8 +121,8 @@ namespace TransX.Areas.Admin.Controllers
 
                             if (model.Blog.TagIds == null)
                             {
-                                ModelState.AddModelError("TagIds", "Tag secmelisiniz!");
-                                return View(model);
+                                Notify("Tag secmelisiniz!", notificationType: NotificationType.warning);
+                                return RedirectToAction("create");
                             }
                             else
                             {
@@ -137,27 +140,29 @@ namespace TransX.Areas.Admin.Controllers
 
 
                             _context.SaveChanges();
+                            Notify("Post Created");
 
                             return RedirectToAction("Index");
                         }
                         else
                         {
-                            ModelState.AddModelError("ImageFile", "Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!");
+                            Notify("Siz maksimum 2 Mb hecmde fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
                         }
                     }
                     else
                     {
-                        ModelState.AddModelError("ImageFile", "Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!");
+                        Notify("Siz yalniz .jpeg, .png, .gif tipli fayllari upload ede bilersiniz!", notificationType: NotificationType.warning);
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("ImageFile", "No Image Found!");
+                    Notify("Image Secmelisiniz!", notificationType: NotificationType.warning);
                 }
                 
             }
 
-            return View(model);
+            Notify("Blog Not Added!", notificationType: NotificationType.error);
+            return RedirectToAction("create");
         }
 
 
@@ -614,5 +619,165 @@ namespace TransX.Areas.Admin.Controllers
             }
             return View(model);
         }
+
+
+        //BlogCategory
+        public IActionResult Category()
+        {
+            List<BlogCategory> model = _context.BlogCategories.ToList();
+            return View(model);
+        }
+
+        public IActionResult CreateCategory()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCategory(BlogCategory model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                _context.BlogCategories.Add(model);
+                _context.SaveChanges();
+                Notify("Category Created");
+                return RedirectToAction("Category");
+
+            }
+            return View(model);
+        }
+
+        public IActionResult UpdateCategory(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            BlogCategory model = _context.BlogCategories.FirstOrDefault(i => i.Id == id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateCategory(BlogCategory model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                _context.Entry(model).State = EntityState.Modified;
+
+                _context.SaveChanges();
+                Notify("Category Updated");
+
+                return RedirectToAction("Category");
+
+            }
+            return View(model);
+        }
+
+        public IActionResult DeleteCategory(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            BlogCategory model = _context.BlogCategories.FirstOrDefault(i => i.Id == id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+
+            _context.BlogCategories.Remove(model);
+            _context.SaveChanges();
+            Notify("Category Deleted");
+            return RedirectToAction("Category");
+        }
+
+
+        public IActionResult Tag()
+        {
+            List<BlogTag> blogTags = _context.BlogTags.ToList();
+            return View(blogTags);
+        }
+
+        public IActionResult CreateTag()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateTag(BlogTag model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                _context.BlogTags.Add(model);
+                _context.SaveChanges();
+
+                return RedirectToAction("Tag");
+
+            }
+            return View(model);
+        }
+
+        public IActionResult UpdateTag(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            BlogTag blogTag = _context.BlogTags.FirstOrDefault(i => i.Id == id);
+            if (blogTag == null)
+            {
+                return NotFound();
+            }
+            return View(blogTag);
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateTag(BlogTag model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                _context.Entry(model).State = EntityState.Modified;
+
+                _context.SaveChanges();
+
+
+                return RedirectToAction("Tag");
+
+            }
+            return View(model);
+        }
+
+        public IActionResult DeleteTag(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            BlogTag blogTag = _context.BlogTags.FirstOrDefault(i => i.Id == id);
+            if (blogTag == null)
+            {
+                return NotFound();
+            }
+
+
+            _context.BlogTags.Remove(blogTag);
+            _context.SaveChanges();
+
+            return RedirectToAction("Tag");
+        }
+
     }
 }

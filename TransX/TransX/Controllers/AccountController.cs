@@ -684,7 +684,7 @@ namespace TransX.Controllers
                     MailMessage mail = new MailMessage();
                     mail.From = new MailAddress("transxmanagement@gmail.com", "TransX Managements Reset Password");
                     mail.To.Add(model.Email);
-                    mail.Body = "<h1>Hi Bro</h1>" +
+                    mail.Body = "<h1>Hi Dear "+ model.Email +"</h1>" +
                         "<p>For resetting password please visit the link below</p>" +
                         "<a href='https://localhost:44374/account/resetpassword?email=" + model.Email + "&token=" + token + "'>Reset password</a>";
                     mail.IsBodyHtml = true;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,19 @@ namespace TransX.Controllers
             {
                 Setting = _context.Settings.FirstOrDefault(),
                 Socials = _context.Socials.ToList(),
+                Blogs = _context.Blogs.Include(tb=>tb.TagToBlogs).ThenInclude(t=>t.Tag)
+                .Include(u=>u.User).ThenInclude(su=>su.SocialToUsers).ThenInclude(s=>s.Social)
+                .Include(c=>c.Category)
+                .Include(com=>com.Comments).ToList(),
+
+                Services = _context.Services.Include(g => g.Category).Include(u => u.User).Include(be => be.BenefitsToServices).ThenInclude(ben => ben.Benefit)
+                .Include(so => so.ServiceOfferedToServices).ThenInclude(sos => sos.ServiceOffered)
+                .Include(iss => iss.IndustriesServedToServices).ThenInclude(siss => siss.IndustriesServed).ToList(),
+
+                pageHeader = _context.PageHeaders.Where(p => p.Page == "home").FirstOrDefault(),
+                HomeAbout = _context.HomeAbouts.FirstOrDefault(),
+                HomeImage = _context.HomeImages.FirstOrDefault(),
+                CaseStudies = _context.CaseStudies.ToList(),
             };
             return View(model);
         }

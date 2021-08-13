@@ -17,7 +17,10 @@
                                     <th>Surname</th>
                                     <th>Email</th>
                                     <th></th>
-                                    <th></th>
+                                    @if (Model.Count != 1)
+                                    {
+                                        <th></th>
+                                    }
                                     <th>Confirmation</th>
                                 </tr>
                             </thead>
@@ -30,25 +33,29 @@
                                     <td>@item.Email</td>
                                     <td><a asp-controller="account" asp-action="UpdateUser" asp-route-id="@item.Id" class="btn btn-primary">Update</a></td>
 
-                                    <td>
-                                        <form asp-action="DeleteUser" asp-route-id="@item.Id" method="post">
+                                    @if (Model.Count != 1)
+                                    {
+                                        <td>
+                                            <form asp-action="DeleteUser" asp-route-id="@item.Id" method="post">
 
-                                            <span id="confirmDeleteSpan_@item.Id" style="display:none">
-                                                <span>Are you sure you want to delete?</span>
-                                                <button type="submit" class="btn btn-danger">Yes</button>
-                                                <a href="#" class="btn btn-primary"
-                                                   onclick="confirmDelete('@item.Id', false)">No</a>
-                                            </span>
+                                                <span id="confirmDeleteSpan_@item.Id" style="display:none">
+                                                    <span>Are you sure you want to delete?</span>
+                                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                                    <a href="#" class="btn btn-primary"
+                                                       onclick="confirmDelete('@item.Id', false)">No</a>
+                                                </span>
 
 
-                                            <span id="deleteSpan_@item.Id">
-                                                <a href="#" class="btn btn-danger"
-                                                   onclick="confirmDelete('@item.Id', true)">Delete</a>
-                                            </span>
+                                                <span id="deleteSpan_@item.Id">
+                                                    <a href="#" class="btn btn-danger"
+                                                       onclick="confirmDelete('@item.Id', true)">Delete</a>
+                                                </span>
 
-                                        </form>
-                                    </td>
-                                    @if (item.EmailConfirmed==true)
+                                            </form>
+                                        </td>
+                                    }
+
+                                    @if (item.EmailConfirmed == true)
                                     {
                                         <td style="font-size: 2.5rem; color: #009C75;"><i class="fas fa-check-circle"></i></td>
                                     }

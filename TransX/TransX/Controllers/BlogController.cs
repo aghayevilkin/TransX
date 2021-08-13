@@ -30,13 +30,13 @@ namespace TransX.Controllers
             var userId = _userManager.GetUserId(User);
             TempData["Controller"] = "Blog";
 
-            decimal pageItemCount = 4;
+            decimal pageItemCount = 6;
             ViewBag.Page = "blog";
             ViewBag.UserId = userId;
 
 
             ViewBag.categoryId = id;
-            IList<Blog> blogs = _context.Blogs.Include(saved=>saved.SavedBlogs).Include(u => u.User).Where(b => (id != null ? b.CategoryId == id : true) &&
+            IList<Blog> blogs = _context.Blogs.Include(saved=>saved.SavedBlogs).Include(u => u.User).ThenInclude(us=>us.SocialToUsers).ThenInclude(soc=>soc.Social).Where(b => (id != null ? b.CategoryId == id : true) &&
                                                           (tagId != null ? b.TagToBlogs.Any(t => t.TagId == tagId) : true) &&
                                                           (year != null ? b.AddedDate.Year == year : true) &&
                                                           (month != null ? b.AddedDate.Month == month : true) &&
@@ -54,7 +54,7 @@ namespace TransX.Controllers
             ViewBag.nextPage = page+1;
 
             List<Blog> products = blogs.OrderBy(p => p.Id)
-                                                     .Skip((page - 1) * (int)pageItemCount).Take((int)pageItemCount)
+                                                     .OrderByDescending(added=>added.AddedDate).Skip((page - 1) * (int)pageItemCount).Take((int)pageItemCount)
                                                      .ToList();
             VmBlog model = new VmBlog()
             {
@@ -79,11 +79,12 @@ namespace TransX.Controllers
             ViewBag.Page = "blog";
             int catId = _context.Blogs.Find(id).CategoryId;
             var userIdd= _userManager.GetUserId(User);
+            var blogUser = _context.Blogs.Find(id).UserId;
             ViewBag.categoryId = catId;
             VmBlog model = new VmBlog()
             {
-                Blog = _context.Blogs.Include(t => t.TagToBlogs).ThenInclude(t => t.Tag).Include(u => u.User).ThenInclude(us => us.SocialToUsers).FirstOrDefault(b => b.Id == id),
-                Blogs = _context.Blogs.Include(u => u.User).ThenInclude(us => us.SocialToUsers).ThenInclude(s => s.Social).Where(aa=>aa.User.SocialToUsers.Any(bb=>bb.User.Id==userIdd)).ToList(),
+                Blog = _context.Blogs.Include(t => t.TagToBlogs).ThenInclude(t => t.Tag).Include(u => u.User).ThenInclude(us => us.SocialToUsers).ThenInclude(soc=>soc.Social).FirstOrDefault(b => b.Id == id),
+                Blogs = _context.Blogs.Include(u => u.User).ThenInclude(us => us.SocialToUsers).ThenInclude(s => s.Social).Where(aa=>aa.User.SocialToUsers.Any(bb=>bb.User.Id==blogUser)).ToList(),
                 Categories = _context.BlogCategories.Include(b => b.Blogs).ToList(),
                 Comments = _context.BlogComments.Include(u => u.User).Where(c => c.BlogId == id).ToList(),
                 RecentPost = _context.Blogs.Where(s => s.BlogStatus == BlogStatus.Active).OrderByDescending(o => o.AddedDate).Take(3).ToList(),

@@ -16,7 +16,7 @@ namespace TransX.Models
         [Required(ErrorMessage = "Title is required"),MaxLength(100)]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Subtitle is required"),MaxLength(100)]
+        [Required(ErrorMessage = "Subtitle is required")]
         public string Subtitle { get; set; }
 
         [MaxLength(250)]

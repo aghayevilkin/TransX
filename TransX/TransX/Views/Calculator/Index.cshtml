@@ -1,0 +1,95 @@
+﻿@model VmCalculator
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/css/range.css" rel="stylesheet" />
+<section class="hero-banner">
+    <picture>
+        <source srcset="~/img/calculator.jpg" media="(min-width: 992px)">
+        <img class="bg-img"
+             src="~/img/calculator.jpg" alt="img">
+    </picture>
+    <div class="hero-layout"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="align-container">
+                    <div class="align-container-item">
+                        <span class="hero-overlay">TransX</span>
+                        <h1 class="hero-title">Calculator</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="calculator section-style-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <form class="calculator" id="calculator-forum">
+                    <h5 class="calculator-form-title">Calculation form</h5>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <select class="form-select form-input" id="calServices" aria-label="Default select example" asp-items="@(new SelectList(ViewBag.Services, "PricePerKm", "Title"))">
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <input class="form-input" type="number" id="kg-input" name="weight" placeholder="Weight (kg)">
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <input class="form-input" type="number" name="height" placeholder="Height (sm)">
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <input class="form-input" type="number" name="weight" placeholder="Weight (kg)">
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <input class="form-input" type="number" name="lenght" placeholder="Lenght (sm)">
+                        </div>
+                        <h5 class="calcard-form-title" style="margin: 22px 0 0;">Distance (km)</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7 col-lg-6 martop-20">
+                            <div class="range-slider">
+                                <input class="range-slider__range" id="km-input" type="range" value="100" min="0" max="500">
+                                <span class="range-slider__value">0</span>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-lg-6 tx-right">
+                            <div class="calculator-form-total"><span>2 322.89</span><span>USD</span></div>
+                        </div>
+                        <div class="col-12 mb-5 mt-5">
+                            <button class="button button-border-green" type="submit">
+                                <span>Calculate</span>
+                                <svg class="icon">
+                                    <use xlink:href="#arrow"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4 col-xl-3 offset-xl-1">
+                <div class="contact-card-blue contact-blue-style ">
+                    <img class="contact-card-blue-img" src="~/img/contact_background.png" alt="img">
+                    <h4 class="contact-card-blue-title">How we can help you!</h4>
+                    <p class="contact-card-blue-text">
+                        Ronquil coho salmon red snapper duckbill
+                        lungfish southern angelfish
+                    </p>
+                    <a class="button button-white mt-3" href="#">
+                        <span>Contact us</span>
+                        <svg class="icon">
+                            <use xlink:href="#arrow"></use>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script type="text/javascript" src="~/js/range.js"></script>
+}

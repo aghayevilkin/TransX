@@ -18,7 +18,18 @@ namespace TransX.ViewModels
         public Message Message { get; set; }
         public List<Message> Messages { get; set; }
         public List<Social> Socials { get; set; }
+        public List<Blog> Blogs { get; set; }
+        public Service Service { get; set; }
+        public List<Service> Services { get; set; }
+        public List<Request> Requests { get; set; }
+        public List<RequestQuote> RequestQuotes { get; set; }
+        public List<Subscribe> Subscribes { get; set; }
+        public List<Partner> Partners { get; set; }
+        public List<CustomUser> CustomUsers { get; set; }
         public CustomUser CustomUser { get; set; }
+        public HomeAbout HomeAbout { get; set; }
+        public HomeImage HomeImage { get; set; }
+        public List<CaseStudies> CaseStudies { get; set; }
 
 
         public string ReturnUrl { get; set; }

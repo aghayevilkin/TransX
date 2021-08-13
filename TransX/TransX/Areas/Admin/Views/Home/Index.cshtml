@@ -1,8 +1,308 @@
-﻿@{
+﻿@model VmBase
+@{
     ViewData["Title"] = "Home Page";
+    var counter = 0;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Admin</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-md-center">
+                        <i class="fas fa-blog icon-lg text-success"></i>
+                        <div class="ml-3">
+                            <p class="mb-0">Blogs</p>
+                            <h6>@Model.Blogs.Count</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-md-center">
+                        <i class="fa fa-eercast icon-lg text-warning"></i>
+                        <div class="ml-3">
+                            <p class="mb-0">Services</p>
+                            <h6>@Model.Services.Count</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-md-center">
+                        <img src="/img/logistics.svg" width="36" class="mr-2 icon-lg text-info" alt="Request icon">
+                        <div class="ml-3">
+                            <p class="mb-0">Shipping Request</p>
+                            <h6>@Model.Requests.Count</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-md-center">
+                            <i class="far fa-file-alt icon-lg text-info"></i>
+                            <div class="ml-3">
+                                <p class="mb-0">Request A Quote</p>
+                                <h6>@Model.RequestQuotes.Count</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card">
+                <div class="card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-md-center">
+                                <i class="fas fa-bell icon-lg text-danger"></i>
+                                <div class="ml-3">
+                                    <p class="mb-0">Subscribers</p>
+                                    <h6>@Model.Subscribes.Count</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card">
+                <div class="card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-md-center">
+                                <i class="fas fa-handshake icon-lg text-warning"></i>
+                                <div class="ml-3">
+                                    <p class="mb-0">Partners</p>
+                                    <h6>@Model.Partners.Count</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card">
+                <div class="card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-md-center">
+                                <i class="fas fa-envelope-open-text icon-lg text-dark"></i>
+                                <div class="ml-3">
+                                    <p class="mb-0">Contacts</p>
+                                    <h6>@Model.Messages.Count</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card">
+                <div class="card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-md-center">
+                                <i class="fa fa-users icon-lg text-danger"></i>
+                                <div class="ml-3">
+                                    <p class="mb-0">Users</p>
+                                    <h6>@Model.CustomUsers.Count</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Page Header</h4>
+            <div class="mr-2">
+                @if (Model.pageHeader == null)
+                {
+                    <a asp-controller="home" asp-action="createheader" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create PageHeader</a>
+                }
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Subtitle
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @if (Model.pageHeader != null)
+                            {
+                                <td><img src="~/Uploads/Images/PageHeader/@Model.pageHeader.Image" alt="image" width="100" style=" width: 30rem; height: 100px; border-radius: 10px; object-fit: cover;" /></td>
+                                <td>@Model.pageHeader.Title</td>
+                                <td>@Model.pageHeader.Subtitle</td>
+                                <td>
+                                    <a asp-controller="home" asp-action="updateHeader" asp-route-id="@Model.pageHeader.Id" class="btn btn-primary"><i class="fas fa-pen"></i> Update</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert alert-danger">Page Header  boshdur Xais olunur elave edin</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Home Image</h4>
+            <div class="mr-2">
+                @if (Model.HomeImage == null)
+                {
+                    <a asp-controller="home" asp-action="createimage" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create Home Image</a>
+                }
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Image
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @if (Model.HomeImage != null)
+                            {
+                                <td><img src="~/Uploads/Images/Home/@Model.HomeImage.Image" alt="image" width="100" style=" width: 35rem; height: 230px; border-radius: 10px; object-fit: cover;" /></td>
+                                <td>
+                                    <a asp-controller="home" asp-action="updateimage" asp-route-id="@Model.HomeImage.Id" class="btn btn-primary"><i class="fas fa-pen"></i> Update</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="alert alert-danger">Home Image  boshdur Xais olunur elave edin</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-4 mr-2">
+                    <h4 class="card-title">Home About</h4>
+                    @if (Model.HomeAbout == null)
+                    {
+                        <a asp-controller="home" asp-action="Create" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create Home About</a>
+                    }
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="badge-dark">
+                            <tr>
+                                <th>
+                                    Title
+                                </th>
+                                <th>
+                                    Content
+                                </th>
+                                <th>
+                                    ET
+                                </th>
+                                <th>
+                                    SD
+                                </th>
+                                <th>
+                                    MDPY
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @if (Model.HomeAbout != null)
+                                {
+                                    <td>@Model.HomeAbout.Title</td>
+                                    <td>@Html.Raw(Model.HomeAbout.Content != null && Model.HomeAbout.Content.Length > 150 ? Model.HomeAbout.Content.Substring(0, 150) : Model.HomeAbout.Content) </td>
+                                    <td>@Model.HomeAbout.ExperianceTransportation</td>
+                                    <td>@Model.HomeAbout.SkilledDrivers</td>
+                                    <td>@Model.HomeAbout.MillesDrivenPerYear</td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="home" asp-action="update" asp-route-id="@Model.HomeAbout.Id" class="btn btn-success">Update</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="alert alert-danger">Home About boshdur Xais olunur elave edin</td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Case Studies</h4>
+            <div class="mr-2">
+                <a asp-controller="home" asp-action="createcasestudies" class="btn btn-info"><i class="mdi mdi-plus-circle-outline"></i> Create</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>
+                                Image
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CaseStudies)
+                        {
+                            <tr>
+                                <td class="btn btn-dark rounded-bottom rounded-right">@{counter++;}@counter.</td>
+                                <td style="width:520px; height:240px;"><img src="~/Uploads/Images/Home/@item.Image" alt="image" width="100" style="width:100%; height:100%; border-radius: 10px; object-fit: cover;" /></td>
+                                <td><a onclick="return confirm('Are you sure?')" asp-area="admin" asp-controller="home" asp-action="deletecasestudies" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
 </div>

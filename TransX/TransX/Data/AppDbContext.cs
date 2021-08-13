@@ -50,5 +50,8 @@ namespace TransX.Data
         public DbSet<Faq> Faqs { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<HomeImage> HomeImages { get; set; }
+        public DbSet<CaseStudies> CaseStudies { get; set; }
+        public DbSet<HomeAbout> HomeAbouts { get; set; }
     }
 }

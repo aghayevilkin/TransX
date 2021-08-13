@@ -359,6 +359,26 @@
     });
 
 
+    
+
+    $("#calculator-forum").change(function (e) {
+        e.preventDefault();
+
+        var aa = $("#calServices").val();
+        var km = $("#km-input").val();
+        var kg = $("#kg-input").val();
+
+        var cc = aa * kg;
+        var te = $(".calculator-form-total").html("<span>"+cc+"</span><span>USD</span>");
+        console.log(cc);
+        
+
+
+    });
+
+
+    
+
 });
 
 

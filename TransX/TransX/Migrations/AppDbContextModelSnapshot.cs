@@ -491,6 +491,22 @@ namespace TransX.Migrations
                     b.ToTable("BlogTags");
                 });
 
+            modelBuilder.Entity("TransX.Models.CaseStudies", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CaseStudies");
+                });
+
             modelBuilder.Entity("TransX.Models.City", b =>
                 {
                     b.Property<int>("Id")
@@ -552,6 +568,51 @@ namespace TransX.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Histories");
+                });
+
+            modelBuilder.Entity("TransX.Models.HomeAbout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<int>("ExperianceTransportation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MillesDrivenPerYear")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkilledDrivers")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HomeAbouts");
+                });
+
+            modelBuilder.Entity("TransX.Models.HomeImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HomeImages");
                 });
 
             modelBuilder.Entity("TransX.Models.IndustriesServed", b =>
@@ -643,8 +704,7 @@ namespace TransX.Migrations
 
                     b.Property<string>("Subtitle")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
