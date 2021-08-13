@@ -367,8 +367,26 @@
         var aa = $("#calServices").val();
         var km = $("#km-input").val();
         var kg = $("#kg-input").val();
+        var h = $("#h-input").val();
+        var w = $("#w-input").val();
+        var l = $("#l-input").val();
+
 
         var cc = aa * kg;
+        if (h > 100) {
+            cc += 12;
+        }
+        if (w > 50) {
+            cc += 10;
+        }
+
+        if (km > 150) {
+            cc += 15;
+        }
+        if (l > 150) {
+            cc += 8;
+        }
+
         var te = $(".calculator-form-total").html("<span>"+cc+"</span><span>USD</span>");
         console.log(cc);
         
